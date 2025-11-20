@@ -4,9 +4,10 @@ const Data = {
   members: [
     { role: 'Captain', name: 'Takuro', desc: 'アドベンチャーレース歴10年。チーム全体の戦略とナビゲーションをリード。', specialty: 'Navigation', gear: 'Silva Arc Jet', instagram: 'https://www.instagram.com/takuroad_jp/' },
     { role: 'Vice Captain', name: 'Hiroki', desc: 'MTBとロープワークのスペシャリスト。ロジスティクスと補給計画を担当。', specialty: 'MTB Stage', gear: 'Dynema Rope' },
-    { role: 'Power Runner', name: 'Tomoki', desc: 'トレイルランとスパルタンの二刀流。ムードメーカー兼スピード担当。', specialty: 'Trail Uphill', gear: 'Carbon Poles' },
-    { role: 'All-Rounder', name: 'Tatsuki', desc: '山岳からスピードまで幅広く対応する粘り強いエンジン。', specialty: 'Route Analytics', gear: 'Lightweight Pack' },
-    { role: 'Endurance Builder', name: 'Taku', desc: '超ロング走とナイトセクション適応力が強み。', specialty: 'Ultra Distance', gear: 'Headlamp Dual' }
+    { role: 'Front Runner', name: 'Tatsuki', desc: '山岳からスピードまで幅広く対応する粘り強いエンジン。', specialty: 'Route Analytics', gear: 'Lightweight Pack' },
+    { role: 'Next-Gen Bridge', name: 'Tomoki', desc: 'トレイルランとスパルタンの二刀流。ムードメーカー兼スピード担当。', specialty: 'Trail Uphill', gear: 'Carbon Poles' },
+    { role: 'Rover', name: 'Taku', desc: '超ロング走とナイトセクション適応力が強み。', specialty: 'Ultra Distance', gear: 'Headlamp Dual' },
+    { role: 'Spirit Creator', name: 'Mayuki', desc: 'チームのクリエイティブを統括。映像・写真を通じてMori-Moriの魅力を発信。', specialty: 'Creative Direction', gear: 'Camera / Drone' }
   ],
   stats: [
     { label: 'Races Completed', value: '28' },
@@ -62,8 +63,8 @@ const getCategoryColor = (cat) => {
 function renderHeroStats() {
   const el = document.getElementById('hero-stats');
   if (!el) return;
-  el.innerHTML = Data.stats.map(s => `
-    <div>
+  el.innerHTML = Data.stats.map((s, i) => `
+    <div class="reveal" data-delay="${i * 100}">
       <div class="text-4xl font-display font-black text-white mb-1">${s.value}</div>
       <div class="text-xs font-bold uppercase tracking-widest text-gray-500">${s.label}</div>
     </div>
@@ -74,7 +75,7 @@ function renderAboutPoints() {
   const el = document.getElementById('about-points');
   if (!el) return;
   el.innerHTML = Data.aboutPoints.map((p, i) => `
-    <div class="flex gap-4 items-start group">
+    <div class="flex gap-4 items-start group reveal" data-delay="${i * 100}">
       <span class="flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-full border border-ivyLight/30 text-ivyLight font-display font-bold text-sm group-hover:bg-ivyLight group-hover:text-black transition-colors">0${i + 1}</span>
       <div>
         <h3 class="font-bold text-white text-lg mb-1 group-hover:text-ivyLight transition-colors">${p.title}</h3>
@@ -87,9 +88,9 @@ function renderAboutPoints() {
 function renderUpcoming() {
   const el = document.getElementById('nextup-cards');
   if (!el) return;
-  el.innerHTML = Data.upcoming.map(u => `
-    <article class="group relative bg-white/5 border border-white/10 p-8 rounded-3xl hover:border-neon/50 transition-colors overflow-hidden">
-      <div class="absolute inset-0 bg-gradient-to-br from-neon/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+  el.innerHTML = Data.upcoming.map((u, i) => `
+    <article class="group relative bg-white/5 border border-white/10 p-8 rounded-3xl hover:border-ivyLight/50 transition-colors overflow-hidden reveal" data-delay="${i * 100}">
+      <div class="absolute inset-0 bg-gradient-to-br from-ivyLight/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
       
       <div class="relative z-10">
         <div class="flex justify-between items-start mb-6">
@@ -115,7 +116,7 @@ function renderRaces() {
   const el = document.getElementById('race-calendar');
   if (!el) return;
   el.innerHTML = Data.races.map((r, i) => `
-    <a href="${r.url}" target="_blank" class="block group relative bg-surface border border-white/5 p-6 rounded-2xl hover:-translate-y-1 transition-transform duration-300">
+    <a href="${r.url}" target="_blank" class="block group relative bg-surface border border-white/5 p-6 rounded-2xl hover:-translate-y-1 transition-transform duration-300 reveal" data-delay="${i * 50}">
       <div class="flex justify-between items-center mb-3">
         <span class="text-[10px] font-bold uppercase tracking-widest text-gray-500">${r.category}</span>
         <span class="text-[10px] text-gray-600">${r.region}</span>
@@ -133,9 +134,9 @@ function renderMembers() {
   const el = document.getElementById('team-cards');
   if (!el) return;
 
-  el.innerHTML = Data.members.map(m => `
-    <div class="tilt-card group relative h-full" data-tilt>
-      <div class="absolute inset-0 bg-gradient-to-br from-neon to-primary rounded-3xl blur opacity-20 group-hover:opacity-40 transition-opacity duration-500"></div>
+  el.innerHTML = Data.members.map((m, i) => `
+    <div class="tilt-card group relative h-full reveal" data-tilt data-delay="${i * 100}">
+      <div class="absolute inset-0 bg-gradient-to-br from-ivy to-ivyLight rounded-3xl blur opacity-20 group-hover:opacity-40 transition-opacity duration-500"></div>
       <div class="relative h-full bg-[#0a0a0a] border border-white/10 rounded-3xl p-8 flex flex-col overflow-hidden">
         
         <!-- Background Pattern -->
@@ -230,16 +231,24 @@ function initScrollReveal() {
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        entry.target.classList.add('animate-in');
+        const delay = entry.target.dataset.delay || 0;
+        setTimeout(() => {
+          entry.target.classList.add('animate-in');
+        }, delay);
         observer.unobserve(entry.target);
       }
     });
   }, { threshold: 0.1 });
 
-  // Add animation classes to sections
-  document.querySelectorAll('section > div').forEach(el => {
+  // Target section headers and descriptions
+  document.querySelectorAll('section h2, section > div > p').forEach(el => {
+    el.classList.add('reveal');
+  });
+
+  // Initialize all reveal elements
+  document.querySelectorAll('.reveal').forEach(el => {
     el.style.opacity = '0';
-    el.style.transform = 'translateY(20px)';
+    el.style.transform = 'translateY(30px)';
     el.style.transition = 'all 0.8s cubic-bezier(0.16, 1, 0.3, 1)';
     observer.observe(el);
   });
