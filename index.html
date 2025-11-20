@@ -1,488 +1,707 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="ja" class="scroll-smooth">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Mori-Mori TOKYOはアドベンチャーレース、トレラン、マラソン、スパルタンレースに挑戦する東京発のチームです。" />
-  <title>Mori‑Mori TOKYO | Adventure Team</title>
+  <meta name="description" content="Mori-Mori TOKYO - Adventure Team based in Tokyo. Mori-Mori makes us DOVA-DOVA." />
+  <title>Mori-Mori TOKYO | Adventure Team</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap"
+    rel="stylesheet" />
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
       theme: {
         extend: {
           fontFamily: {
-            display: ['Outfit', 'Inter', 'system-ui', 'sans-serif'],
-            body: ['Inter', 'system-ui', 'sans-serif']
+            display: ['Outfit', 'sans-serif'],
+            body: ['Inter', 'sans-serif'],
+            jp: ['Zen Kaku Gothic New', 'sans-serif'],
           },
           colors: {
-            jungle: '#0f3320',
-            moss: '#1f6f3f',
-            limewave: '#9be15d',
-            dusk: '#0b1720'
+            neon: '#ccff00',     /* Vibrant Lime/Neon */
+            dark: '#050505',     /* Deep Black */
+            surface: '#111111',  /* Dark Gray Surface */
+            primary: '#00ff9d',  /* Secondary Neon Green */
+            accent: '#ff0055',   /* Hot Pink Accent */
+            ivy: '#1F4D34',      /* Ivy Green Core */
+            ivyLight: '#4E8F5D', /* Lighter Ivy Accent */
+          },
+          backgroundImage: {
+            'noise': "url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22 opacity=%220.05%22/%3E%3C/svg%3E')",
+            'hero-gradient': 'linear-gradient(to bottom, rgba(5,5,5,0) 0%, rgba(5,5,5,0.8) 70%, rgba(5,5,5,1) 100%)',
+          },
+          animation: {
+            'float': 'float 6s ease-in-out infinite',
+            'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            'marquee': 'marquee 25s linear infinite',
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0)' },
+              '50%': { transform: 'translateY(-20px)' },
+            },
+            marquee: {
+              '0%': { transform: 'translateX(0%)' },
+              '100%': { transform: 'translateX(-100%)' },
+            }
           }
         }
       }
     }
   </script>
   <style>
-    body { font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
-    .noise-bg {
-      background-image: linear-gradient(135deg, rgba(24, 66, 43, 0.8), rgba(11, 23, 32, 0.92)),
-        url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"%3E%3Cfilter id="n" x="0" y="0" width="100%25" height="100%25"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="1.8" numOctaves="4" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="200" height="200" filter="url(%23n)" opacity="0.2"/%3E%3C/svg%3E');
-      background-size: cover;
+    body {
+      background-color: #050505;
+      color: #ffffff;
     }
-    .section-heading::after {
-      content: '';
-      display: block;
-      width: 72px;
-      height: 4px;
-      margin-top: 12px;
-      border-radius: 9999px;
-      background: linear-gradient(90deg, #60b259, #9be15d);
+
+    .text-stroke {
+      -webkit-text-stroke: 2px rgba(255, 255, 255, 0.8);
+      /* Increased visibility */
+      color: transparent;
+    }
+
+    .text-stroke-neon {
+      -webkit-text-stroke: 1px #ccff00;
+      color: transparent;
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #111;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #333;
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #ccff00;
+    }
+
+    /* Utilities */
+    .glass {
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .neon-glow {
+      box-shadow: 0 0 20px rgba(204, 255, 0, 0.3);
+    }
+
+    .clip-diagonal {
+      clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+    }
+
+    /* Mobile Menu */
+    #mobile-menu {
+      transform: translateX(100%);
+      transition: transform 0.3s ease-in-out;
+    }
+
+    #mobile-menu.open {
+      transform: translateX(0);
     }
   </style>
 </head>
-<body class="bg-dusk text-white min-h-screen flex flex-col">
-  <header class="relative overflow-hidden noise-bg">
-    <div class="absolute inset-0 pointer-events-none">
-      <div class="absolute -top-24 -right-16 w-72 h-72 bg-limewave/30 blur-3xl rounded-full"></div>
-      <div class="absolute bottom-0 left-8 w-64 h-64 bg-moss/40 blur-3xl rounded-full"></div>
-      <div class="absolute -bottom-16 right-20 w-80 h-80 bg-emerald-600/20 blur-3xl rounded-full"></div>
-    </div>
-    <nav class="relative z-10 max-w-6xl mx-auto flex items-center justify-between px-6 py-6">
-      <a href="#hero" class="flex items-center gap-3">
-        <img src="assets/mori-mori-logo.png" alt="Mori-Mori TOKYO" class="w-16 h-16 drop-shadow-lg" />
-        <div>
-          <p class="text-xs uppercase tracking-[0.3em] text-lime-300">Since 2022</p>
-          <p class="font-display text-2xl font-semibold">Mori-Mori TOKYO</p>
-        </div>
-      </a>
-      <div class="hidden md:flex items-center gap-8 font-body text-sm uppercase tracking-widest text-white/80">
-        <a href="#about" class="hover:text-white transition">About</a>
-        <a href="#disciplines" class="hover:text-white transition">Disciplines</a>
-        <a href="#highlights" class="hover:text-white transition">Highlights</a>
-        <a href="#team" class="hover:text-white transition">Team</a>
-        <a href="#contact" class="hover:text-white transition">Join</a>
-      </div>
-      <a href="https://www.instagram.com/morimori.tokyo/" target="_blank" rel="noopener" class="hidden md:inline-flex items-center gap-2 rounded-full border border-white/40 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-white hover:bg-white hover:text-jungle transition">
-        Follow us
-      </a>
-    </nav>
 
-    <section id="hero" class="relative z-10 max-w-6xl mx-auto px-6 pb-24 pt-10 md:pt-16">
-      <div class="grid gap-12 md:grid-cols-[1.1fr_0.9fr] items-center">
-        <div>
-          <span class="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-xs uppercase tracking-[0.3em]">Adventure Team</span>
-          <h1 class="mt-6 font-display text-4xl leading-tight md:text-6xl md:leading-[1.05]">
-            Mori-Mori makes us <span class="text-limewave">DOVA-DOVA.</span>
-          </h1>
-          <p class="mt-5 max-w-xl text-base text-white/80 md:text-lg">
-            東京発、冒険心とスピードを武器にアドベンチャーレース、トレイルラン、マラソン、スパルタンレースと多彩なフィールドに挑むチーム「Mori-Mori TOKYO」。
-            熱狂とチームワークで、次のゴールを切り拓きます。
-          </p>
-          <div class="mt-8 flex flex-wrap items-center gap-4">
-            <a href="https://www.youtube.com/@morimori_tokyo" target="_blank" rel="noopener" class="inline-flex items-center gap-3 rounded-full bg-limewave px-6 py-3 font-display text-sm font-semibold uppercase tracking-widest text-jungle shadow-lg shadow-limewave/40 hover:-translate-y-0.5 transition">
-              Watch on YouTube
-            </a>
-            <a href="#contact" class="inline-flex items-center gap-3 rounded-full border border-white/30 px-6 py-3 text-sm font-semibold uppercase tracking-widest text-white hover:bg-white hover:text-jungle transition">
-              Join the crew
-            </a>
-          </div>
-          <dl class="mt-12 grid grid-cols-2 gap-6 text-left md:max-w-lg">
-            <div class="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur">
-              <dt class="text-xs uppercase tracking-[0.3em] text-white/60">Races Completed</dt>
-              <dd class="mt-3 font-display text-3xl font-semibold">28</dd>
-            </div>
-            <div class="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur">
-              <dt class="text-xs uppercase tracking-[0.3em] text-white/60">Disciplines</dt>
-              <dd class="mt-3 font-display text-3xl font-semibold">4+</dd>
-            </div>
-            <div class="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur">
-              <dt class="text-xs uppercase tracking-[0.3em] text-white/60">Longest Expedition</dt>
-              <dd class="mt-3 font-display text-3xl font-semibold">72h</dd>
-            </div>
-            <div class="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur">
-              <dt class="text-xs uppercase tracking-[0.3em] text-white/60">Team Members</dt>
-              <dd class="mt-3 font-display text-3xl font-semibold">12</dd>
-            </div>
-          </dl>
+<body class="font-body antialiased overflow-x-hidden selection:bg-ivyLight selection:text-black">
+
+  <!-- Fixed Background Noise -->
+  <div class="fixed inset-0 bg-noise pointer-events-none z-50 opacity-50 mix-blend-overlay"></div>
+
+  <!-- Navigation -->
+  <nav id="navbar" class="fixed top-0 w-full z-50 transition-all duration-300 py-6">
+    <div class="container mx-auto px-6 flex justify-between items-center">
+      <a href="#" class="flex items-center gap-3 group z-50 relative">
+        <img src="assets/mori-mori-logo.png" alt="Logo"
+          class="w-10 h-10 md:w-12 md:h-12 transition-transform group-hover:rotate-12">
+        <div class="leading-none">
+          <span class="block font-display font-bold text-lg md:text-xl tracking-tighter">Mori-Mori</span>
+          <span class="block font-display font-bold text-lg md:text-xl text-ivyLight tracking-tighter">TOKYO</span>
         </div>
-        <div class="relative flex justify-center">
-          <div class="absolute -top-10 right-6 h-32 w-32 rounded-full bg-limewave/40 blur-2xl"></div>
-          <div class="relative w-full max-w-md rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur">
-            <div class="flex items-center gap-4">
-              <img src="assets/morikun-head.png" alt="モリくん" class="w-20 h-20" />
-              <div>
-                <p class="text-xs uppercase tracking-[0.3em] text-white/60">Team Spirit</p>
-                <p class="mt-1 font-display text-2xl font-semibold">モリくんも応援中！</p>
-              </div>
-            </div>
-            <p class="mt-4 text-sm text-white/70">
-              チームマスコット「モリくん」は今日も元気にジャンプ。全力で楽しむ気持ちが、次の冒険を切り拓くエネルギーになる。
-            </p>
-            <div class="mt-6 overflow-hidden rounded-2xl bg-gradient-to-b from-white/10 to-white/0 p-4">
-              <img src="assets/morikun-full.png" alt="モリくん全身" class="mx-auto w-40" />
-            </div>
-          </div>
-        </div>
+      </a>
+
+      <!-- Desktop Menu -->
+      <div class="hidden md:flex items-center gap-8">
+        <a href="#about" class="text-sm font-bold uppercase tracking-widest hover:text-ivyLight transition-colors">About</a>
+        <a href="#nextup" class="text-sm font-bold uppercase tracking-widest hover:text-ivyLight transition-colors">Next
+          Up</a>
+        <a href="#racelog" class="text-sm font-bold uppercase tracking-widest hover:text-ivyLight transition-colors">Race
+          Log</a>
+        <a href="#members"
+          class="text-sm font-bold uppercase tracking-widest hover:text-ivyLight transition-colors">Members</a>
+        <a href="#contact"
+          class="px-6 py-2 bg-white text-black font-bold uppercase tracking-widest text-xs rounded-full hover:bg-ivyLight transition-colors">Contact</a>
       </div>
-    </section>
+
+      <!-- Mobile Menu Button -->
+      <button id="menu-btn" class="md:hidden text-white z-50 relative focus:outline-none">
+        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu Overlay -->
+  <div id="mobile-menu"
+    class="fixed inset-0 bg-black/95 z-40 flex flex-col justify-center items-center gap-8 md:hidden backdrop-blur-xl">
+    <a href="#about"
+      class="mobile-link text-2xl font-display font-bold uppercase tracking-widest hover:text-ivyLight">About</a>
+    <a href="#nextup" class="mobile-link text-2xl font-display font-bold uppercase tracking-widest hover:text-ivyLight">Next
+      Up</a>
+    <a href="#racelog"
+      class="mobile-link text-2xl font-display font-bold uppercase tracking-widest hover:text-ivyLight">Race Log</a>
+    <a href="#members"
+      class="mobile-link text-2xl font-display font-bold uppercase tracking-widest hover:text-ivyLight">Members</a>
+    <a href="#contact"
+      class="mobile-link text-2xl font-display font-bold uppercase tracking-widest text-ivyLight">Contact</a>
+  </div>
+
+  <!-- Hero Section -->
+  <header class="relative h-screen flex items-center justify-center overflow-hidden">
+    <!-- Background Image with Parallax -->
+    <div class="absolute inset-0 z-0">
+      <div class="absolute inset-0 bg-black/50 z-10"></div> <!-- Darkened overlay for better text contrast -->
+      <div class="absolute inset-0 bg-hero-gradient z-20"></div>
+      <img src="assets/team-finish.jpg" alt="Team Finish" class="w-full h-full object-cover scale-110" id="hero-bg">
+    </div>
+
+    <!-- Content -->
+    <div class="relative z-30 container mx-auto px-6 text-center pt-20">
+      <p class="font-display font-bold text-ivyLight tracking-[0.5em] text-xs md:text-base mb-4">SINCE
+        2022 / TOKYO</p>
+      <h1 class="font-display font-black text-5xl md:text-8xl lg:text-9xl leading-[0.9] tracking-tighter mb-6">
+        <span class="block bg-gradient-to-b from-ivy via-ivyLight to-ivyLight/80 text-transparent bg-clip-text drop-shadow-[0_4px_12px_rgba(0,0,0,0.4)]">MORI-MORI</span>
+        <span class="block text-white">MAKES US</span>
+        <span class="block text-ivyLight">DOVA-DOVA.</span>
+      </h1>
+      <div class="uppercase tracking-[0.35em] text-[10px] md:text-xs text-white/40 mb-4">ADVENTURE TEAM / CREW ENERGY</div>
+      <p class="font-jp font-medium text-gray-300 max-w-xl mx-auto text-sm md:text-base leading-relaxed mb-10 px-4">
+        速さと戦略で多様なフィールドを攻略するアドベンチャーチーム。<br class="hidden md:block">
+        一人ひとりの目標に挑み限界を少しずつ更新する過程をクルー全員で共有しながら、<br class="hidden md:block">“モリモリ”鍛え合うことで普段得られない高揚と多幸感＝<span class="text-ivyLight font-bold">DOVA-DOVA</span>を生み出す。<br class="hidden md:block">
+        次のゴールも、自分たちでデザインする。
+      </p>
+
+      <div class="flex flex-col md:flex-row items-center justify-center gap-4 w-full px-6">
+        <a href="#nextup"
+          class="w-full md:w-auto px-8 py-4 bg-ivyLight text-black font-display font-black uppercase tracking-widest hover:bg-ivy transition-colors clip-diagonal text-center">
+          Check Next Race
+        </a>
+        <a href="https://www.youtube.com/@morimori_tokyo" target="_blank"
+          class="w-full md:w-auto px-8 py-4 border border-white/30 bg-white/5 backdrop-blur text-white font-display font-bold uppercase tracking-widest hover:bg-white/10 transition-colors flex items-center justify-center gap-2">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+            <path
+              d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+          </svg>
+          Watch Movie
+        </a>
+      </div>
+    </div>
+
+    <!-- Scroll Indicator -->
+    <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-30 opacity-50">
+      <span class="text-[10px] uppercase tracking-[0.3em]">Scroll</span>
+      <div class="w-[1px] h-12 bg-gradient-to-b from-neon to-transparent"></div>
+    </div>
   </header>
 
-  <main class="flex-1 bg-gradient-to-b from-dusk via-[#081019] to-jungle">
-    <section id="about" class="mx-auto max-w-6xl px-6 py-20">
-      <div class="grid gap-12 lg:grid-cols-[1.1fr_0.9fr] items-start">
+  <!-- Marquee Separator -->
+  <div class="bg-ivyLight text-black overflow-hidden py-3 rotate-1 scale-105 z-20 relative border-y-4 border-black">
+    <div
+      class="animate-marquee whitespace-nowrap font-display font-black text-xl md:text-2xl uppercase tracking-widest flex gap-8">
+      <span>Adventure Racing</span><span>Trail Running</span><span>Rogaining</span><span>Spartan
+        Race</span><span>Marathon</span>
+      <span>Adventure Racing</span><span>Trail Running</span><span>Rogaining</span><span>Spartan
+        Race</span><span>Marathon</span>
+      <span>Adventure Racing</span><span>Trail Running</span><span>Rogaining</span><span>Spartan
+        Race</span><span>Marathon</span>
+    </div>
+  </div>
+
+  <!-- About Section -->
+  <section id="about" class="py-20 md:py-32 relative overflow-hidden">
+    <div class="container mx-auto px-6 relative z-10">
+      <div class="grid md:grid-cols-2 gap-12 md:gap-16 items-center">
         <div>
-          <h2 class="section-heading font-display text-3xl font-semibold">冒険をデザインするチーム</h2>
-          <p class="mt-6 text-base text-white/80">
-            2022年に東京で結成されたMori-Mori TOKYOは、地形、天候、仲間との連携など、未知の条件を味方に変えることで勝利をつかむアドベンチャーチームです。
+          <h2 class="font-display font-black text-4xl md:text-7xl mb-8 leading-none">
+            <span class="text-stroke-neon">WE ARE</span><br>
+            EXPLORERS.
+          </h2>
+          <p class="font-jp text-gray-400 leading-loose mb-8 text-sm md:text-base">
+            2022年に東京で結成されたMori-Mori TOKYOは、地形、天候、仲間との連携など、未知の条件を味方に変えることで勝利をつかむアドベンチャーチームです。<br><br>
             都市で鍛えた機動力と自然を敬うマインドで、世界中のレースへ挑戦し続けています。
           </p>
-          <ul class="mt-8 space-y-4 text-white/80">
-            <li class="flex items-start gap-3">
-              <span class="mt-1 inline-flex h-6 w-6 items-center justify-center rounded-full bg-limewave/20 text-limewave">1</span>
-              <div>
-                <p class="font-semibold">戦略思考 × フィジカル</p>
-                <p class="text-sm">地図読み、ロープワーク、マルチスポーツを掛け合わせ、レースごとに最適な戦略を組み立てます。</p>
-              </div>
-            </li>
-            <li class="flex items-start gap-3">
-              <span class="mt-1 inline-flex h-6 w-6 items-center justify-center rounded-full bg-limewave/20 text-limewave">2</span>
-              <div>
-                <p class="font-semibold">都市×自然の二刀流トレーニング</p>
-                <p class="text-sm">東京近郊の山岳でのナイトハイクから都心でのスピードワークまで、多様なセッションを実施。</p>
-              </div>
-            </li>
-            <li class="flex items-start gap-3">
-              <span class="mt-1 inline-flex h-6 w-6 items-center justify-center rounded-full bg-limewave/20 text-limewave">3</span>
-              <div>
-                <p class="font-semibold">コミュニティと共走</p>
-                <p class="text-sm">レース参戦記やフィットネスTipsをシェアし、仲間が挑戦をスタートできる環境づくりに力を入れています。</p>
-              </div>
-            </li>
-          </ul>
-        </div>
-        <div class="rounded-3xl border border-white/10 bg-white/5 p-8 shadow-[0_0_60px_rgba(155,225,93,0.15)] backdrop-blur">
-          <p class="text-xs uppercase tracking-[0.3em] text-limewave">Next Up</p>
-          <h3 class="mt-3 font-display text-2xl font-semibold">2025 Spring Challenge</h3>
-          <p class="mt-3 text-sm text-white/70">奥多摩で開催予定の48時間アドベンチャーレースに向けて、マルチスポーツとナビゲーション強化中。</p>
-          <dl class="mt-8 grid grid-cols-2 gap-6 text-sm">
-            <div>
-              <dt class="text-white/50">Location</dt>
-              <dd class="mt-1 font-semibold">Okutama, Tokyo</dd>
-            </div>
-            <div>
-              <dt class="text-white/50">Duration</dt>
-              <dd class="mt-1 font-semibold">48 Hours</dd>
-            </div>
-            <div>
-              <dt class="text-white/50">Focus</dt>
-              <dd class="mt-1 font-semibold">Night Navigation</dd>
-            </div>
-            <div>
-              <dt class="text-white/50">Team Size</dt>
-              <dd class="mt-1 font-semibold">4 Racers</dd>
-            </div>
-          </dl>
-        </div>
-      </div>
-    </section>
 
-    <section id="disciplines" class="bg-gradient-to-br from-[#102b1d] to-[#0c1723] py-20">
-      <div class="mx-auto max-w-6xl px-6">
-        <h2 class="section-heading font-display text-3xl font-semibold">主なフィールド</h2>
-        <p class="mt-6 max-w-2xl text-white/70">
-          アドベンチャーレースで培った総合力をベースに、トレイルランニング、マラソン、スパルタンレースなど様々な舞台でスピードと持久力を磨いています。
-        </p>
-        <div class="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-          <article class="rounded-2xl border border-white/10 bg-white/5 p-6 shadow-lg shadow-black/20 backdrop-blur">
-            <p class="text-xs uppercase tracking-[0.3em] text-white/60">Adventure Race</p>
-            <h3 class="mt-3 font-display text-xl font-semibold">Multi-day Expeditions</h3>
-            <p class="mt-3 text-sm text-white/70">MTB、トレッキング、パドリングを切り替えながら、地図とコンパスで未知のルートを開拓。</p>
-          </article>
-          <article class="rounded-2xl border border-white/10 bg-white/5 p-6 shadow-lg shadow-black/20 backdrop-blur">
-            <p class="text-xs uppercase tracking-[0.3em] text-white/60">Trail Running</p>
-            <h3 class="mt-3 font-display text-xl font-semibold">Mountain Flow</h3>
-            <p class="mt-3 text-sm text-white/70">奥多摩や秩父、富士山麓を舞台に、高低差を活かしたトレーニングとロングレースに参戦。</p>
-          </article>
-          <article class="rounded-2xl border border-white/10 bg-white/5 p-6 shadow-lg shadow-black/20 backdrop-blur">
-            <p class="text-xs uppercase tracking-[0.3em] text-white/60">Road Marathon</p>
-            <h3 class="mt-3 font-display text-xl font-semibold">Speed Discipline</h3>
-            <p class="mt-3 text-sm text-white/70">ペースメイクと戦略を磨き、都市型レースでサブ3・サブ4を狙うメンバーが多数。</p>
-          </article>
-          <article class="rounded-2xl border border-white/10 bg-white/5 p-6 shadow-lg shadow-black/20 backdrop-blur">
-            <p class="text-xs uppercase tracking-[0.3em] text-white/60">Obstacle Course</p>
-            <h3 class="mt-3 font-display text-xl font-semibold">Spartan Spirit</h3>
-            <p class="mt-3 text-sm text-white/70">スパルタンレースで鍛える上半身とメンタル。泥、ロープ、壁を越えながら自分をアップデート。</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section id="highlights" class="mx-auto max-w-6xl px-6 py-20">
-      <div class="lg:flex lg:items-start lg:justify-between">
-        <div class="max-w-xl">
-          <h2 class="section-heading font-display text-3xl font-semibold">レースハイライト</h2>
-          <p class="mt-6 text-white/70">勝利と学びのストーリー。遠征先で出会った景色や仲間の声をSNSで発信しています。</p>
-          <div class="mt-8 flex gap-4">
-            <a href="https://www.instagram.com/morimori.tokyo/" target="_blank" rel="noopener" class="inline-flex items-center gap-2 rounded-full bg-white text-jungle px-5 py-3 text-xs font-semibold uppercase tracking-[0.3em] hover:bg-limewave hover:text-jungle transition">Instagram</a>
-            <a href="https://www.youtube.com/@morimori_tokyo" target="_blank" rel="noopener" class="inline-flex items-center gap-2 rounded-full border border-white/30 px-5 py-3 text-xs font-semibold uppercase tracking-[0.3em] hover:bg-white hover:text-jungle transition">YouTube</a>
+          <div class="grid grid-cols-1 gap-6" id="about-points">
+            <!-- JS Injected -->
           </div>
         </div>
-        <ol class="mt-12 space-y-8 border-l border-white/10 pl-8 lg:mt-0 lg:w-1/2">
-          <li class="relative">
-            <span class="absolute -left-[37px] flex h-8 w-8 items-center justify-center rounded-full bg-limewave text-xs font-bold text-jungle">2024</span>
-            <h3 class="font-display text-xl font-semibold">Japan Adventure Games – Top 5 Finish</h3>
-            <p class="mt-2 text-sm text-white/70">72時間のステージレースで総合4位。ナイトセクションでのチーム連携が勝負を分けました。</p>
-          </li>
-          <li class="relative">
-            <span class="absolute -left-[37px] flex h-8 w-8 items-center justify-center rounded-full bg-limewave text-xs font-bold text-jungle">2023</span>
-            <h3 class="font-display text-xl font-semibold">Spartan Beast Tokyo – Age Group Podium</h3>
-            <p class="mt-2 text-sm text-white/70">障害物攻略スキルが飛躍。女性メンバーがエイジグループ2位を獲得。</p>
-          </li>
-          <li class="relative">
-            <span class="absolute -left-[37px] flex h-8 w-8 items-center justify-center rounded-full bg-limewave text-xs font-bold text-jungle">2022</span>
-            <h3 class="font-display text-xl font-semibold">UTMFチャレンジチーム完走</h3>
-            <p class="mt-2 text-sm text-white/70">富士山麓を巡る100マイルでデビューイヤーから完走。チームの原点となるレース。</p>
-          </li>
-        </ol>
-      </div>
-    </section>
-
-    <section id="team" class="bg-gradient-to-r from-[#0e1d28] via-[#102b1d] to-[#1a422c] py-20">
-      <div class="mx-auto max-w-6xl px-6">
-        <div class="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-          <div>
-            <h2 class="section-heading font-display text-3xl font-semibold">TEAM CORE</h2>
-            <p class="mt-6 max-w-2xl text-white/70">多様なバックグラウンドを持つメンバーが集い、役割に応じてスキルを磨きあっています。</p>
+        <div class="relative mt-12 md:mt-0">
+          <div class="absolute -inset-4 bg-ivyLight/20 blur-3xl rounded-full"></div>
+          <div class="relative glass rounded-3xl p-6 md:p-8 border-l-4 border-neon">
+            <div class="grid grid-cols-2 gap-6 md:gap-8" id="hero-stats">
+              <!-- JS Injected -->
+            </div>
           </div>
-          <a href="mailto:hello@morimori.tokyo" class="inline-flex items-center gap-2 rounded-full border border-white/30 px-6 py-3 text-xs font-semibold uppercase tracking-[0.3em] hover:bg-white hover:text-jungle transition">Connect</a>
-        </div>
-        <div class="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          <article class="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur">
-            <div class="absolute inset-0 bg-gradient-to-b from-limewave/0 via-limewave/0 to-limewave/30 opacity-0 transition group-hover:opacity-100"></div>
-            <p class="text-xs uppercase tracking-[0.3em] text-white/60">Captain</p>
-            <h3 class="mt-3 font-display text-xl font-semibold">Takuro</h3>
-            <p class="mt-3 text-sm text-white/70">アドベンチャーレース歴10年。チーム全体の戦略とナビゲーションをリード。</p>
-            <dl class="mt-6 grid grid-cols-2 gap-4 text-xs text-white/60">
-              <div>
-                <dt>Specialty</dt>
-                <dd class="mt-1 text-white">Navigation</dd>
-              </div>
-              <div>
-                <dt>Favorite Gear</dt>
-                <dd class="mt-1 text-white">Silva Arc Jet</dd>
-              </div>
-            </dl>
-          </article>
-          <article class="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur">
-            <div class="absolute inset-0 bg-gradient-to-b from-limewave/0 via-limewave/0 to-limewave/30 opacity-0 transition group-hover:opacity-100"></div>
-            <p class="text-xs uppercase tracking-[0.3em] text-white/60">Power Runner</p>
-            <h3 class="mt-3 font-display text-xl font-semibold">Tomoki</h3>
-            <p class="mt-3 text-sm text-white/70">トレイルランとスパルタンの二刀流。チームのムードメーカー兼スピードスター。</p>
-            <dl class="mt-6 grid grid-cols-2 gap-4 text-xs text-white/60">
-              <div>
-                <dt>Specialty</dt>
-                <dd class="mt-1 text-white">Trail Uphill</dd>
-              </div>
-              <div>
-                <dt>Favorite Gear</dt>
-                <dd class="mt-1 text-white">Carbon Poles</dd>
-              </div>
-            </dl>
-          </article>
-          <article class="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur">
-            <div class="absolute inset-0 bg-gradient-to-b from-limewave/0 via-limewave/0 to-limewave/30 opacity-0 transition group-hover:opacity-100"></div>
-            <p class="text-xs uppercase tracking-[0.3em] text-white/60">Engine</p>
-            <h3 class="mt-3 font-display text-xl font-semibold">Hiroki</h3>
-            <p class="mt-3 text-sm text-white/70">MTBとロープワークのスペシャリスト。ロジスティクスと補給計画を担当。</p>
-            <dl class="mt-6 grid grid-cols-2 gap-4 text-xs text-white/60">
-              <div>
-                <dt>Specialty</dt>
-                <dd class="mt-1 text-white">MTB Stage</dd>
-              </div>
-              <div>
-                <dt>Favorite Gear</dt>
-                <dd class="mt-1 text-white">Dynema Rope</dd>
-              </div>
-            </dl>
-          </article>
-          <article class="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur">
-            <div class="absolute inset-0 bg-gradient-to-b from-limewave/0 via-limewave/0 to-limewave/30 opacity-0 transition group-hover:opacity-100"></div>
-            <p class="text-xs uppercase tracking-[0.3em] text-white/60">Data & Strategy</p>
-            <h3 class="mt-3 font-display text-xl font-semibold">Tatsuki</h3>
-            <p class="mt-3 text-sm text-white/70">山から幼女まで幅広くカバーするオールラウンダー。可愛い子を見つけたら100km先でも走って追いかける執念の持ち主</p>
-            <dl class="mt-6 grid grid-cols-2 gap-4 text-xs text-white/60">
-              <div>
-                <dt>Specialty</dt>
-                <dd class="mt-1 text-white">Route Analytics</dd>
-              </div>
-              <div>
-                <dt>Favorite Gear</dt>
-                <dd class="mt-1 text-white">Suunto Vertical</dd>
-              </div>
-            </dl>
-          </article>
-          <article class="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur">
-            <div class="absolute inset-0 bg-gradient-to-b from-limewave/0 via-limewave/0 to-limewave/30 opacity-0 transition group-hover:opacity-100"></div>
-            <p class="text-xs uppercase tracking-[0.3em] text-white/60">Endurance Builder</p>
-            <h3 class="mt-3 font-display text-xl font-semibold">Taku</h3>
-            <p class="mt-3 text-sm text-white/70">超ロング走とナイトセクション適応力が強み。ペース安定とメンタルサポート役。</p>
-            <dl class="mt-6 grid grid-cols-2 gap-4 text-xs text-white/60">
-              <div>
-                <dt>Specialty</dt>
-                <dd class="mt-1 text-white">Ultra Distance</dd>
-              </div>
-              <div>
-                <dt>Favorite Gear</dt>
-                <dd class="mt-1 text-white">Headlamp Dual</dd>
-              </div>
-            </dl>
-          </article>
+          <!-- Mori-kun Head Decoration -->
+          <img src="assets/morikun-head.png"
+            class="absolute -bottom-16 -right-10 md:-bottom-20 md:-right-20 w-32 md:w-48 animate-float drop-shadow-2xl"
+            alt="Mori-kun">
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section class="mx-auto max-w-6xl px-6 py-20">
-      <div class="grid gap-10 lg:grid-cols-2">
+  <!-- Next Up Section -->
+  <section id="nextup" class="py-20 md:py-24 bg-surface relative">
+    <div class="container mx-auto px-6">
+      <div class="flex items-end justify-between mb-12">
         <div>
-          <h2 class="section-heading font-display text-3xl font-semibold">TRAINING PILLARS</h2>
-          <p class="mt-6 text-white/70">四季折々の自然環境に合わせたセッションで、ベースの体力と冒険のための創造性を高めます。</p>
-          <ul class="mt-8 space-y-6 text-white/80">
-            <li>
-              <h3 class="font-semibold">Night Navigation Lab</h3>
-              <p class="text-sm">地図とコンパスのみで山岳エリアを縦走。暗闇での意思決定力を鍛えます。</p>
-            </li>
-            <li>
-              <h3 class="font-semibold">Hybrid Endurance</h3>
-              <p class="text-sm">ロードランとバイクのブリック練習で総合持久力を強化。スピードと耐久を両立。</p>
-            </li>
-            <li>
-              <h3 class="font-semibold">Strength &amp; Mobility</h3>
-              <p class="text-sm">スパルタンレース向けにロープクライムやキャリーを取り入れ、怪我をしない身体を作ります。</p>
-            </li>
-          </ul>
+          <span class="text-ivyLight font-bold tracking-widest text-sm uppercase mb-2 block">Schedule</span>
+          <h2 class="font-display font-black text-3xl md:text-5xl">NEXT UP</h2>
         </div>
-        <div class="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur">
-          <h3 class="text-sm uppercase tracking-[0.3em] text-white/60">Monthly Snapshot</h3>
-          <div class="mt-6 space-y-6">
-            <div class="flex items-center justify-between rounded-2xl bg-black/20 px-5 py-4">
-              <div>
-                <p class="text-xs uppercase tracking-[0.3em] text-white/50">Mileage</p>
-                <p class="font-display text-2xl font-semibold">620 km</p>
-              </div>
-              <p class="text-xs text-limewave">+12% vs last month</p>
-            </div>
-            <div class="flex items-center justify-between rounded-2xl bg-black/20 px-5 py-4">
-              <div>
-                <p class="text-xs uppercase tracking-[0.3em] text-white/50">Elevation Gain</p>
-                <p class="font-display text-2xl font-semibold">18,400 m</p>
-              </div>
-              <p class="text-xs text-limewave">Chasing alpine legs</p>
-            </div>
-            <div class="flex items-center justify-between rounded-2xl bg-black/20 px-5 py-4">
-              <div>
-                <p class="text-xs uppercase tracking-[0.3em] text-white/50">Strength Sessions</p>
-                <p class="font-display text-2xl font-semibold">14</p>
-              </div>
-              <p class="text-xs text-limewave">Grip, core, balance</p>
-            </div>
-          </div>
-        </div>
+        <div class="hidden md:block w-1/3 h-[1px] bg-white/10"></div>
       </div>
-    </section>
 
-    <section class="bg-[#0a141b] py-20">
-      <div class="mx-auto max-w-6xl px-6">
-        <div class="grid gap-10 lg:grid-cols-[0.9fr_1.1fr]">
-          <div>
-            <h2 class="section-heading font-display text-3xl font-semibold">Latest Stories</h2>
-            <p class="mt-6 text-white/70">レースの裏側や練習レポートをnote・SNSで更新中。チーム視点のTipsと熱量をシェアしています。</p>
-          </div>
-          <div class="grid gap-6 md:grid-cols-2">
-            <article class="flex flex-col justify-between rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur">
-              <div>
-                <p class="text-xs uppercase tracking-[0.3em] text-limewave">Report</p>
-                <h3 class="mt-3 font-display text-xl font-semibold">アドベンチャーレース夜間攻略のポイント</h3>
-                <p class="mt-3 text-sm text-white/70">ヘッドライト選びとチームコミュニケーションのコツをまとめました。</p>
-              </div>
-              <a href="https://www.instagram.com/morimori.tokyo/" target="_blank" rel="noopener" class="mt-6 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.3em] text-limewave hover:text-white">Read more →</a>
-            </article>
-            <article class="flex flex-col justify-between rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur">
-              <div>
-                <p class="text-xs uppercase tracking-[0.3em] text-limewave">Behind the Scenes</p>
-                <h3 class="mt-3 font-display text-xl font-semibold">スパルタンレース向けジムセッション</h3>
-                <p class="mt-3 text-sm text-white/70">筋力だけでなくチームシナジーを高めるグループワークを紹介。</p>
-              </div>
-              <a href="https://www.youtube.com/@morimori_tokyo" target="_blank" rel="noopener" class="mt-6 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.3em] text-limewave hover:text-white">Watch now →</a>
-            </article>
-          </div>
-        </div>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6" id="nextup-cards">
+        <!-- JS Injected -->
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section id="contact" class="mx-auto max-w-6xl px-6 py-20">
-      <div class="grid gap-12 lg:grid-cols-[1.1fr_0.9fr]">
+  <!-- Race Log Section -->
+  <section id="racelog" class="py-20 md:py-24 relative">
+    <div class="container mx-auto px-6">
+      <div class="flex items-end justify-between mb-12">
         <div>
-          <h2 class="section-heading font-display text-3xl font-semibold">JOIN MORI-MORI CREW</h2>
-          <p class="mt-6 text-white/70">レース参戦、取材、スポンサーシップのお問い合わせはお気軽に。私たちと一緒に冒険をデザインしましょう。</p>
-          <div class="mt-8 space-y-4 text-sm text-white/60">
-            <p>Mail: <a href="mailto:hello@morimori.tokyo" class="text-limewave hover:text-white">hello@morimori.tokyo</a></p>
-            <p>Instagram: <a href="https://www.instagram.com/morimori.tokyo/" target="_blank" rel="noopener" class="text-limewave hover:text-white">@morimori.tokyo</a></p>
-            <p>YouTube: <a href="https://www.youtube.com/@morimori_tokyo" target="_blank" rel="noopener" class="text-limewave hover:text-white">@morimori_tokyo</a></p>
-          </div>
+          <span class="text-ivyLight font-bold tracking-widest text-sm uppercase mb-2 block">History</span>
+          <h2 class="font-display font-black text-3xl md:text-5xl">RACE LOG</h2>
         </div>
-        <form class="rounded-3xl border border-white/10 bg-white/5 p-8 shadow-[0_0_60px_rgba(20,80,45,0.25)] backdrop-blur">
-          <h3 class="text-sm uppercase tracking-[0.3em] text-white/60">Send a message</h3>
-          <div class="mt-6 space-y-6">
-            <label class="block text-xs uppercase tracking-[0.3em] text-white/50">Name
-              <input type="text" name="name" placeholder="Your name" class="mt-2 w-full rounded-xl border border-white/10 bg-black/30 px-4 py-3 text-white placeholder:text-white/30 focus:border-limewave focus:outline-none" />
-            </label>
-            <label class="block text-xs uppercase tracking-[0.3em] text-white/50">Email
-              <input type="email" name="email" placeholder="you@example.com" class="mt-2 w-full rounded-xl border border-white/10 bg-black/30 px-4 py-3 text-white placeholder:text-white/30 focus:border-limewave focus:outline-none" />
-            </label>
-            <label class="block text-xs uppercase tracking-[0.3em] text-white/50">Message
-              <textarea name="message" rows="4" placeholder="Tell us about your next adventure" class="mt-2 w-full rounded-xl border border-white/10 bg-black/30 px-4 py-3 text-white placeholder:text-white/30 focus:border-limewave focus:outline-none"></textarea>
-            </label>
-            <button type="submit" class="w-full rounded-full bg-limewave px-6 py-3 font-display text-sm font-semibold uppercase tracking-[0.3em] text-jungle shadow-lg shadow-limewave/40 hover:-translate-y-0.5 transition">Send</button>
-          </div>
-          <p class="mt-4 text-xs text-white/40">※フォームはデモです。メールでのご連絡をお願いします。</p>
-        </form>
       </div>
-    </section>
-  </main>
 
-  <footer class="border-t border-white/10 bg-[#060a0d]">
-    <div class="mx-auto flex flex-col gap-6 px-6 py-10 text-sm text-white/60 md:flex-row md:items-center md:justify-between md:text-xs">
-      <div class="flex items-center gap-3">
-        <img src="assets/mori-mori-logo.png" alt="Mori-Mori TOKYO" class="w-12" />
-        <div>
-          <p class="font-display text-base text-white">Mori-Mori TOKYO</p>
-          <p class="text-[11px] uppercase tracking-[0.3em]">Adventure Team</p>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" id="race-calendar">
+        <!-- JS Injected -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Members Section -->
+  <section id="members" class="py-20 md:py-32 bg-surface relative overflow-hidden">
+    <!-- Background Elements -->
+    <div class="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-neon/5 to-transparent pointer-events-none">
+    </div>
+
+    <div class="container mx-auto px-6 relative z-10">
+      <div class="text-center mb-16 md:mb-20">
+        <span class="text-ivyLight font-bold tracking-widest text-sm uppercase mb-2 block">Team</span>
+        <h2 class="font-display font-black text-4xl md:text-7xl">MEMBERS</h2>
+        <p class="text-gray-500 mt-4 font-jp">個性豊かなメンバー紹介</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="team-cards">
+        <!-- JS Injected -->
+      </div>
+    </div>
+  </section>
+
+  <!-- SNS Section -->
+  <section id="sns" class="py-20 md:py-24 relative">
+    <div class="container mx-auto px-6">
+      <div class="glass rounded-[2rem] md:rounded-[3rem] p-8 md:p-12 border border-white/10 relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-96 h-96 bg-neon/10 blur-[100px] rounded-full pointer-events-none"></div>
+
+        <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start relative z-10">
+          <!-- Left Column: Intro & Instagram Grid -->
+          <div class="flex flex-col h-full">
+            <h2 class="font-display font-black text-3xl md:text-5xl mb-6">FOLLOW US</h2>
+            <p class="font-jp text-gray-400 mb-8 text-sm md:text-base leading-relaxed">
+              Mori-Mori TOKYOの最新情報はInstagramでチェック。<br>
+              レースの裏側やトレーニングの様子を発信中。
+            </p>
+
+            <div class="flex gap-4 mb-10">
+              <a href="https://www.instagram.com/morimori.tokyo/" target="_blank"
+                class="flex-1 text-center px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold uppercase tracking-widest rounded-full hover:scale-105 transition-transform shadow-lg shadow-pink-500/30 text-xs md:text-sm">
+                Instagram
+              </a>
+              <a href="https://www.youtube.com/@morimori_tokyo" target="_blank"
+                class="flex-1 text-center px-6 py-3 bg-red-600 text-white font-bold uppercase tracking-widest rounded-full hover:scale-105 transition-transform shadow-lg shadow-red-600/30 text-xs md:text-sm">
+                YouTube
+              </a>
+            </div>
+
+            <!-- Instagram Real Embeds -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full justify-items-center">
+              <!-- Post 1 -->
+              <blockquote class="instagram-media" data-instgrm-captioned
+                data-instgrm-permalink="https://www.instagram.com/p/DREaGITk5uf/?utm_source=ig_embed&amp;utm_campaign=loading"
+                data-instgrm-version="14"
+                style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);">
+                <div style="padding:16px;"> <a
+                    href="https://www.instagram.com/p/DREaGITk5uf/?utm_source=ig_embed&amp;utm_campaign=loading"
+                    style=" background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;"
+                    target="_blank">
+                    <div style=" display: flex; flex-direction: row; align-items: center;">
+                      <div
+                        style="background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 40px; margin-right: 14px; width: 40px;">
+                      </div>
+                      <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center;">
+                        <div
+                          style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; margin-bottom: 6px; width: 100px;">
+                        </div>
+                        <div
+                          style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; width: 60px;">
+                        </div>
+                      </div>
+                    </div>
+                    <div style="padding: 19% 0;"></div>
+                    <div style="display:block; height:50px; margin:0 auto 12px; width:50px;"><svg width="50px"
+                        height="50px" viewBox="0 0 60 60" version="1.1" xmlns="https://www.w3.org/2000/svg"
+                        xmlns:xlink="https://www.w3.org/1999/xlink">
+                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                          <g transform="translate(-511.000000, -20.000000)" fill="#000000">
+                            <g>
+                              <path
+                                d="M556.869,30.41 C554.814,30.41 553.148,32.076 553.148,34.131 C553.148,36.186 554.814,37.852 556.869,37.852 C558.924,37.852 560.59,36.186 560.59,34.131 C560.59,32.076 558.924,30.41 556.869,30.41 M541,60.657 C535.114,60.657 530.342,55.887 530.342,50 C530.342,44.114 535.114,39.342 541,39.342 C546.887,39.342 551.658,44.114 551.658,50 C551.658,55.887 546.887,60.657 541,60.657 M541,33.886 C532.1,33.886 524.886,41.1 524.886,50 C524.886,58.899 532.1,66.113 541,66.113 C549.9,66.113 557.115,58.899 557.115,50 C557.115,41.1 549.9,33.886 541,33.886 M565.378,62.101 C565.244,65.022 564.756,66.606 564.346,67.663 C563.803,69.06 563.154,70.057 562.106,71.106 C561.058,72.155 560.06,72.803 558.662,73.347 C557.607,73.757 556.021,74.244 553.102,74.378 C549.944,74.521 548.997,74.552 541,74.552 C533.003,74.552 532.056,74.521 528.898,74.378 C525.979,74.244 524.393,73.757 523.338,73.347 C521.94,72.803 520.942,72.155 519.894,71.106 C518.846,70.057 518.197,69.06 517.654,67.663 C517.244,66.606 516.755,65.022 516.623,62.101 C516.479,58.943 516.448,57.996 516.448,50 C516.448,42.003 516.479,41.056 516.623,37.899 C516.755,34.978 517.244,33.391 517.654,32.338 C518.197,30.938 518.846,29.942 519.894,28.894 C520.942,27.846 521.94,27.196 523.338,26.654 C524.393,26.244 525.979,25.756 528.898,25.623 C532.057,25.479 533.004,25.448 541,25.448 C548.997,25.448 549.943,25.479 553.102,25.623 C556.021,25.756 557.607,26.244 558.662,26.654 C560.06,27.196 561.058,27.846 562.106,28.894 C563.154,29.942 563.803,30.938 564.346,32.338 C564.756,33.391 565.244,34.978 565.378,37.899 C565.522,41.056 565.552,42.003 565.552,50 C565.552,57.996 565.522,58.943 565.378,62.101 M570.82,37.631 C570.674,34.438 570.167,32.258 569.425,30.349 C568.659,28.377 567.633,26.702 565.965,25.035 C564.297,23.368 562.623,22.342 560.652,21.575 C558.743,20.834 556.562,20.326 553.369,20.18 C550.169,20.033 549.148,20 541,20 C532.853,20 531.831,20.033 528.631,20.18 C525.438,20.326 523.257,20.834 521.349,21.575 C519.376,22.342 517.703,23.368 516.035,25.035 C514.368,26.702 513.342,28.377 512.574,30.349 C511.834,32.258 511.326,34.438 511.181,37.631 C511.035,40.831 511,41.851 511,50 C511,58.147 511.035,59.17 511.181,62.369 C511.326,65.562 511.834,67.743 512.574,69.651 C513.342,71.625 514.368,73.296 516.035,74.965 C517.703,76.634 519.376,77.658 521.349,78.425 C523.257,79.167 525.438,79.673 528.631,79.82 C531.831,79.965 532.853,80.001 541,80.001 C549.148,80.001 550.169,79.965 553.369,79.82 C556.562,79.673 558.743,79.167 560.652,78.425 C562.623,77.658 564.297,76.634 565.965,74.965 C567.633,73.296 568.659,71.625 569.425,69.651 C570.167,67.743 570.674,65.562 570.82,62.369 C570.966,59.17 571,58.147 571,50 C571,41.851 570.966,40.831 570.82,37.631">
+                              </path>
+                            </g>
+                          </g>
+                        </g>
+                      </svg></div>
+                    <div style="padding-top: 8px;">
+                      <div
+                        style=" color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:550; line-height:18px;">
+                        この投稿をInstagramで見る</div>
+                    </div>
+                    <div style="padding: 12.5% 0;"></div>
+                    <div style="display: flex; flex-direction: row; margin-bottom: 14px; align-items: center;">
+                      <div>
+                        <div
+                          style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(0px) translateY(7px);">
+                        </div>
+                        <div
+                          style="background-color: #F4F4F4; height: 12.5px; transform: rotate(-45deg) translateX(3px) translateY(1px); width: 12.5px; flex-grow: 0; margin-right: 14px; margin-left: 2px;">
+                        </div>
+                        <div
+                          style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(9px) translateY(-18px);">
+                        </div>
+                      </div>
+                      <div style="margin-left: 8px;">
+                        <div
+                          style=" background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 20px; width: 20px;">
+                        </div>
+                        <div
+                          style=" width: 0; height: 0; border-top: 2px solid transparent; border-left: 6px solid #f4f4f4; border-bottom: 2px solid transparent; transform: translateX(16px) translateY(-4px) rotate(30deg)">
+                        </div>
+                      </div>
+                      <div style="margin-left: auto;">
+                        <div
+                          style=" width: 0px; border-top: 8px solid #F4F4F4; border-right: 8px solid transparent; transform: translateY(16px);">
+                        </div>
+                        <div
+                          style=" background-color: #F4F4F4; flex-grow: 0; height: 12px; width: 16px; transform: translateY(-4px);">
+                        </div>
+                        <div
+                          style=" width: 0; height: 0; border-top: 8px solid #F4F4F4; border-left: 8px solid transparent; transform: translateY(-4px) translateX(8px);">
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center; margin-bottom: 24px;">
+                      <div
+                        style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; margin-bottom: 6px; width: 224px;">
+                      </div>
+                      <div
+                        style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; width: 144px;">
+                      </div>
+                    </div>
+                  </a>
+                  <p
+                    style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;">
+                    <a href="https://www.instagram.com/p/DREaGITk5uf/?utm_source=ig_embed&amp;utm_campaign=loading"
+                      style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none;"
+                      target="_blank">Takuro Maruyama(@takuroad_jp)がシェアした投稿</a>
+                  </p>
+                </div>
+              </blockquote>
+
+              <!-- Post 2 -->
+
+              <blockquote class="instagram-media" data-instgrm-captioned
+                data-instgrm-permalink="https://www.instagram.com/p/DREaGITk5uf/?utm_source=ig_embed&amp;utm_campaign=loading"
+                data-instgrm-version="14"
+                style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);">
+                <div style="padding:16px;"> <a
+                    href="https://www.instagram.com/p/DREaGITk5uf/?utm_source=ig_embed&amp;utm_campaign=loading"
+                    style=" background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;"
+                    target="_blank">
+                    <div style=" display: flex; flex-direction: row; align-items: center;">
+                      <div
+                        style="background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 40px; margin-right: 14px; width: 40px;">
+                      </div>
+                      <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center;">
+                        <div
+                          style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; margin-bottom: 6px; width: 100px;">
+                        </div>
+                        <div
+                          style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; width: 60px;">
+                        </div>
+                      </div>
+                    </div>
+                    <div style="padding: 19% 0;"></div>
+                    <div style="display:block; height:50px; margin:0 auto 12px; width:50px;"><svg width="50px"
+                        height="50px" viewBox="0 0 60 60" version="1.1" xmlns="https://www.w3.org/2000/svg"
+                        xmlns:xlink="https://www.w3.org/1999/xlink">
+                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                          <g transform="translate(-511.000000, -20.000000)" fill="#000000">
+                            <g>
+                              <path
+                                d="M556.869,30.41 C554.814,30.41 553.148,32.076 553.148,34.131 C553.148,36.186 554.814,37.852 556.869,37.852 C558.924,37.852 560.59,36.186 560.59,34.131 C560.59,32.076 558.924,30.41 556.869,30.41 M541,60.657 C535.114,60.657 530.342,55.887 530.342,50 C530.342,44.114 535.114,39.342 541,39.342 C546.887,39.342 551.658,44.114 551.658,50 C551.658,55.887 546.887,60.657 541,60.657 M541,33.886 C532.1,33.886 524.886,41.1 524.886,50 C524.886,58.899 532.1,66.113 541,66.113 C549.9,66.113 557.115,58.899 557.115,50 C557.115,41.1 549.9,33.886 541,33.886 M565.378,62.101 C565.244,65.022 564.756,66.606 564.346,67.663 C563.803,69.06 563.154,70.057 562.106,71.106 C561.058,72.155 560.06,72.803 558.662,73.347 C557.607,73.757 556.021,74.244 553.102,74.378 C549.944,74.521 548.997,74.552 541,74.552 C533.003,74.552 532.056,74.521 528.898,74.378 C525.979,74.244 524.393,73.757 523.338,73.347 C521.94,72.803 520.942,72.155 519.894,71.106 C518.846,70.057 518.197,69.06 517.654,67.663 C517.244,66.606 516.755,65.022 516.623,62.101 C516.479,58.943 516.448,57.996 516.448,50 C516.448,42.003 516.479,41.056 516.623,37.899 C516.755,34.978 517.244,33.391 517.654,32.338 C518.197,30.938 518.846,29.942 519.894,28.894 C520.942,27.846 521.94,27.196 523.338,26.654 C524.393,26.244 525.979,25.756 528.898,25.623 C532.057,25.479 533.004,25.448 541,25.448 C548.997,25.448 549.943,25.479 553.102,25.623 C556.021,25.756 557.607,26.244 558.662,26.654 C560.06,27.196 561.058,27.846 562.106,28.894 C563.154,29.942 563.803,30.938 564.346,32.338 C564.756,33.391 565.244,34.978 565.378,37.899 C565.522,41.056 565.552,42.003 565.552,50 C565.552,57.996 565.522,58.943 565.378,62.101 M570.82,37.631 C570.674,34.438 570.167,32.258 569.425,30.349 C568.659,28.377 567.633,26.702 565.965,25.035 C564.297,23.368 562.623,22.342 560.652,21.575 C558.743,20.834 556.562,20.326 553.369,20.18 C550.169,20.033 549.148,20 541,20 C532.853,20 531.831,20.033 528.631,20.18 C525.438,20.326 523.257,20.834 521.349,21.575 C519.376,22.342 517.703,23.368 516.035,25.035 C514.368,26.702 513.342,28.377 512.574,30.349 C511.834,32.258 511.326,34.438 511.181,37.631 C511.035,40.831 511,41.851 511,50 C511,58.147 511.035,59.17 511.181,62.369 C511.326,65.562 511.834,67.743 512.574,69.651 C513.342,71.625 514.368,73.296 516.035,74.965 C517.703,76.634 519.376,77.658 521.349,78.425 C523.257,79.167 525.438,79.673 528.631,79.82 C531.831,79.965 532.853,80.001 541,80.001 C549.148,80.001 550.169,79.965 553.369,79.82 C556.562,79.673 558.743,79.167 560.652,78.425 C562.623,77.658 564.297,76.634 565.965,74.965 C567.633,73.296 568.659,71.625 569.425,69.651 C570.167,67.743 570.674,65.562 570.82,62.369 C570.966,59.17 571,58.147 571,50 C571,41.851 570.966,40.831 570.82,37.631">
+                              </path>
+                            </g>
+                          </g>
+                        </g>
+                      </svg></div>
+                    <div style="padding-top: 8px;">
+                      <div
+                        style=" color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:550; line-height:18px;">
+                        この投稿をInstagramで見る</div>
+                    </div>
+                    <div style="padding: 12.5% 0;"></div>
+                    <div style="display: flex; flex-direction: row; margin-bottom: 14px; align-items: center;">
+                      <div>
+                        <div
+                          style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(0px) translateY(7px);">
+                        </div>
+                        <div
+                          style="background-color: #F4F4F4; height: 12.5px; transform: rotate(-45deg) translateX(3px) translateY(1px); width: 12.5px; flex-grow: 0; margin-right: 14px; margin-left: 2px;">
+                        </div>
+                        <div
+                          style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(9px) translateY(-18px);">
+                        </div>
+                      </div>
+                      <div style="margin-left: 8px;">
+                        <div
+                          style=" background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 20px; width: 20px;">
+                        </div>
+                        <div
+                          style=" width: 0; height: 0; border-top: 2px solid transparent; border-left: 6px solid #f4f4f4; border-bottom: 2px solid transparent; transform: translateX(16px) translateY(-4px) rotate(30deg)">
+                        </div>
+                      </div>
+                      <div style="margin-left: auto;">
+                        <div
+                          style=" width: 0px; border-top: 8px solid #F4F4F4; border-right: 8px solid transparent; transform: translateY(16px);">
+                        </div>
+                        <div
+                          style=" background-color: #F4F4F4; flex-grow: 0; height: 12px; width: 16px; transform: translateY(-4px);">
+                        </div>
+                        <div
+                          style=" width: 0; height: 0; border-top: 8px solid #F4F4F4; border-left: 8px solid transparent; transform: translateY(-4px) translateX(8px);">
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center; margin-bottom: 24px;">
+                      <div
+                        style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; margin-bottom: 6px; width: 224px;">
+                      </div>
+                      <div
+                        style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; width: 144px;">
+                      </div>
+                    </div>
+                  </a>
+                  <p
+                    style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;">
+                    <a href="https://www.instagram.com/p/DREaGITk5uf/?utm_source=ig_embed&amp;utm_campaign=loading"
+                      style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none;"
+                      target="_blank">Takuro Maruyama(@takuroad_jp)がシェアした投稿</a>
+                  </p>
+                </div>
+              </blockquote>
+
+
+              <!-- Post 3 -->
+
+              <blockquote class="instagram-media" data-instgrm-captioned
+                data-instgrm-permalink="https://www.instagram.com/p/DREaGITk5uf/?utm_source=ig_embed&amp;utm_campaign=loading"
+                data-instgrm-version="14"
+                style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);">
+                <div style="padding:16px;"> <a
+                    href="https://www.instagram.com/p/DREaGITk5uf/?utm_source=ig_embed&amp;utm_campaign=loading"
+                    style=" background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;"
+                    target="_blank">
+                    <div style=" display: flex; flex-direction: row; align-items: center;">
+                      <div
+                        style="background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 40px; margin-right: 14px; width: 40px;">
+                      </div>
+                      <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center;">
+                        <div
+                          style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; margin-bottom: 6px; width: 100px;">
+                        </div>
+                        <div
+                          style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; width: 60px;">
+                        </div>
+                      </div>
+                    </div>
+                    <div style="padding: 19% 0;"></div>
+                    <div style="display:block; height:50px; margin:0 auto 12px; width:50px;"><svg width="50px"
+                        height="50px" viewBox="0 0 60 60" version="1.1" xmlns="https://www.w3.org/2000/svg"
+                        xmlns:xlink="https://www.w3.org/1999/xlink">
+                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                          <g transform="translate(-511.000000, -20.000000)" fill="#000000">
+                            <g>
+                              <path
+                                d="M556.869,30.41 C554.814,30.41 553.148,32.076 553.148,34.131 C553.148,36.186 554.814,37.852 556.869,37.852 C558.924,37.852 560.59,36.186 560.59,34.131 C560.59,32.076 558.924,30.41 556.869,30.41 M541,60.657 C535.114,60.657 530.342,55.887 530.342,50 C530.342,44.114 535.114,39.342 541,39.342 C546.887,39.342 551.658,44.114 551.658,50 C551.658,55.887 546.887,60.657 541,60.657 M541,33.886 C532.1,33.886 524.886,41.1 524.886,50 C524.886,58.899 532.1,66.113 541,66.113 C549.9,66.113 557.115,58.899 557.115,50 C557.115,41.1 549.9,33.886 541,33.886 M565.378,62.101 C565.244,65.022 564.756,66.606 564.346,67.663 C563.803,69.06 563.154,70.057 562.106,71.106 C561.058,72.155 560.06,72.803 558.662,73.347 C557.607,73.757 556.021,74.244 553.102,74.378 C549.944,74.521 548.997,74.552 541,74.552 C533.003,74.552 532.056,74.521 528.898,74.378 C525.979,74.244 524.393,73.757 523.338,73.347 C521.94,72.803 520.942,72.155 519.894,71.106 C518.846,70.057 518.197,69.06 517.654,67.663 C517.244,66.606 516.755,65.022 516.623,62.101 C516.479,58.943 516.448,57.996 516.448,50 C516.448,42.003 516.479,41.056 516.623,37.899 C516.755,34.978 517.244,33.391 517.654,32.338 C518.197,30.938 518.846,29.942 519.894,28.894 C520.942,27.846 521.94,27.196 523.338,26.654 C524.393,26.244 525.979,25.756 528.898,25.623 C532.057,25.479 533.004,25.448 541,25.448 C548.997,25.448 549.943,25.479 553.102,25.623 C556.021,25.756 557.607,26.244 558.662,26.654 C560.06,27.196 561.058,27.846 562.106,28.894 C563.154,29.942 563.803,30.938 564.346,32.338 C564.756,33.391 565.244,34.978 565.378,37.899 C565.522,41.056 565.552,42.003 565.552,50 C565.552,57.996 565.522,58.943 565.378,62.101 M570.82,37.631 C570.674,34.438 570.167,32.258 569.425,30.349 C568.659,28.377 567.633,26.702 565.965,25.035 C564.297,23.368 562.623,22.342 560.652,21.575 C558.743,20.834 556.562,20.326 553.369,20.18 C550.169,20.033 549.148,20 541,20 C532.853,20 531.831,20.033 528.631,20.18 C525.438,20.326 523.257,20.834 521.349,21.575 C519.376,22.342 517.703,23.368 516.035,25.035 C514.368,26.702 513.342,28.377 512.574,30.349 C511.834,32.258 511.326,34.438 511.181,37.631 C511.035,40.831 511,41.851 511,50 C511,58.147 511.035,59.17 511.181,62.369 C511.326,65.562 511.834,67.743 512.574,69.651 C513.342,71.625 514.368,73.296 516.035,74.965 C517.703,76.634 519.376,77.658 521.349,78.425 C523.257,79.167 525.438,79.673 528.631,79.82 C531.831,79.965 532.853,80.001 541,80.001 C549.148,80.001 550.169,79.965 553.369,79.82 C556.562,79.673 558.743,79.167 560.652,78.425 C562.623,77.658 564.297,76.634 565.965,74.965 C567.633,73.296 568.659,71.625 569.425,69.651 C570.167,67.743 570.674,65.562 570.82,62.369 C570.966,59.17 571,58.147 571,50 C571,41.851 570.966,40.831 570.82,37.631">
+                              </path>
+                            </g>
+                          </g>
+                        </g>
+                      </svg></div>
+                    <div style="padding-top: 8px;">
+                      <div
+                        style=" color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:550; line-height:18px;">
+                        この投稿をInstagramで見る</div>
+                    </div>
+                    <div style="padding: 12.5% 0;"></div>
+                    <div style="display: flex; flex-direction: row; margin-bottom: 14px; align-items: center;">
+                      <div>
+                        <div
+                          style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(0px) translateY(7px);">
+                        </div>
+                        <div
+                          style="background-color: #F4F4F4; height: 12.5px; transform: rotate(-45deg) translateX(3px) translateY(1px); width: 12.5px; flex-grow: 0; margin-right: 14px; margin-left: 2px;">
+                        </div>
+                        <div
+                          style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(9px) translateY(-18px);">
+                        </div>
+                      </div>
+                      <div style="margin-left: 8px;">
+                        <div
+                          style=" background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 20px; width: 20px;">
+                        </div>
+                        <div
+                          style=" width: 0; height: 0; border-top: 2px solid transparent; border-left: 6px solid #f4f4f4; border-bottom: 2px solid transparent; transform: translateX(16px) translateY(-4px) rotate(30deg)">
+                        </div>
+                      </div>
+                      <div style="margin-left: auto;">
+                        <div
+                          style=" width: 0px; border-top: 8px solid #F4F4F4; border-right: 8px solid transparent; transform: translateY(16px);">
+                        </div>
+                        <div
+                          style=" background-color: #F4F4F4; flex-grow: 0; height: 12px; width: 16px; transform: translateY(-4px);">
+                        </div>
+                        <div
+                          style=" width: 0; height: 0; border-top: 8px solid #F4F4F4; border-left: 8px solid transparent; transform: translateY(-4px) translateX(8px);">
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center; margin-bottom: 24px;">
+                      <div
+                        style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; margin-bottom: 6px; width: 224px;">
+                      </div>
+                      <div
+                        style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; width: 144px;">
+                      </div>
+                    </div>
+                  </a>
+                  <p
+                    style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;">
+                    <a href="https://www.instagram.com/p/DREaGITk5uf/?utm_source=ig_embed&amp;utm_campaign=loading"
+                      style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none;"
+                      target="_blank">Takuro Maruyama(@takuroad_jp)がシェアした投稿</a>
+                  </p>
+                </div>
+              </blockquote>
+
+            </div>
+            <script async src="//www.instagram.com/embed.js"></script>
+            <p class="text-[10px] text-gray-500 mt-3 text-center tracking-wider">
+              <span class="inline-block w-2 h-2 bg-ivyLight rounded-full mr-1"></span>
+              CHECK LATEST POSTS
+            </p>
+
+          </div>
+
+          <!-- Right Column: YouTube -->
+          <div class="flex flex-col h-full justify-between">
+            <div class="mb-6">
+              <h3 class="text-xs uppercase tracking-[0.3em] text-white/50 mb-4 flex items-center gap-2">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                  <path
+                    d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z" />
+                </svg>
+                Latest Video
+              </h3>
+              <div
+                class="aspect-video w-full overflow-hidden rounded-2xl bg-black border border-white/10 shadow-2xl relative group">
+                <iframe class="w-full h-full"
+                  src="https://www.youtube.com/embed/videoseries?list=UU4xrra0exRXC7Uq6tM3J8PQ"
+                  title="YouTube video player" frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen></iframe>
+              </div>
+            </div>
+
+            <div class="p-6 rounded-2xl bg-white/5 border border-white/5 backdrop-blur-sm">
+              <h4 class="font-display font-bold text-xl mb-2">SUBSCRIBE</h4>
+              <p class="text-xs text-gray-400 mb-4 leading-relaxed">
+                レース動画やトレーニングの様子をYouTubeで公開中。<br>
+                チャンネル登録して最新の冒険をチェックしよう。
+              </p>
+              <a href="https://www.youtube.com/@morimori_tokyo" target="_blank"
+                class="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-white hover:text-neon transition-colors group">
+                View Channel <span class="group-hover:translate-x-1 transition-transform">→</span>
+              </a>
+            </div>
+          </div>
         </div>
       </div>
-      <p class="text-[11px] uppercase tracking-[0.3em]">© 2025 Mori-Mori TOKYO. All rights reserved.</p>
-      <div class="flex items-center gap-4 text-[11px] uppercase tracking-[0.3em]">
-        <a href="https://www.instagram.com/morimori.tokyo/" target="_blank" rel="noopener" class="hover:text-white">Instagram</a>
-        <a href="https://www.youtube.com/@morimori_tokyo" target="_blank" rel="noopener" class="hover:text-white">YouTube</a>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="py-20 md:py-24 text-center">
+    <div class="container mx-auto px-6">
+      <h2 class="font-display font-black text-3xl mb-4">CONTACT</h2>
+      <p class="text-gray-500 mb-8">お問い合わせは Instagram の DM にて受け付けています</p>
+      <a href="https://www.instagram.com/morimori.tokyo/"
+        class="text-neon font-bold tracking-widest hover:underline">@morimori.tokyo</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="border-t border-white/10 bg-black py-12">
+    <div class="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
+      <div class="flex items-center gap-4">
+        <img src="assets/mori-mori-logo.png" alt="Logo"
+          class="w-10 opacity-50 grayscale hover:grayscale-0 transition-all">
+        <span class="font-display font-bold text-gray-500">Mori-Mori TOKYO</span>
       </div>
+      <p class="text-xs text-gray-700 uppercase tracking-widest">© 2025 Mori-Mori TOKYO. All rights reserved.</p>
     </div>
   </footer>
 
-  <script>
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (event) {
-        const targetId = this.getAttribute('href').substring(1);
-        const targetElement = document.getElementById(targetId);
-        if (targetElement) {
-          event.preventDefault();
-          targetElement.scrollIntoView({ behavior: 'smooth' });
-        }
-      });
-    });
-  </script>
+  <!-- Mori-kun Fixed -->
+  <div class="fixed bottom-0 right-4 md:right-8 z-50 pointer-events-none hidden lg:block">
+    <img src="assets/morikun-full.png"
+      class="w-32 md:w-40 translate-y-2/3 hover:translate-y-0 transition-all duration-500 ease-out cursor-pointer pointer-events-auto opacity-90 hover:opacity-100 drop-shadow-2xl hover:drop-shadow-[0_0_15px_rgba(204,255,0,0.5)]"
+      alt="Mori-kun">
+  </div>
+
+  <script src="assets/app.js"></script>
 </body>
+
 </html>
