@@ -19,7 +19,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
-    href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&family=Rubik+Dirt&display=swap"
     rel="stylesheet" />
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -30,6 +30,7 @@
             display: ['Outfit', 'sans-serif'],
             body: ['Inter', 'sans-serif'],
             jp: ['Zen Kaku Gothic New', 'sans-serif'],
+            wild: ['Rubik Dirt', 'cursive'],
           },
           colors: {
             neon: '#ccff00',     /* Vibrant Lime/Neon */
@@ -353,7 +354,7 @@
           class="text-sm font-bold uppercase tracking-widest hover:text-ivyLight transition-colors">Race
           Log</a>
         <a href="#members"
-          class="text-sm font-bold uppercase tracking-widest hover:text-ivyLight transition-colors">Members</a>
+          class="text-sm font-bold uppercase tracking-widest hover:text-ivyLight transition-colors">Crew</a>
         <a href="https://shop.mori-mori.tokyo/" target="_blank"
           class="text-sm font-bold uppercase tracking-widest hover:text-ivyLight transition-colors">Shop</a>
         <a href="#contact"
@@ -380,7 +381,7 @@
     <a href="#racelog"
       class="mobile-link text-2xl font-display font-bold uppercase tracking-widest hover:text-ivyLight">Race Log</a>
     <a href="#members"
-      class="mobile-link text-2xl font-display font-bold uppercase tracking-widest hover:text-ivyLight">Members</a>
+      class="mobile-link text-2xl font-display font-bold uppercase tracking-widest hover:text-ivyLight">Crew</a>
     <a href="https://shop.mori-mori.tokyo/" target="_blank"
       class="mobile-link text-2xl font-display font-bold uppercase tracking-widest hover:text-ivyLight">Shop</a>
     <a href="#contact"
@@ -402,9 +403,10 @@
         2022 / TOKYO</p>
       <h1 class="font-display font-black text-5xl md:text-8xl lg:text-9xl leading-[0.9] tracking-tighter mb-6">
         <span
-          class="block bg-gradient-to-b from-ivy via-ivyLight to-ivyLight/80 text-transparent bg-clip-text drop-shadow-[0_4px_12px_rgba(0,0,0,0.4)]">MORI-MORI</span>
+          class="block font-display text-6xl md:text-9xl lg:text-[10rem] bg-gradient-to-b from-white via-ivyLight to-ivy text-transparent bg-clip-text drop-shadow-[0_4px_12px_rgba(0,0,0,0.4)] mb-2">MORI-MORI</span>
         <span class="block text-white">MAKES US</span>
-        <span class="block text-ivyLight">DOVA-DOVA.</span>
+        <span
+          class="block bg-gradient-to-b from-neon to-ivyLight text-transparent bg-clip-text drop-shadow-[0_4px_12px_rgba(0,0,0,0.4)]">DOVA-DOVA.</span>
       </h1>
 
       <p class="font-jp font-medium text-gray-300 max-w-xl mx-auto text-sm md:text-base leading-relaxed mb-10 px-4">
@@ -454,14 +456,15 @@
     <div class="container mx-auto px-6 relative z-10">
       <div class="grid md:grid-cols-2 gap-12 md:gap-16 items-center">
         <div>
-          <h2 class="font-display font-black text-4xl md:text-7xl mb-8 leading-none">
-            <span class="text-stroke-neon">WE ARE</span><br>
-            EXPLORERS.
+          <h2
+            class="font-wild text-5xl md:text-7xl mb-8 leading-none text-transparent bg-clip-text bg-gradient-to-br from-neon to-ivyLight drop-shadow-lg">
+            NO ADVENTURE,<br>
+            NO LIFE.
           </h2>
           <p class="font-jp text-gray-400 leading-loose mb-8 text-sm md:text-base">
-            Mori-Mori TOKYOは、都市と自然を横断して遊ぶアドベンチャーチーム。<br><br>
-            月一の皇居ラン「謝謝ラン」をベースに、レース参戦やイベント開催など、メンバーそれぞれのスタイルで“モリモリ”活動中。<br><br>
-            現在、新しい景色を一緒に見に行くクルーを募集しています。
+            東京を拠点とするアドベンチャーチーム、Mori-Mori TOKYO。<br><br>
+            「Mori-Mori makes us DOVA-DOVA.」をキャッチコピーに、冒険や挑戦から得られる最高の瞬間をシェアしています。<br><br>
+            現在新しいクルーを募集中です。まずはご連絡お待ちしています。
           </p>
 
 
@@ -520,7 +523,7 @@
     <div class="container mx-auto px-6 relative z-10">
       <div class="text-center mb-16 md:mb-20">
         <span class="text-ivyLight font-bold tracking-widest text-sm uppercase mb-2 block">Team</span>
-        <h2 class="font-display font-black text-4xl md:text-7xl">MEMBERS</h2>
+        <h2 class="font-display font-black text-4xl md:text-7xl">CREW</h2>
       </div>
 
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="team-cards">
