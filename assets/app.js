@@ -6,13 +6,13 @@ const Data = {
     { role: 'Vice Captain', name: 'Hiroki', desc: '寝なくても平気。', background: 'Go, Bamboo Craft' },
     { role: 'Front Runner', name: 'Tatsuki', desc: 'チーム唯一のサブ3.5ランナー。', background: 'Water Polo, Lacrosse' },
     { role: 'Next-Gen Bridge', name: 'Tomoki', desc: '我が子もモリモリ育て〜。', background: 'Magic, Guitar' },
-    { role: 'Rover', name: 'Taku', desc: '誘えばなんでもやります。', background: 'Football, Grill Master' },
+    { role: 'Rover', name: 'Taku', desc: '誘われたらなんでもやります。', background: 'Football, Grill Master' },
     { role: 'Spirit Creator', name: 'Mayuki', desc: 'チームマスコット「モリくん」の生みの親。', background: 'Volleyball, Calligraphy' }
   ],
   aboutPoints: [
-    { title: '戦略思考 × フィジカル', text: '地図読み、ロープワーク、マルチスポーツを掛け合わせ最適な戦略を組み立てます。' },
-    { title: '都市×自然の二刀流トレーニング', text: '山岳ナイトハイクから都心スピードワークまで多様なセッションを実施。' },
-    { title: 'コミュニティと共走', text: '参戦記やTipsをシェアし挑戦を始める仲間を後押し。' }
+    { title: 'レース参戦', text: 'みんなで目標を決めて、アドベンチャーレースやトレイルランニングのレースなどに積極的に参加しています。' },
+    { title: '謝謝ラン', text: '月に一度、主に皇居でランニングイベントを開催しています。興味のある方はまずはここから参加してみてください！' },
+    { title: 'その他イベント', text: 'レース後の打ち上げや飲み会、レースに向けた練習会など、様々な活動を企画しています。' }
   ],
   races: [
     { date: '2025/03/16', title: 'さいたまマラソン', url: 'https://saitama-marathon.jp/', category: 'Marathon', region: 'Saitama' },
@@ -30,7 +30,8 @@ const Data = {
     { date: '2025/11/08-09', title: 'OMM JAPAN 那須塩原', url: 'https://theomm.jp/pages/omm-japan-2025', category: 'Navigation', region: 'Tochigi' }
   ],
   upcoming: [
-    { title: '大山阿夫利アドベンチャーレース', date: '2025/12/13', location: 'Kanagawa', members: 'Takuro, Taku, Maoka, Hiroki, Tomoki', category: 'Adventure', url: 'https://oyama-afuri-ar.main.jp/' }
+    { title: '大山阿夫利アドベンチャーレース', date: '2025/12/13', location: 'Kanagawa', members: 'Takuro, Taku, Maoka, Hiroki, Tomoki', category: 'Adventure', url: 'https://oyama-afuri-ar.main.jp/' },
+    { title: '謝謝ラン', date: '2025/12/20', location: '皇居', members: 'Anyone', category: 'Running', url: '#' }
   ]
 };
 
@@ -90,10 +91,12 @@ function renderUpcoming() {
             <span class="text-gray-500 uppercase tracking-wider">Location</span>
             <span class="font-bold text-white">${u.location}</span>
           </div>
+          ${u.members ? `
           <div class="flex flex-col gap-1 text-xs">
             <span class="text-gray-500 uppercase tracking-wider">Members</span>
             <span class="font-bold text-white leading-relaxed">${u.members}</span>
           </div>
+          ` : ''}
         </div>
       </div>
     </a>
@@ -103,19 +106,72 @@ function renderUpcoming() {
 function renderRaces() {
   const el = document.getElementById('race-calendar');
   if (!el) return;
-  el.innerHTML = Data.races.map((r, i) => `
-    <a href="${r.url}" target="_blank" class="block group relative bg-surface border border-white/5 p-6 rounded-2xl hover:-translate-y-1 transition-transform duration-300 reveal" data-delay="${i * 50}">
-      <div class="flex justify-between items-center mb-3">
-        <span class="text-[10px] font-bold uppercase tracking-widest text-gray-500">${r.category}</span>
-        <span class="text-[10px] text-gray-600">${r.region}</span>
+
+  // Group races by year
+  const racesByYear = Data.races.reduce((acc, race) => {
+    const year = race.date.split('/')[0];
+    if (!acc[year]) acc[year] = [];
+    acc[year].push(race);
+    return acc;
+  }, {});
+
+  // Sort years descending
+  const years = Object.keys(racesByYear).sort((a, b) => b - a);
+
+  el.innerHTML = years.map((year, index) => {
+    const isExpanded = index === 0; // Expand only the latest year by default
+    const races = racesByYear[year];
+
+    return `
+    <div class="border-b border-white/10 last:border-0 pb-8 last:pb-0">
+      <button class="w-full flex justify-between items-end py-4 group text-left focus:outline-none" onclick="toggleYear('${year}')">
+        <div class="flex items-baseline gap-4">
+          <h3 class="font-display font-black text-4xl md:text-5xl text-white group-hover:text-ivyLight transition-colors">${year}</h3>
+          <span class="font-mono text-sm text-gray-500">${races.length} Races</span>
+        </div>
+        <div class="p-2 rounded-full border border-white/10 group-hover:bg-white/10 transition-colors">
+          <svg id="icon-${year}" class="w-5 h-5 transition-transform duration-300 ${isExpanded ? 'rotate-180' : ''}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+          </svg>
+        </div>
+      </button>
+      
+      <div id="content-${year}" class="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 transition-all duration-500 ease-in-out overflow-hidden ${isExpanded ? 'max-h-[2000px] opacity-100 mt-6' : 'max-h-0 opacity-0 mt-0'}">
+        ${races.map((r, i) => `
+          <a href="${r.url}" target="_blank" class="block group/card relative bg-surface border border-white/5 p-6 rounded-2xl hover:-translate-y-1 transition-transform duration-300">
+            <div class="flex justify-between items-center mb-3">
+              <span class="text-[10px] font-bold uppercase tracking-widest text-gray-500">${r.category}</span>
+              <span class="text-[10px] text-gray-600">${r.region}</span>
+            </div>
+            <h3 class="font-bold text-lg mb-2 group-hover/card:text-ivyLight transition-colors line-clamp-1">${r.title}</h3>
+            <div class="flex items-center gap-2 text-xs text-gray-400 font-mono">
+              <span>${r.date}</span>
+              <span class="w-full h-[1px] bg-white/10 group-hover/card:bg-ivyLight/30 transition-colors"></span>
+            </div>
+          </a>
+        `).join('')}
       </div>
-      <h3 class="font-bold text-lg mb-2 group-hover:text-ivyLight transition-colors line-clamp-1">${r.title}</h3>
-      <div class="flex items-center gap-2 text-xs text-gray-400 font-mono">
-        <span>${r.date}</span>
-        <span class="w-full h-[1px] bg-white/10 group-hover:bg-ivyLight/30 transition-colors"></span>
-      </div>
-    </a>
-  `).join('');
+    </div>
+  `;
+  }).join('');
+
+  // Add toggle function to window scope
+  window.toggleYear = (year) => {
+    const content = document.getElementById(`content-${year}`);
+    const icon = document.getElementById(`icon-${year}`);
+
+    if (content.classList.contains('max-h-0')) {
+      // Open
+      content.classList.remove('max-h-0', 'opacity-0', 'mt-0');
+      content.classList.add('max-h-[2000px]', 'opacity-100', 'mt-6');
+      icon.classList.add('rotate-180');
+    } else {
+      // Close
+      content.classList.remove('max-h-[2000px]', 'opacity-100', 'mt-6');
+      content.classList.add('max-h-0', 'opacity-0', 'mt-0');
+      icon.classList.remove('rotate-180');
+    }
+  };
 }
 
 function renderMembers() {
