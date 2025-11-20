@@ -2,18 +2,12 @@
 
 const Data = {
   members: [
-    { role: 'Captain', name: 'Takuro', desc: 'アドベンチャーレース歴10年。チーム全体の戦略とナビゲーションをリード。', specialty: 'Navigation', gear: 'Silva Arc Jet', instagram: 'https://www.instagram.com/takuroad_jp/' },
-    { role: 'Vice Captain', name: 'Hiroki', desc: 'MTBとロープワークのスペシャリスト。ロジスティクスと補給計画を担当。', specialty: 'MTB Stage', gear: 'Dynema Rope' },
-    { role: 'Front Runner', name: 'Tatsuki', desc: '山岳からスピードまで幅広く対応する粘り強いエンジン。', specialty: 'Route Analytics', gear: 'Lightweight Pack' },
-    { role: 'Next-Gen Bridge', name: 'Tomoki', desc: 'トレイルランとスパルタンの二刀流。ムードメーカー兼スピード担当。', specialty: 'Trail Uphill', gear: 'Carbon Poles' },
-    { role: 'Rover', name: 'Taku', desc: '超ロング走とナイトセクション適応力が強み。', specialty: 'Ultra Distance', gear: 'Headlamp Dual' },
-    { role: 'Spirit Creator', name: 'Mayuki', desc: 'チームのクリエイティブを統括。映像・写真を通じてMori-Moriの魅力を発信。', specialty: 'Creative Direction', gear: 'Camera / Drone' }
-  ],
-  stats: [
-    { label: 'Races Completed', value: '28' },
-    { label: 'Disciplines', value: '4+' },
-    { label: 'Longest Expedition', value: '72h' },
-    { label: 'Team Members', value: '12' }
+    { role: 'Captain', name: 'Takuro', desc: '真剣にごっこしてます。', specialty: 'Navigation', gear: 'Silva Arc Jet', instagram: 'https://www.instagram.com/takuroad_jp/' },
+    { role: 'Vice Captain', name: 'Hiroki', desc: '寝なくても平気。', specialty: 'MTB Stage', gear: 'Dynema Rope' },
+    { role: 'Front Runner', name: 'Tatsuki', desc: 'チーム唯一のサブ3.5ランナー。', specialty: 'Route Analytics', gear: 'Lightweight Pack' },
+    { role: 'Next-Gen Bridge', name: 'Tomoki', desc: '我が子もモリモリ育て〜。', specialty: 'Trail Uphill', gear: 'Carbon Poles' },
+    { role: 'Rover', name: 'Taku', desc: '誘えばなんでもやります。', specialty: 'Ultra Distance', gear: 'Headlamp Dual' },
+    { role: 'Spirit Creator', name: 'Mayuki', desc: 'チームマスコット「モリくん」の生みの親。', specialty: 'Creative Direction', gear: 'Camera / Drone' }
   ],
   aboutPoints: [
     { title: '戦略思考 × フィジカル', text: '地図読み、ロープワーク、マルチスポーツを掛け合わせ最適な戦略を組み立てます。' },
@@ -60,16 +54,7 @@ const getCategoryColor = (cat) => {
 
 // --- Render Functions ---
 
-function renderHeroStats() {
-  const el = document.getElementById('hero-stats');
-  if (!el) return;
-  el.innerHTML = Data.stats.map((s, i) => `
-    <div class="reveal" data-delay="${i * 100}">
-      <div class="text-4xl font-display font-black text-white mb-1">${s.value}</div>
-      <div class="text-xs font-bold uppercase tracking-widest text-gray-500">${s.label}</div>
-    </div>
-  `).join('');
-}
+
 
 function renderAboutPoints() {
   const el = document.getElementById('about-points');
@@ -283,7 +268,6 @@ function initMobileMenu() {
 
 // Boot
 document.addEventListener('DOMContentLoaded', () => {
-  renderHeroStats();
   renderAboutPoints();
   renderUpcoming();
   renderRaces();
