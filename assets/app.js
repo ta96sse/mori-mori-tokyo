@@ -93,7 +93,7 @@ function renderUpcoming() {
           </div>
           ${u.members ? `
           <div class="flex flex-col gap-1 text-xs">
-            <span class="text-gray-500 uppercase tracking-wider">Crew</span>
+            <span class="text-gray-500 uppercase tracking-wider">Members</span>
             <span class="font-bold text-white leading-relaxed">${u.members}</span>
           </div>
           ` : ''}
