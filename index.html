@@ -29,7 +29,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
-    href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&family=Rubik+Dirt&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&family=Rubik+Dirt&family=Noto+Serif+JP:wght@400;500;700&display=swap"
     rel="stylesheet" />
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -41,6 +41,7 @@
             body: ['Inter', 'sans-serif'],
             jp: ['Zen Kaku Gothic New', 'sans-serif'],
             wild: ['Rubik Dirt', 'cursive'],
+            serif: ['Noto Serif JP', 'serif'],
           },
           colors: {
             neon: '#ccff00',     /* Vibrant Lime/Neon */
@@ -111,9 +112,9 @@
 
     /* Utilities */
     .glass {
-      background: rgba(255, 255, 255, 0.03);
+      background: rgba(255, 255, 255, 0.05);
       backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.15);
     }
 
     .neon-glow {
@@ -419,7 +420,7 @@
           class="block bg-gradient-to-b from-neon to-ivyLight text-transparent bg-clip-text drop-shadow-[0_4px_12px_rgba(0,0,0,0.4)]">DOVA-DOVA.</span>
       </h1>
 
-      <p class="font-jp font-medium text-gray-300 max-w-xl mx-auto text-sm md:text-base leading-relaxed mb-10 px-4">
+      <p class="font-jp font-medium text-gray-100 max-w-xl mx-auto text-sm md:text-base leading-relaxed mb-10 px-4">
         ちょっと頑張った先にある喜びを、みんなで分かち合う。<br class="hidden md:block">
         そんなことにハマってしまったクルーたちのアドベンチャーチーム。
       </p>
@@ -471,7 +472,7 @@
             NO ADVENTURE,<br>
             NO LIFE.
           </h2>
-          <p class="font-jp text-gray-400 leading-loose mb-8 text-sm md:text-base">
+          <p class="font-jp text-gray-200 leading-loose mb-8 text-sm md:text-base">
             Mori-Mori TOKYO（モリモリトーキョー）は2022年に東京で生まれた新しいアドベンチャーチームです。<br><br>
             「Mori-Mori makes us DOVA-DOVA.」をキャッチコピーに、アドベンチャーレースやトレイルランニング、ウルトラマラソンなどに挑戦し、そこから得られる最高の瞬間をシェアしています。<br><br>
             随時メンバーを募集中です。まずはお気軽にご連絡ください。
@@ -565,25 +566,15 @@
             </div>
 
             <!-- Instagram Real Embeds -->
-            <div class="embedsocial-hashtag" data-ref="ecf708bb86f290546f737216c6d33fe5a725c4c0"> <a
-                class="feed-powered-by-es feed-powered-by-es-feed-img es-widget-branding" href="https://embedsocial.jp/"
-                target="_blank" title="EmbedSocialで作成しました"> <img
-                  src="https://embedsocial.com/cdn/icon/embedsocial-logo.webp" alt="EmbedSocial">
-                <div class="es-widget-branding-text">EmbedSocialで作成しました</div>
-              </a> </div>
-            <script> (function (d, s, id) { var js; if (d.getElementById(id)) { return; } js = d.createElement(s); js.id = id; js.src = "https://embedsocial.com/cdn/ht.js"; d.getElementsByTagName("head")[0].appendChild(js); }(document, "script", "EmbedSocialHashtagScript")); </script>
+            <!-- LightWidget WIDGET -->
+            <script src="https://cdn.lightwidget.com/widgets/lightwidget.js"></script>
+            <iframe src="https://cdn.lightwidget.com/widgets/d5bd19892cc35f5686b6740a7cf89dff.html" scrolling="no"
+              allowtransparency="true" class="lightwidget-widget" style="width:100%;border:0;overflow:hidden;"></iframe>
           </div>
 
           <!-- Right Column: YouTube -->
           <div class="flex flex-col h-full justify-between">
             <div class="mb-6">
-              <h3 class="text-xs uppercase tracking-[0.3em] text-white/50 mb-4 flex items-center gap-2">
-                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                  <path
-                    d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z" />
-                </svg>
-                Latest Video
-              </h3>
               <div
                 class="aspect-video w-full overflow-hidden rounded-2xl bg-black border border-white/10 shadow-2xl relative group">
                 <iframe class="w-full h-full"
@@ -593,20 +584,29 @@
                   allowfullscreen></iframe>
               </div>
             </div>
-
-            <div class="p-6 rounded-2xl bg-white/5 border border-white/5 backdrop-blur-sm">
-              <h4 class="font-display font-bold text-xl mb-2">SUBSCRIBE</h4>
-              <p class="text-xs text-gray-400 mb-4 leading-relaxed">
-                レース動画やトレーニングの様子をYouTubeで公開中。<br>
-                チャンネル登録して最新の冒険をチェックしよう。
-              </p>
-              <a href="https://www.youtube.com/@morimori_tokyo" target="_blank"
-                class="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-white hover:text-neon transition-colors group">
-                View Channel <span class="group-hover:translate-x-1 transition-transform">→</span>
-              </a>
-            </div>
           </div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sponsors -->
+  <section id="sponsors" class="py-20 md:py-24 bg-surface text-center">
+    <div class="container mx-auto px-6">
+      <h2 class="font-display font-black text-3xl mb-12">SPONSORS</h2>
+
+      <div class="flex justify-center">
+        <a href="https://nakano-law-office.jp/" target="_blank"
+          class="group relative block w-full max-w-md bg-white p-1 transition-transform hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(255,255,255,0.3)]">
+          <div class="border border-[#402E7A] p-8 h-full flex flex-col items-center justify-center gap-4">
+            <!-- Simple text logo representation -->
+            <div class="font-serif font-bold text-2xl md:text-3xl tracking-widest text-[#402E7A]">
+              中野法律事務所
+            </div>
+            <div class="w-8 h-[1px] bg-[#402E7A]"></div>
+            <span class="font-serif text-[#402E7A] text-xs tracking-widest uppercase">Nakano Law Office</span>
+          </div>
+        </a>
       </div>
     </div>
   </section>
@@ -615,7 +615,7 @@
   <section id="contact" class="py-20 md:py-24 text-center">
     <div class="container mx-auto px-6">
       <h2 class="font-display font-black text-3xl mb-4">CONTACT</h2>
-      <p class="text-gray-500 mb-8">お問い合わせは Instagram の DM にて受け付けています</p>
+      <p class="text-gray-300 mb-8">お問い合わせは Instagram の DM にて受け付けています</p>
       <a href="https://www.instagram.com/morimori.tokyo/"
         class="text-neon font-bold tracking-widest hover:underline">@morimori.tokyo</a>
     </div>
@@ -627,9 +627,9 @@
       <div class="flex items-center gap-4">
         <img src="assets/mori-mori-logo.png" alt="Logo"
           class="w-10 opacity-50 grayscale hover:grayscale-0 transition-all">
-        <span class="font-display font-bold text-gray-500">Mori-Mori TOKYO</span>
+        <span class="font-display font-bold text-gray-300">Mori-Mori TOKYO</span>
       </div>
-      <p class="text-xs text-gray-700 uppercase tracking-widest">© 2025 Mori-Mori TOKYO. All rights reserved.</p>
+      <p class="text-xs text-gray-500 uppercase tracking-widest">© 2025 Mori-Mori TOKYO. All rights reserved.</p>
     </div>
   </footer>
 

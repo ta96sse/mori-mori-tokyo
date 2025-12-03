@@ -65,7 +65,7 @@ function renderAboutPoints() {
       <span class="flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-full border border-ivyLight/30 text-ivyLight font-display font-bold text-sm group-hover:bg-ivyLight group-hover:text-black transition-colors">0${i + 1}</span>
       <div>
         <h3 class="font-bold text-white text-lg mb-1 group-hover:text-ivyLight transition-colors">${p.title}</h3>
-        <p class="text-sm text-gray-400 leading-relaxed">${p.text}</p>
+        <p class="text-sm text-gray-300 leading-relaxed">${p.text}</p>
       </div>
     </div>
   `).join('');
@@ -75,7 +75,7 @@ function renderUpcoming() {
   const el = document.getElementById('nextup-cards');
   if (!el) return;
   el.innerHTML = Data.upcoming.map((u, i) => `
-    <a href="${u.url}" target="_blank" class="group relative bg-white/5 border border-white/10 p-8 rounded-3xl hover:border-ivyLight/50 transition-colors overflow-hidden reveal block" data-delay="${i * 100}">
+    <a href="${u.url}" target="_blank" class="group relative bg-white/5 border border-white/20 p-8 rounded-3xl hover:border-ivyLight/50 transition-colors overflow-hidden reveal block" data-delay="${i * 100}">
       <div class="absolute inset-0 bg-gradient-to-br from-ivyLight/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
       
       <div class="relative z-10">
@@ -88,12 +88,12 @@ function renderUpcoming() {
         
         <div class="space-y-3 pt-4 border-t border-white/5">
           <div class="flex justify-between items-center text-xs">
-            <span class="text-gray-500 uppercase tracking-wider">Location</span>
+            <span class="text-gray-400 uppercase tracking-wider">Location</span>
             <span class="font-bold text-white">${u.location}</span>
           </div>
           ${u.members ? `
           <div class="flex flex-col gap-1 text-xs">
-            <span class="text-gray-500 uppercase tracking-wider">Members</span>
+            <span class="text-gray-400 uppercase tracking-wider">Members</span>
             <span class="font-bold text-white leading-relaxed">${u.members}</span>
           </div>
           ` : ''}
@@ -138,7 +138,7 @@ function renderRaces() {
       
       <div id="content-${year}" class="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 transition-all duration-500 ease-in-out overflow-hidden ${isExpanded ? 'max-h-[2000px] opacity-100 mt-6' : 'max-h-0 opacity-0 mt-0'}">
         ${races.map((r, i) => `
-          <a href="${r.url}" target="_blank" class="block group/card relative bg-surface border border-white/5 p-6 rounded-2xl hover:-translate-y-1 transition-transform duration-300">
+          <a href="${r.url}" target="_blank" class="block group/card relative bg-surface border border-white/20 p-6 rounded-2xl hover:-translate-y-1 transition-transform duration-300">
             <div class="flex justify-between items-center mb-3">
               <span class="text-[10px] font-bold uppercase tracking-widest text-gray-500">${r.category}</span>
               <span class="text-[10px] text-gray-600">${r.region}</span>
@@ -181,7 +181,7 @@ function renderMembers() {
   el.innerHTML = Data.members.map((m, i) => `
     <div class="tilt-card group relative h-full reveal" data-tilt data-delay="${i * 100}">
       <div class="absolute inset-0 bg-gradient-to-br from-ivy to-ivyLight rounded-3xl blur opacity-20 group-hover:opacity-40 transition-opacity duration-500"></div>
-      <div class="relative h-full bg-[#0a0a0a] border border-white/10 rounded-3xl p-8 flex flex-col overflow-hidden">
+      <div class="relative h-full bg-[#0a0a0a] border border-white/20 rounded-3xl p-8 flex flex-col overflow-hidden">
         
         <!-- Background Pattern -->
         <div class="absolute top-0 right-0 p-4 opacity-10">
@@ -200,13 +200,13 @@ function renderMembers() {
           </div>
         </div>
         
-        <p class="text-sm text-gray-400 leading-relaxed mb-8 flex-grow border-l-2 border-white/10 pl-4">
+        <p class="text-sm text-gray-300 leading-relaxed mb-8 flex-grow border-l-2 border-white/20 pl-4">
           ${m.desc}
         </p>
 
         <div class="pt-6 border-t border-white/5">
           <div class="flex justify-between items-center text-xs">
-            <span class="text-gray-500 uppercase tracking-wider">Background</span>
+            <span class="text-gray-400 uppercase tracking-wider">Background</span>
             <span class="font-bold text-white">${m.background}</span>
           </div>
         </div>
