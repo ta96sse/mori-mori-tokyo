@@ -4,7 +4,7 @@ const Data = {
   members: [
     { role: 'Captain', name: 'Takuro', desc: '真剣にごっこしてます。', background: 'Kayaking, Lacrosse', instagram: 'https://www.instagram.com/takuroad_jp/' },
     { role: 'Vice Captain', name: 'Hiroki', desc: '寝なくても平気。', background: 'Go, Bamboo Craft' },
-    { role: 'Front Runner', name: 'Tatsuki', desc: 'チーム唯一のサブ3.5ランナー。', background: 'Water Polo, Lacrosse' },
+    { role: 'Front Runner', name: 'Tatsuki', desc: 'チーム唯一のサブ3.5ランナー。', background: 'Water Polo, Lacrosse', instagram: 'https://www.instagram.com/tatsukiniki/' },
     { role: 'Next-Gen Bridge', name: 'Tomoki', desc: '我が子もモリモリ育て〜。', background: 'Magic, Guitar' },
     { role: 'Rover', name: 'Taku', desc: '誘われたらなんでもやります。', background: 'Football, Grill Master' },
     { role: 'Spirit Creator', name: 'Mayuki', desc: 'チームマスコット「モリくん」の生みの親。', background: 'Volleyball, Calligraphy' }
