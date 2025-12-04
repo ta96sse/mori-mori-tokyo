@@ -1,5 +1,28 @@
 // Mori-Mori TOKYO - Modern App Script
 
+const Config = {
+  shop: 'https://shop.mori-mori.tokyo/',
+  instagram: 'https://www.instagram.com/morimori.tokyo/',
+  youtube: 'https://www.youtube.com/@morimori_tokyo',
+  youtubeSubscribe: 'https://www.youtube.com/@morimori_tokyo?sub_confirmation=1',
+  sponsorNakano: 'https://nakano-law-office.jp/'
+};
+
+const UTM = {
+  sponsor: '?utm_source=mori-mori.tokyo&utm_medium=referral&utm_campaign=sponsor'
+};
+
+const getUrl = (key) => {
+  let url = Config[key];
+  if (!url) return '#';
+
+  if (key === 'sponsorNakano') {
+    url += UTM.sponsor;
+  }
+
+  return url;
+};
+
 const Data = {
   members: [
     { role: 'Captain', name: 'Takuro', desc: '真剣にごっこしてます。', background: 'Kayaking, Lacrosse', instagram: 'https://www.instagram.com/takuroad_jp/' },
@@ -322,8 +345,16 @@ function initMobileMenu() {
   });
 }
 
+function initLinks() {
+  document.querySelectorAll('[data-link]').forEach(el => {
+    const key = el.dataset.link;
+    el.href = getUrl(key);
+  });
+}
+
 // Boot
 document.addEventListener('DOMContentLoaded', () => {
+  initLinks(); // Initialize links first
   renderAboutPoints();
   renderUpcoming();
   renderRaces();
