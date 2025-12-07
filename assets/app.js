@@ -5,7 +5,8 @@ const Config = {
   instagram: 'https://www.instagram.com/morimori.tokyo/',
   youtube: 'https://www.youtube.com/@morimori_tokyo',
   youtubeSubscribe: 'https://www.youtube.com/@morimori_tokyo?sub_confirmation=1',
-  sponsorNakano: 'https://nakano-law-office.jp/'
+  sponsorNakano: 'https://nakano-law-office.jp/',
+  lineStamp: 'https://store.line.me/emojishop/product/67f87cba2e90f700ac6caa92/ja'
 };
 
 const UTM = {
