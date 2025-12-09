@@ -335,6 +335,29 @@
     #mobile-menu.open {
       transform: translateX(0);
     }
+
+    /* Floating Banner */
+    .floating-banner {
+      position: fixed;
+      bottom: 1rem;
+      left: 1rem;
+      z-index: 40;
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @media (min-width: 768px) {
+      .floating-banner {
+        bottom: 2rem;
+        left: 2rem;
+      }
+    }
+
+    .floating-banner.visible {
+      transform: translateY(0);
+      opacity: 1;
+    }
   </style>
 </head>
 
@@ -645,6 +668,27 @@
     <img src="assets/morikun-head.png"
       class="w-32 md:w-40 translate-y-1/2 hover:translate-y-0 transition-all duration-500 ease-out cursor-pointer pointer-events-auto opacity-90 hover:opacity-100 drop-shadow-2xl hover:drop-shadow-[0_0_15px_rgba(204,255,0,0.5)]"
       alt="Mori-kun">
+  </div>
+
+  <!-- Floating Banner -->
+  <div id="floating-banner" class="floating-banner">
+    <div class="relative group">
+      <button id="close-banner"
+        class="absolute -top-2 -right-2 w-6 h-6 bg-black border border-white/20 rounded-full flex items-center justify-center text-white/50 hover:text-white hover:bg-red-500 hover:border-red-500 transition-all z-20">
+        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+      <a href="#" data-link="lineStamp" target="_blank" rel="noopener"
+        class="flex items-center gap-4 px-6 py-4 bg-black/80 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl hover:border-ivyLight/50 hover:shadow-[0_0_30px_rgba(78,143,93,0.2)] transition-all group-hover:-translate-y-1">
+        <img src="assets/line-stamp-face.png" alt="LINE Stamp"
+          class="w-12 h-12 object-contain animate-bounce drop-shadow-lg">
+        <div class="flex flex-col">
+          <span class="text-[10px] font-bold uppercase tracking-widest text-ivyLight">New Release</span>
+          <span class="font-display font-bold text-white text-sm tracking-wider">LINE絵文字発売中！</span>
+        </div>
+      </a>
+    </div>
   </div>
 
   <script src="assets/app.js"></script>

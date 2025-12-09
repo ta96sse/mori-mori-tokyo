@@ -327,6 +327,32 @@ function initScrollReveal() {
 }
 
 // --- Boot ---
+function initFloatingBanner() {
+  const banner = document.getElementById('floating-banner');
+  const closeBtn = document.getElementById('close-banner');
+
+  if (!banner || !closeBtn) return;
+
+  // Check if previously closed
+  if (sessionStorage.getItem('bannerClosed')) {
+    return;
+  }
+
+  // Show after delay
+  setTimeout(() => {
+    banner.classList.remove('translate-y-[100px]', 'opacity-0');
+    banner.classList.add('visible');
+  }, 2000);
+
+  closeBtn.addEventListener('click', () => {
+    banner.classList.remove('visible');
+    setTimeout(() => {
+      banner.style.display = 'none';
+    }, 500);
+    sessionStorage.setItem('bannerClosed', 'true');
+  });
+}
+
 function initMobileMenu() {
   const btn = document.getElementById('menu-btn');
   const menu = document.getElementById('mobile-menu');
@@ -366,6 +392,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initNavbar();
   initScrollReveal();
   initMobileMenu();
+  initFloatingBanner();
 
   // Smooth scroll for anchor links
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
