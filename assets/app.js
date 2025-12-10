@@ -55,7 +55,8 @@ const Data = {
   ],
   upcoming: [
     { title: '大山阿夫利アドベンチャーレース', date: '2025/12/13', location: 'Kanagawa', members: 'Takuro, Taku, Maoka, Hiroki, Tomoki', category: 'Adventure', url: 'https://oyama-afuri-ar.main.jp/' },
-    { title: '謝謝ラン', date: '2025/12/20', location: '皇居', members: 'Anyone', category: 'Running', url: '#' }
+    { title: '謝謝ラン', date: '2025/12/20', location: '皇居', members: 'Anyone', category: 'Running', url: '#' },
+    { title: '謝謝ラン', date: '2026/01/18', location: '皇居', members: 'Anyone', category: 'Running', url: '#' },
   ]
 };
 
