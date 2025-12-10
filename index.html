@@ -54,7 +54,7 @@
           },
           backgroundImage: {
             'noise': "url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22 opacity=%220.05%22/%3E%3C/svg%3E')",
-            'hero-gradient': 'linear-gradient(to bottom, rgba(5,5,5,0) 0%, rgba(5,5,5,0.8) 70%, rgba(5,5,5,1) 100%)',
+            'hero-gradient': 'linear-gradient(to bottom, rgba(5,5,5,0) 0%, rgba(5,5,5,0.7) 70%, rgba(5,5,5,0.9) 100%)',
           },
           animation: {
             'float': 'float 6s ease-in-out infinite',
@@ -423,14 +423,13 @@
   <header class="relative h-screen flex items-center justify-center overflow-hidden pb-32">
     <!-- Background Image with Parallax -->
     <div class="absolute inset-0 z-0">
-      <div class="absolute inset-0 bg-black/50 z-10"></div> <!-- Darkened overlay for better text contrast -->
-      <div class="absolute inset-0 bg-hero-gradient z-20"></div>
-      <img src="assets/team-finish.jpg" alt="Team Finish" class="w-full h-full object-cover scale-110" id="hero-bg">
+      <div class="absolute inset-0 bg-black/20 bg-hero-gradient z-10"></div>
+      <img src="assets/hero-new.jpg" alt="Team Finish" class="w-full h-full object-cover scale-110" id="hero-bg">
     </div>
 
     <!-- Content -->
     <div class="relative z-30 container mx-auto px-6 text-center pt-20">
-      <p class="font-display font-bold text-ivyLight tracking-[0.5em] text-xs md:text-base mb-4">SINCE
+      <p class="font-display font-bold text-white tracking-[0.5em] text-xs md:text-base mb-4">SINCE
         2022 / TOKYO</p>
       <h1 class="font-display font-black text-5xl md:text-8xl lg:text-9xl tracking-tighter mb-6">
         <span
