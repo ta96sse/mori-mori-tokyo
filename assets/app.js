@@ -39,24 +39,25 @@ const Data = {
     { title: 'その他イベント', text: 'レース後の打ち上げや飲み会、レースに向けた練習会など、様々な活動を企画しています。' }
   ],
   races: [
-    { date: '2025/03/16', title: 'さいたまマラソン', url: 'https://saitama-marathon.jp/', category: 'Marathon', region: 'Saitama' },
-    { date: '2025/03/30', title: 'ハセツネ30K', url: 'https://www.hasetsune.jp/30K/about.html', category: 'Trail', region: 'Tokyo' },
-    { date: '2025/04/12', title: 'エクストリームシリーズ 那珂川', url: 'https://www.a-extremo.com/event/extreme/round01/', category: 'Adventure', region: 'Tochigi' },
-    { date: '2025/05/10', title: 'エクストリームシリーズ 奥多摩', url: 'https://www.a-extremo.com/event/extreme/round02/', category: 'Adventure', region: 'Tokyo' },
-    { date: '2025/06/08', title: '飛騨高山ウルトラマラソン', url: 'https://www.r-wellness.com/takayama/', category: 'Ultra', region: 'Gifu' },
-    { date: '2025/07/05', title: '志賀高原100', url: 'https://www.nature-scene.net/shiga100/', category: 'Ultra Trail', region: 'Nagano' },
-    { date: '2025/07/26-27', title: 'OMM LITE 白馬・小谷', url: 'https://theomm.jp/pages/the-10th-omm-lite-bike-hakuba-otari-2025', category: 'Navigation', region: 'Nagano' },
-    { date: '2025/08/09', title: 'HYROX 横浜', url: 'https://hyroxjapan.com/ja/event/hyrox-yokohama/', category: 'Hybrid Fitness', region: 'Kanagawa' },
-    { date: '2025/08/30', title: 'エクストリームシリーズ 奥大井', url: 'https://www.a-extremo.com/event/extreme/round04/', category: 'Adventure', region: 'Shizuoka' },
-    { date: '2025/09/13', title: 'Spartan Race 新潟', url: 'https://jp.spartan.com/ja', category: 'Obstacle', region: 'Niigata' },
-    { date: '2025/10/05', title: '東京6耐フェス', url: 'https://tokyo-rokutai-fes.jp/', category: 'Endurance', region: 'Tokyo' },
-    { date: '2025/10/25-26', title: '菅平ロゲイニング', url: 'https://facebook.com/events/s/%E8%8F%85%E5%B9%B3%E3%83%AD%E3%82%B1%E3%82%A4%E3%83%8B%E3%83%B3%E3%82%AF2025/1415922696526613/', category: 'Rogaine', region: 'Nagano' },
-    { date: '2025/11/08-09', title: 'OMM JAPAN 那須塩原', url: 'https://theomm.jp/pages/omm-japan-2025', category: 'Navigation', region: 'Tochigi' },
-    { date: '2025/12/13', title: '大山阿夫利アドベンチャーレース', url: 'https://oyama-afuri-ar.main.jp/', category: 'Adventure', region: 'Kanagawa' }
+    { date: '2025/03/16', title: 'さいたまマラソン', url: 'https://saitama-marathon.jp/', category: 'Marathon', location: 'Saitama' },
+    { date: '2025/03/30', title: 'ハセツネ30K', url: 'https://www.hasetsune.jp/30K/about.html', category: 'Trail', location: 'Tokyo' },
+    { date: '2025/04/12', title: 'エクストリームシリーズ 那珂川', url: 'https://www.a-extremo.com/event/extreme/round01/', category: 'Adventure', location: 'Tochigi' },
+    { date: '2025/05/10', title: 'エクストリームシリーズ 奥多摩', url: 'https://www.a-extremo.com/event/extreme/round02/', category: 'Adventure', location: 'Tokyo' },
+    { date: '2025/06/08', title: '飛騨高山ウルトラマラソン', url: 'https://www.r-wellness.com/takayama/', category: 'Ultra', location: 'Gifu' },
+    { date: '2025/07/05', title: '志賀高原100', url: 'https://www.nature-scene.net/shiga100/', category: 'Ultra Trail', location: 'Nagano' },
+    { date: '2025/07/26-27', title: 'OMM LITE 白馬・小谷', url: 'https://theomm.jp/pages/the-10th-omm-lite-bike-hakuba-otari-2025', category: 'Navigation', location: 'Nagano' },
+    { date: '2025/08/09', title: 'HYROX 横浜', url: 'https://hyroxjapan.com/ja/event/hyrox-yokohama/', category: 'Hybrid Fitness', location: 'Kanagawa' },
+    { date: '2025/08/30', title: 'エクストリームシリーズ 奥大井', url: 'https://www.a-extremo.com/event/extreme/round04/', category: 'Adventure', location: 'Shizuoka' },
+    { date: '2025/09/13', title: 'Spartan Race 新潟', url: 'https://jp.spartan.com/ja', category: 'Obstacle', location: 'Niigata' },
+    { date: '2025/10/05', title: '東京6耐フェス', url: 'https://tokyo-rokutai-fes.jp/', category: 'Endurance', location: 'Tokyo' },
+    { date: '2025/10/25-26', title: '菅平ロゲイニング', url: 'https://facebook.com/events/s/%E8%8F%85%E5%B9%B3%E3%83%AD%E3%82%B1%E3%82%A4%E3%83%8B%E3%83%B3%E3%82%AF2025/1415922696526613/', category: 'Rogaine', location: 'Nagano' },
+    { date: '2025/11/08-09', title: 'OMM JAPAN 那須塩原', url: 'https://theomm.jp/pages/omm-japan-2025', category: 'Navigation', location: 'Tochigi' },
+    { date: '2025/12/13', title: '大山阿夫利アドベンチャーレース', url: 'https://oyama-afuri-ar.main.jp/', category: 'Adventure', location: 'Kanagawa' }
   ],
   upcoming: [
-    { title: '謝謝ラン', date: '2025/12/20', location: '皇居', members: 'Anyone', category: 'Running', url: '#' },
-    { title: '謝謝ラン', date: '2026/01/18', location: '皇居', members: 'Anyone', category: 'Running', url: '#' },
+    { date: '2025/12/20', title: '謝謝ラン', url: '#', category: 'Running', location: '皇居', members: 'Anyone' },
+    { date: '2026/01/18', title: '謝謝ラン', url: '#', category: 'Running', location: '皇居', members: 'Anyone' },
+    { date: '2026/06/06-07', title: '奥信濃100', url: 'https://okushinano100.com/', category: 'Trail', location: 'Nagano', members: 'Takuro, Hiroki, Tatsuki' },
   ]
 };
 
@@ -117,9 +118,9 @@ function renderUpcoming() {
             <span class="font-bold text-white">${u.location}</span>
           </div>
           ${u.members ? `
-          <div class="flex flex-col gap-1 text-xs">
-            <span class="text-gray-400 uppercase tracking-wider">Members</span>
-            <span class="font-bold text-white leading-relaxed">${u.members}</span>
+          <div class="flex justify-between items-baseline text-xs gap-2">
+            <span class="text-gray-400 uppercase tracking-wider flex-shrink-0">Members</span>
+            <span class="font-bold text-white text-right leading-relaxed">${u.members}</span>
           </div>
           ` : ''}
         </div>
@@ -166,7 +167,7 @@ function renderRaces() {
           <a href="${r.url}" target="_blank" rel="noopener" class="block group/card relative bg-surface border border-white/20 p-6 rounded-2xl hover:-translate-y-1 transition-transform duration-300">
             <div class="flex justify-between items-center mb-3">
               <span class="text-[10px] font-bold uppercase tracking-widest text-gray-500">${r.category}</span>
-              <span class="text-[10px] text-gray-600">${r.region}</span>
+              <span class="text-[10px] text-gray-600">${r.location}</span>
             </div>
             <h3 class="font-bold text-lg mb-2 group-hover/card:text-ivyLight transition-colors line-clamp-1">${r.title}</h3>
             <div class="flex items-center gap-2 text-xs text-gray-400 font-mono">
