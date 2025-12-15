@@ -51,10 +51,10 @@ const Data = {
     { date: '2025/09/13', title: 'Spartan Race 新潟', url: 'https://jp.spartan.com/ja', category: 'Obstacle', region: 'Niigata' },
     { date: '2025/10/05', title: '東京6耐フェス', url: 'https://tokyo-rokutai-fes.jp/', category: 'Endurance', region: 'Tokyo' },
     { date: '2025/10/25-26', title: '菅平ロゲイニング', url: 'https://facebook.com/events/s/%E8%8F%85%E5%B9%B3%E3%83%AD%E3%82%B1%E3%82%A4%E3%83%8B%E3%83%B3%E3%82%AF2025/1415922696526613/', category: 'Rogaine', region: 'Nagano' },
-    { date: '2025/11/08-09', title: 'OMM JAPAN 那須塩原', url: 'https://theomm.jp/pages/omm-japan-2025', category: 'Navigation', region: 'Tochigi' }
+    { date: '2025/11/08-09', title: 'OMM JAPAN 那須塩原', url: 'https://theomm.jp/pages/omm-japan-2025', category: 'Navigation', region: 'Tochigi' },
+    { date: '2025/12/13', title: '大山阿夫利アドベンチャーレース', url: 'https://oyama-afuri-ar.main.jp/', category: 'Adventure', region: 'Kanagawa' }
   ],
   upcoming: [
-    { title: '大山阿夫利アドベンチャーレース', date: '2025/12/13', location: 'Kanagawa', members: 'Takuro, Taku, Maoka, Hiroki, Tomoki', category: 'Adventure', url: 'https://oyama-afuri-ar.main.jp/' },
     { title: '謝謝ラン', date: '2025/12/20', location: '皇居', members: 'Anyone', category: 'Running', url: '#' },
     { title: '謝謝ラン', date: '2026/01/18', location: '皇居', members: 'Anyone', category: 'Running', url: '#' },
   ]
