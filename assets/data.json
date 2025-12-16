@@ -57,6 +57,126 @@
   ],
   "races": [
     {
+      "start_date": "2022/05/28",
+      "end_date": "",
+      "title": "Spartan Race 千葉",
+      "url": "https://jp.spartan.com/ja",
+      "category": "Obstacle",
+      "location": "Chiba",
+      "members": "",
+      "show_in_log": "TRUE"
+    },
+    {
+      "start_date": "2022/09/17",
+      "end_date": "",
+      "title": "Spartan Race 新潟",
+      "url": "https://jp.spartan.com/ja",
+      "category": "Obstacle",
+      "location": "Niigata",
+      "members": "Takuro, Tomoki, Tatsuki, Hiroki",
+      "show_in_log": "TRUE"
+    },
+    {
+      "start_date": "2022/12/03",
+      "end_date": "",
+      "title": "Spartan Race 大阪",
+      "url": "https://jp.spartan.com/ja",
+      "category": "Obstacle",
+      "location": "Osaka",
+      "members": "Takuro, Mayuki",
+      "show_in_log": "TRUE"
+    },
+    {
+      "start_date": "2023/04/16",
+      "end_date": "",
+      "title": "富士五湖ウルトラマラソン",
+      "url": "https://www.r-wellness.com/fuji5/2023/",
+      "category": "Ultra Marathon",
+      "location": "Yamanashi",
+      "members": "Takuro, Tomoki, Tatsuki, Hiroki",
+      "show_in_log": "TRUE"
+    },
+    {
+      "start_date": "2023/09/03",
+      "end_date": "",
+      "title": "多摩川源流トレイルラン",
+      "url": "http://www.kfctriathlon.com/html/event_trail.html",
+      "category": "Trail",
+      "location": "Yamanashi",
+      "members": "Takuro, Tomoki, Hiroki",
+      "show_in_log": "TRUE"
+    },
+    {
+      "start_date": "2023/09/23",
+      "end_date": "",
+      "title": "Spartan Race 新潟",
+      "url": "https://jp.spartan.com/ja",
+      "category": "Obstacle",
+      "location": "Niigata",
+      "members": "Takuro, Tomoki, Tatsuki, Hiroki",
+      "show_in_log": "TRUE"
+    },
+    {
+      "start_date": "2024/04/21",
+      "end_date": "",
+      "title": "富士五湖ウルトラマラソン",
+      "url": "https://www.r-wellness.com/fuji5/2024/",
+      "category": "Ultra Marathon",
+      "location": "Yamanashi",
+      "members": "Tomoki, Tatsuki, Hiroki",
+      "show_in_log": "TRUE"
+    },
+    {
+      "start_date": "2024/05/11",
+      "end_date": "",
+      "title": "エクストリームシリーズ 奥多摩",
+      "url": "https://www.a-extremo.com/event/extreme/round02/",
+      "category": "Adventure",
+      "location": "Tokyo",
+      "members": "Takuro, Hiroki, Takuro.I",
+      "show_in_log": "TRUE"
+    },
+    {
+      "start_date": "2024/06/01",
+      "end_date": "",
+      "title": "Spartan Race 千葉",
+      "url": "https://jp.spartan.com/ja",
+      "category": "Obstacle",
+      "location": "Chiba",
+      "members": "Takuro, Taku",
+      "show_in_log": "TRUE"
+    },
+    {
+      "start_date": "2024/08/11",
+      "end_date": "",
+      "title": "東伊豆アドベンチャーラリー",
+      "url": "https://www.a-extremo.com/event/higashiizu/",
+      "category": "Adventure",
+      "location": "Shizuoka",
+      "members": "Takuro, Mayuki",
+      "show_in_log": "TRUE"
+    },
+    {
+      "start_date": "2024/08/18",
+      "end_date": "",
+      "title": "赤城の森トレイルラン",
+      "url": "http://www.kfctriathlon.com/html/event_trail.html",
+      "category": "Trail",
+      "location": "Gunma",
+      "members": "Takuro, Tomoki, Tatsuki, Hiroki",
+      "show_in_log": "TRUE"
+    },
+    {
+      "start_date": "2024/09/14",
+      "end_date": "",
+      "title": "Spartan Race 新潟",
+      "url": "https://jp.spartan.com/ja",
+      "category": "Obstacle",
+      "location": "Niigata",
+      "members": "Takuro, Tomoki, Tatsuki, Hiroki",
+      "show_in_log": "TRUE"
+    },
+    {
       "start_date": "2024/10/13",
       "end_date": "",
       "title": "南アルプスマウンテンマラソン",
