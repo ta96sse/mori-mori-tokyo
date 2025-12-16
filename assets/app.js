@@ -57,7 +57,7 @@ const Data = {
   upcoming: [
     { date: '2025/12/20', title: '謝謝ラン', url: '#', category: 'Running', location: '皇居', members: 'Anyone' },
     { date: '2026/01/18', title: '謝謝ラン', url: '#', category: 'Running', location: '皇居', members: 'Anyone' },
-    { date: '2026/06/06-07', title: '奥信濃100', url: 'https://okushinano100.com/', category: 'Trail', location: 'Nagano', members: 'Takuro, Hiroki, Tatsuki, Takanobu' },
+    { date: '2026/06/06-07', title: '奥信濃100', url: 'https://okushinano100.com/', category: 'Ultra Trail', location: 'Nagano', members: 'Takuro, Hiroki, Tatsuki, Takanobu' },
   ]
 };
 
