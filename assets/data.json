@@ -61,10 +61,10 @@
       "end_date": "",
       "title": "Spartan Race 沖縄",
       "url": "https://jp.spartan.com/ja",
-      "category": "",
-      "location": "",
+      "category": "Obstacle",
+      "location": "Okinawa",
       "members": "",
-      "show_in_log": ""
+      "show_in_log": "TRUE"
     },
     {
       "start_date": "2025/03/16",
