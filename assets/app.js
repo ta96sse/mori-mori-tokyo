@@ -7,7 +7,7 @@ const Config = {
   youtubeSubscribe: 'https://www.youtube.com/@morimori_tokyo?sub_confirmation=1',
   sponsorNakano: 'https://nakano-law-office.jp/',
   lineStamp: 'https://store.line.me/emojishop/product/67f87cba2e90f700ac6caa92/ja',
-  apiUrl: 'assets/data.json'
+  apiUrl: 'https://script.google.com/macros/s/AKfycbyxY1bB_rTPE_6yG82quSrJUnlc3MoVq7A0nwyLM1fbIA_bRS2JLEmF-238c-dAvNfT/exec'
 };
 
 const UTM = {
