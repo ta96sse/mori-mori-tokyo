@@ -101,8 +101,8 @@ async function fetchData() {
     // Sort upcoming by start date (ascending)
     Data.upcoming.sort((a, b) => a._startDate.localeCompare(b._startDate));
 
-    // Sort log by start date (descending)
-    Data.races.sort((a, b) => b._startDate.localeCompare(a._startDate));
+    // Sort log by start date (ascending)
+    Data.races.sort((a, b) => a._startDate.localeCompare(b._startDate));
 
   } catch (error) {
     console.error('Failed to fetch data:', error);
