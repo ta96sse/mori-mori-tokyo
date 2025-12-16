@@ -34,5 +34,5 @@ jobs:
             git commit -m "Update data.json from GSS [skip ci]"
             git push
           else
-            console.log("No changes to commit.")
+            echo "No changes to commit."
           fi
