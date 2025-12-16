@@ -26,12 +26,12 @@ const getUrl = (key) => {
 
 const Data = {
   members: [
-    { role: 'Captain', name: 'Takuro', desc: '真剣にごっこしてます。', background: 'Kayaking, Lacrosse', instagram: 'https://www.instagram.com/takuroad_jp/', strava: 'https://www.strava.com/athletes/192154226' },
-    { role: 'Vice Captain', name: 'Hiroki', desc: '寝なくても平気。', background: 'Go, Bamboo Craft' },
-    { role: 'Front Runner', name: 'Tatsuki', desc: 'チーム唯一のサブ3.5ランナー。', background: 'Water Polo, Lacrosse', instagram: 'https://www.instagram.com/tatsukiniki/', strava: 'https://www.strava.com/athletes/196481587' },
-    { role: 'Next-Gen Bridge', name: 'Tomoki', desc: '我が子もモリモリ育て〜。', background: 'Magic, Guitar' },
-    { role: 'Rover', name: 'Taku', desc: '誘われたらなんでもやります。', background: 'Football, Grill Master' },
-    { role: 'Spirit Creator', name: 'Mayuki', desc: 'チームマスコット「モリくん」の生みの親。', background: 'Volleyball, Calligraphy' }
+    { number: '1', role: 'Captain', name: 'Takuro', desc: '真剣にごっこしてます。', background: 'Kayaking, Lacrosse', instagram: 'https://www.instagram.com/takuroad_jp/', strava: 'https://www.strava.com/athletes/192154226' },
+    { number: '2', role: 'Spirit Creator', name: 'Mayuki', desc: 'チームマスコット「モリくん」の生みの親。', background: 'Volleyball, Calligraphy' },
+    { number: '3', role: 'Next-Gen Bridge', name: 'Tomoki', desc: '我が子もモリモリ育て〜。', background: 'Magic, Guitar' },
+    { number: '4', role: 'Front Runner', name: 'Tatsuki', desc: 'チーム唯一のサブ3.5ランナー。', background: 'Water Polo, Lacrosse', instagram: 'https://www.instagram.com/tatsukiniki/', strava: 'https://www.strava.com/athletes/196481587' },
+    { number: '5', role: 'Vice Captain', name: 'Hiroki', desc: '寝なくても平気。', background: 'Go, Bamboo Craft' },
+    { number: '6', role: 'Rover', name: 'Taku', desc: '誘われたらなんでもやります。', background: 'Football, Grill Master' },
   ],
   aboutPoints: [
     { title: 'レース参戦', text: 'みんなで目標を決めて、アドベンチャーレースやトレイルランニングのレースなどに積極的に参加しています。' },
@@ -209,9 +209,9 @@ function renderMembers() {
       <div class="absolute inset-0 bg-gradient-to-br from-ivy to-ivyLight rounded-3xl blur opacity-20 group-hover:opacity-40 transition-opacity duration-500"></div>
       <div class="relative h-full bg-[#0a0a0a] border border-white/20 rounded-3xl p-8 flex flex-col overflow-hidden">
         
-        <!-- Background Pattern -->
-        <div class="absolute top-0 right-0 p-4 opacity-10">
-          <svg width="64" height="64" viewBox="0 0 24 24" fill="white"><path d="M12 2L2 7l10 5 10-5-10-5zm0 9l2.5-1.25L12 8.5l-2.5 1.25L12 11zm0 2.5l-5-2.5-5 2.5L12 22l10-8.5-5-2.5-5 2.5z"/></svg>
+        <!-- Jersey Number -->
+        <div class="absolute top-2 right-8 opacity-20">
+          <span class="font-display font-black text-6xl text-white italic tracking-tighter">${m.number}</span>
         </div>
 
         <div class="mb-6">
