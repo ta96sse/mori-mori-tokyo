@@ -57,6 +57,16 @@
   ],
   "races": [
     {
+      "start_date": "2025/10/13",
+      "end_date": "",
+      "title": "南アルプスマウンテンマラソン",
+      "url": "https://ma-mm.com/",
+      "category": "Rogaining",
+      "location": "Shizuoka",
+      "members": "Takuro, Hiroki, Taku",
+      "show_in_log": "TRUE"
+    },
+    {
       "start_date": "2024/11/24",
       "end_date": "",
       "title": "江東シーサイドマラソン",
@@ -141,7 +151,7 @@
       "end_date": "2025/07/27",
       "title": "OMM LITE 白馬・小谷",
       "url": "https://theomm.jp/pages/the-10th-omm-lite-bike-hakuba-otari-2025",
-      "category": "Navigation",
+      "category": "Rogaining",
       "location": "Nagano",
       "members": "Takuro, Mayuki, Hodaka, Eri",
       "show_in_log": "TRUE"
@@ -151,7 +161,7 @@
       "end_date": "",
       "title": "HYROX 横浜",
       "url": "https://hyroxjapan.com/ja/event/hyrox-yokohama/",
-      "category": "Hybrid",
+      "category": "Hybrid Fitness",
       "location": "Kanagawa",
       "members": "Takuro, Taku",
       "show_in_log": "TRUE"
@@ -191,7 +201,7 @@
       "end_date": "2025/10/26",
       "title": "菅平ロゲイニング",
       "url": "https://facebook.com/events/s/%E8%8F%85%E5%B9%B3%E3%83%AD%E3%82%B1%E3%82%A4%E3%83%8B%E3%83%B3%E3%82%AF2025/1415922696526613/",
-      "category": "Rogaine",
+      "category": "Rogaining",
       "location": "Nagano",
       "members": "Takuro, Hiroki, Taku",
       "show_in_log": "TRUE"
@@ -201,7 +211,7 @@
       "end_date": "2025/11/09",
       "title": "OMM JAPAN 那須塩原",
       "url": "https://theomm.jp/pages/omm-japan-2025",
-      "category": "Navigation",
+      "category": "Orienteering",
       "location": "Tochigi",
       "members": "Takuro, Hiroki",
       "show_in_log": "TRUE"
