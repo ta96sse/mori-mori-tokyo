@@ -435,7 +435,6 @@ function initLinks() {
 }
 
 // Boot
-// Boot
 document.addEventListener('DOMContentLoaded', async () => {
   initLinks(); // Initialize links first
 
