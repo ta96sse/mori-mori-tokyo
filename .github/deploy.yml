@@ -1,0 +1,53 @@
+name: Deploy with GSS Data
+
+on:
+  # 1. GASから「更新して！」と言われたら動く
+  repository_dispatch:
+    types: [update-gss-data]
+  
+  # 2. mainブランチにコードをプッシュした時も動く
+  push:
+    branches:
+      - main
+  
+  # 3. GitHub画面から手動でも動かせるようにする
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js ⚙️
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Dependencies 🔧
+        run: npm ci
+        # もしyarn使ってるなら run: yarn install --frozen-lockfile
+
+      # 【重要】ここでGSSデータを取得するスクリプトを実行
+      # ※ scripts/fetch-data.js というファイルを作っておく前提
+      - name: Fetch Data from GSS 📊
+        env:
+          # GSSの認証情報はGitHubのSecretsに隠して渡す
+          GOOGLE_KEY: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_KEY }}
+          SHEET_ID: ${{ secrets.SPREADSHEET_ID }}
+        run: node scripts/fetch-data.js
+
+      - name: Build 🏗️
+        run: npm run build
+        # package.jsonの build コマンドが走る
+
+      - name: Deploy to GitHub Pages 🚀
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./build 
+          # ↑ Viteなら ./dist、Next.js(SSG)なら ./out に書き換えて
