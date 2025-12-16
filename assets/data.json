@@ -1,0 +1,230 @@
+{
+  "members": [
+    {
+      "number": "1",
+      "role": "Captain",
+      "name": "Takuro",
+      "desc": "真剣にごっこしてます。",
+      "background": "Kayaking, Lacrosse",
+      "instagram": "https://www.instagram.com/takuroad_jp/",
+      "strava": "https://www.strava.com/athletes/192154226"
+    },
+    {
+      "number": "2",
+      "role": "Spirit Creator",
+      "name": "Mayuki",
+      "desc": "チームマスコット「モリくん」の生みの親。",
+      "background": "Volleyball, Calligraphy",
+      "instagram": "",
+      "strava": ""
+    },
+    {
+      "number": "3",
+      "role": "Next-Gen Bridge",
+      "name": "Tomoki",
+      "desc": "我が子もモリモリ育て〜。",
+      "background": "Magic, Guitar",
+      "instagram": "",
+      "strava": ""
+    },
+    {
+      "number": "4",
+      "role": "Front Runner",
+      "name": "Tatsuki",
+      "desc": "チーム唯一のサブ3.5ランナー。",
+      "background": "Water Polo, Lacrosse",
+      "instagram": "https://www.instagram.com/tatsukiniki/",
+      "strava": "https://www.strava.com/athletes/196481587"
+    },
+    {
+      "number": "5",
+      "role": "Vice Captain",
+      "name": "Hiroki",
+      "desc": "寝なくても平気。",
+      "background": "Go, Bamboo Craft",
+      "instagram": "",
+      "strava": ""
+    },
+    {
+      "number": "6",
+      "role": "Rover",
+      "name": "Taku",
+      "desc": "誘われたらなんでもやります。",
+      "background": "Football, Grill Master",
+      "instagram": "",
+      "strava": ""
+    }
+  ],
+  "races": [
+    {
+      "start_date": "2025/03/16",
+      "end_date": "",
+      "title": "さいたまマラソン",
+      "url": "https://saitama-marathon.jp/",
+      "category": "Marathon",
+      "location": "Saitama",
+      "members": "",
+      "show_in_log": "TRUE"
+    },
+    {
+      "start_date": "2025/03/30",
+      "end_date": "",
+      "title": "ハセツネ30K",
+      "url": "https://www.hasetsune.jp/30K/about.html",
+      "category": "Trail",
+      "location": "Tokyo",
+      "members": "",
+      "show_in_log": "TRUE"
+    },
+    {
+      "start_date": "2025/04/12",
+      "end_date": "",
+      "title": "エクストリームシリーズ 那珂川",
+      "url": "https://www.a-extremo.com/event/extreme/round01/",
+      "category": "Adventure",
+      "location": "Tochigi",
+      "members": "",
+      "show_in_log": "TRUE"
+    },
+    {
+      "start_date": "2025/05/10",
+      "end_date": "",
+      "title": "エクストリームシリーズ 奥多摩",
+      "url": "https://www.a-extremo.com/event/extreme/round02/",
+      "category": "Adventure",
+      "location": "Tokyo",
+      "members": "",
+      "show_in_log": "TRUE"
+    },
+    {
+      "start_date": "2025/06/08",
+      "end_date": "",
+      "title": "飛騨高山ウルトラマラソン",
+      "url": "https://www.r-wellness.com/takayama/",
+      "category": "Ultra",
+      "location": "Gifu",
+      "members": "",
+      "show_in_log": "TRUE"
+    },
+    {
+      "start_date": "2025/07/05",
+      "end_date": "",
+      "title": "志賀高原100",
+      "url": "https://www.nature-scene.net/shiga100/",
+      "category": "Ultra Trail",
+      "location": "Nagano",
+      "members": "",
+      "show_in_log": "TRUE"
+    },
+    {
+      "start_date": "2025/07/26",
+      "end_date": "2025/07/27",
+      "title": "OMM LITE 白馬・小谷",
+      "url": "https://theomm.jp/pages/the-10th-omm-lite-bike-hakuba-otari-2025",
+      "category": "Navigation",
+      "location": "Nagano",
+      "members": "",
+      "show_in_log": "TRUE"
+    },
+    {
+      "start_date": "2025/08/09",
+      "end_date": "",
+      "title": "HYROX 横浜",
+      "url": "https://hyroxjapan.com/ja/event/hyrox-yokohama/",
+      "category": "Hybrid",
+      "location": "Kanagawa",
+      "members": "",
+      "show_in_log": "TRUE"
+    },
+    {
+      "start_date": "2025/08/30",
+      "end_date": "",
+      "title": "エクストリームシリーズ 奥大井",
+      "url": "https://www.a-extremo.com/event/extreme/round04/",
+      "category": "Adventure",
+      "location": "Shizuoka",
+      "members": "",
+      "show_in_log": "TRUE"
+    },
+    {
+      "start_date": "2025/09/13",
+      "end_date": "",
+      "title": "Spartan Race 新潟",
+      "url": "https://jp.spartan.com/ja",
+      "category": "Obstacle",
+      "location": "Niigata",
+      "members": "",
+      "show_in_log": "TRUE"
+    },
+    {
+      "start_date": "2025/10/05",
+      "end_date": "",
+      "title": "東京6耐フェス",
+      "url": "https://tokyo-rokutai-fes.jp/",
+      "category": "Endurance",
+      "location": "Tokyo",
+      "members": "",
+      "show_in_log": "TRUE"
+    },
+    {
+      "start_date": "2025/10/25",
+      "end_date": "2025/10/26",
+      "title": "菅平ロゲイニング",
+      "url": "https://facebook.com/events/s/%E8%8F%85%E5%B9%B3%E3%83%AD%E3%82%B1%E3%82%A4%E3%83%8B%E3%83%B3%E3%82%AF2025/1415922696526613/",
+      "category": "Rogaine",
+      "location": "Nagano",
+      "members": "",
+      "show_in_log": "TRUE"
+    },
+    {
+      "start_date": "2025/11/08",
+      "end_date": "2025/11/09",
+      "title": "OMM JAPAN 那須塩原",
+      "url": "https://theomm.jp/pages/omm-japan-2025",
+      "category": "Navigation",
+      "location": "Tochigi",
+      "members": "",
+      "show_in_log": "TRUE"
+    },
+    {
+      "start_date": "2025/12/13",
+      "end_date": "",
+      "title": "大山阿夫利アドベンチャーレース",
+      "url": "https://oyama-afuri-ar.main.jp/",
+      "category": "Adventure",
+      "location": "Kanagawa",
+      "members": "",
+      "show_in_log": "TRUE"
+    },
+    {
+      "start_date": "2025/12/20",
+      "end_date": "",
+      "title": "謝謝ラン",
+      "url": "#",
+      "category": "Running",
+      "location": "皇居",
+      "members": "Anyone",
+      "show_in_log": "FALSE"
+    },
+    {
+      "start_date": "2026/01/18",
+      "end_date": "",
+      "title": "謝謝ラン",
+      "url": "#",
+      "category": "Running",
+      "location": "皇居",
+      "members": "Anyone",
+      "show_in_log": "FALSE"
+    },
+    {
+      "start_date": "2026/06/06",
+      "end_date": "2026/06/07",
+      "title": "奥信濃100",
+      "url": "https://okushinano100.com/",
+      "category": "Ultra Trail",
+      "location": "Nagano",
+      "members": "Takuro, Hiroki, Tatsuki, Takanobu",
+      "show_in_log": "TRUE"
+    }
+  ]
+}
