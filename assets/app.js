@@ -210,7 +210,7 @@ function renderRaces() {
         </div>
       </button>
       
-      <div id="content-${year}" class="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 transition-all duration-500 ease-in-out overflow-hidden ${isExpanded ? 'max-h-[2000px] opacity-100 mt-6' : 'max-h-0 opacity-0 mt-0'}">
+      <div id="content-${year}" class="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 p-1 transition-all duration-500 ease-in-out overflow-hidden ${isExpanded ? 'max-h-[10000px] opacity-100 mt-6' : 'max-h-0 opacity-0 mt-0'}">
         ${races.map((r, i) => `
           <a href="${r.url}" target="_blank" rel="noopener" class="block group/card relative bg-surface border border-white/20 p-6 rounded-2xl hover:-translate-y-1 transition-transform duration-300">
             <div class="flex justify-between items-center mb-3">
@@ -237,11 +237,11 @@ function renderRaces() {
     if (content.classList.contains('max-h-0')) {
       // Open
       content.classList.remove('max-h-0', 'opacity-0', 'mt-0');
-      content.classList.add('max-h-[2000px]', 'opacity-100', 'mt-6');
+      content.classList.add('max-h-[10000px]', 'opacity-100', 'mt-6');
       icon.classList.add('rotate-180');
     } else {
       // Close
-      content.classList.remove('max-h-[2000px]', 'opacity-100', 'mt-6');
+      content.classList.remove('max-h-[10000px]', 'opacity-100', 'mt-6');
       content.classList.add('max-h-0', 'opacity-0', 'mt-0');
       icon.classList.remove('rotate-180');
     }
