@@ -6,7 +6,8 @@ const Config = {
   youtube: 'https://www.youtube.com/@morimori_tokyo',
   youtubeSubscribe: 'https://www.youtube.com/@morimori_tokyo?sub_confirmation=1',
   sponsorNakano: 'https://nakano-law-office.jp/',
-  lineStamp: 'https://store.line.me/emojishop/product/67f87cba2e90f700ac6caa92/ja'
+  lineStamp: 'https://store.line.me/emojishop/product/67f87cba2e90f700ac6caa92/ja',
+  apiUrl: 'assets/data.json'
 };
 
 const UTM = {
@@ -25,41 +26,87 @@ const getUrl = (key) => {
 };
 
 const Data = {
-  members: [
-    { number: '1', role: 'Captain', name: 'Takuro', desc: '真剣にごっこしてます。', background: 'Kayaking, Lacrosse', instagram: 'https://www.instagram.com/takuroad_jp/', strava: 'https://www.strava.com/athletes/192154226' },
-    { number: '2', role: 'Spirit Creator', name: 'Mayuki', desc: 'チームマスコット「モリくん」の生みの親。', background: 'Volleyball, Calligraphy' },
-    { number: '3', role: 'Next-Gen Bridge', name: 'Tomoki', desc: '我が子もモリモリ育て〜。', background: 'Magic, Guitar' },
-    { number: '4', role: 'Front Runner', name: 'Tatsuki', desc: 'チーム唯一のサブ3.5ランナー。', background: 'Water Polo, Lacrosse', instagram: 'https://www.instagram.com/tatsukiniki/', strava: 'https://www.strava.com/athletes/196481587' },
-    { number: '5', role: 'Vice Captain', name: 'Hiroki', desc: '寝なくても平気。', background: 'Go, Bamboo Craft' },
-    { number: '6', role: 'Rover', name: 'Taku', desc: '誘われたらなんでもやります。', background: 'Football, Grill Master' },
-  ],
+  members: [],
   aboutPoints: [
     { title: 'レース参戦', text: 'みんなで目標を決めて、アドベンチャーレースやトレイルランニングのレースなどに積極的に参加しています。' },
     { title: '謝謝ラン', text: '月に一度、主に皇居でランニングイベントを開催しています。興味のある方はまずはここから参加してみてください！' },
     { title: 'その他イベント', text: 'レース後の打ち上げや飲み会、レースに向けた練習会など、様々な活動を企画しています。' }
   ],
-  races: [
-    { date: '2025/03/16', title: 'さいたまマラソン', url: 'https://saitama-marathon.jp/', category: 'Marathon', location: 'Saitama' },
-    { date: '2025/03/30', title: 'ハセツネ30K', url: 'https://www.hasetsune.jp/30K/about.html', category: 'Trail', location: 'Tokyo' },
-    { date: '2025/04/12', title: 'エクストリームシリーズ 那珂川', url: 'https://www.a-extremo.com/event/extreme/round01/', category: 'Adventure', location: 'Tochigi' },
-    { date: '2025/05/10', title: 'エクストリームシリーズ 奥多摩', url: 'https://www.a-extremo.com/event/extreme/round02/', category: 'Adventure', location: 'Tokyo' },
-    { date: '2025/06/08', title: '飛騨高山ウルトラマラソン', url: 'https://www.r-wellness.com/takayama/', category: 'Ultra', location: 'Gifu' },
-    { date: '2025/07/05', title: '志賀高原100', url: 'https://www.nature-scene.net/shiga100/', category: 'Ultra Trail', location: 'Nagano' },
-    { date: '2025/07/26-27', title: 'OMM LITE 白馬・小谷', url: 'https://theomm.jp/pages/the-10th-omm-lite-bike-hakuba-otari-2025', category: 'Navigation', location: 'Nagano' },
-    { date: '2025/08/09', title: 'HYROX 横浜', url: 'https://hyroxjapan.com/ja/event/hyrox-yokohama/', category: 'Hybrid Fitness', location: 'Kanagawa' },
-    { date: '2025/08/30', title: 'エクストリームシリーズ 奥大井', url: 'https://www.a-extremo.com/event/extreme/round04/', category: 'Adventure', location: 'Shizuoka' },
-    { date: '2025/09/13', title: 'Spartan Race 新潟', url: 'https://jp.spartan.com/ja', category: 'Obstacle', location: 'Niigata' },
-    { date: '2025/10/05', title: '東京6耐フェス', url: 'https://tokyo-rokutai-fes.jp/', category: 'Endurance', location: 'Tokyo' },
-    { date: '2025/10/25-26', title: '菅平ロゲイニング', url: 'https://facebook.com/events/s/%E8%8F%85%E5%B9%B3%E3%83%AD%E3%82%B1%E3%82%A4%E3%83%8B%E3%83%B3%E3%82%AF2025/1415922696526613/', category: 'Rogaine', location: 'Nagano' },
-    { date: '2025/11/08-09', title: 'OMM JAPAN 那須塩原', url: 'https://theomm.jp/pages/omm-japan-2025', category: 'Navigation', location: 'Tochigi' },
-    { date: '2025/12/13', title: '大山阿夫利アドベンチャーレース', url: 'https://oyama-afuri-ar.main.jp/', category: 'Adventure', location: 'Kanagawa' }
-  ],
-  upcoming: [
-    { date: '2025/12/20', title: '謝謝ラン', url: '#', category: 'Running', location: '皇居', members: 'Anyone' },
-    { date: '2026/01/18', title: '謝謝ラン', url: '#', category: 'Running', location: '皇居', members: 'Anyone' },
-    { date: '2026/06/06-07', title: '奥信濃100', url: 'https://okushinano100.com/', category: 'Ultra Trail', location: 'Nagano', members: 'Takuro, Hiroki, Tatsuki, Takanobu' },
-  ]
+  races: [],
+  upcoming: []
 };
+
+async function fetchData() {
+  try {
+    const response = await fetch(Config.apiUrl);
+    const json = await response.json();
+
+    // Members
+    Data.members = json.members.map(m => ({
+      number: m.number,
+      role: m.role,
+      name: m.name,
+      desc: m.desc,
+      background: m.background,
+      instagram: m.instagram,
+      strava: m.strava
+    }));
+
+    // Races
+    const today = new Date().toISOString().split('T')[0].replace(/-/g, '/');
+
+    Data.races = [];
+    Data.upcoming = [];
+
+    json.races.forEach(r => {
+      const startDate = r.start_date;
+      // Default end_date to start_date if missing (single day event)
+      const endDate = r.end_date || startDate;
+
+      // Generate display date from start_date and end_date
+      if (startDate) {
+        if (startDate === endDate) {
+          r.date = startDate;
+        } else {
+          const startParts = startDate.split('/');
+          const endParts = endDate.split('/');
+
+          if (startParts[0] !== endParts[0]) {
+            // Different year: 2025/12/31-2026/01/01
+            r.date = `${startDate}-${endDate}`;
+          } else if (startParts[1] !== endParts[1]) {
+            // Different month: 2025/06/30-07/01
+            r.date = `${startDate}-${endParts[1]}/${endParts[2]}`;
+          } else {
+            // Same month: 2025/06/06-07
+            r.date = `${startDate}-${endParts[2]}`;
+          }
+        }
+      } else {
+        r.date = '';
+      }
+
+      // Store parsed dates for sorting
+      r._startDate = startDate;
+      r._endDate = endDate;
+
+      if (endDate >= today) {
+        Data.upcoming.push(r);
+      } else if (r.show_in_log === 'TRUE') {
+        Data.races.push(r);
+      }
+    });
+
+    // Sort upcoming by start date (ascending)
+    Data.upcoming.sort((a, b) => a._startDate.localeCompare(b._startDate));
+
+    // Sort log by start date (descending)
+    Data.races.sort((a, b) => b._startDate.localeCompare(a._startDate));
+
+  } catch (error) {
+    console.error('Failed to fetch data:', error);
+  }
+}
 
 // --- Utilities ---
 
@@ -387,8 +434,12 @@ function initLinks() {
 }
 
 // Boot
-document.addEventListener('DOMContentLoaded', () => {
+// Boot
+document.addEventListener('DOMContentLoaded', async () => {
   initLinks(); // Initialize links first
+
+  await fetchData();
+
   renderAboutPoints();
   renderUpcoming();
   renderRaces();
