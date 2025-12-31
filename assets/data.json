@@ -367,6 +367,16 @@
       "show_in_log": "FALSE"
     },
     {
+      "start_date": "2026/02/21",
+      "end_date": "",
+      "title": "謝謝ラン",
+      "url": "https://strava.app.link/iPYB2kZlxZb",
+      "category": "Running",
+      "location": "皇居",
+      "members": "Anyone",
+      "show_in_log": "FALSE"
+    },
+    {
       "start_date": "2026/06/06",
       "end_date": "2026/06/07",
       "title": "奥信濃100",
@@ -375,16 +385,6 @@
       "location": "Nagano",
       "members": "Takuro, Hiroki, Tatsuki, Takanobu",
       "show_in_log": "TRUE"
-    },
-    {
-      "start_date": "2026/02/21",
-      "end_date": "",
-      "title": "謝謝ラン",
-      "url": "https://strava.app.link/iPYB2kZlxZb",
-      "category": "Running",
-      "location": "皇居",
-      "members": "",
-      "show_in_log": ""
     }
   ]
 }
