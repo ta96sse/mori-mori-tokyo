@@ -350,7 +350,7 @@
       "start_date": "2025/12/20",
       "end_date": "",
       "title": "謝謝ラン",
-      "url": "https://strava.app.link/ajrP83VlxZb",
+      "url": "https://strava.app.link/4imMVDlmxZb",
       "category": "Running",
       "location": "皇居",
       "members": "Anyone",
@@ -360,7 +360,7 @@
       "start_date": "2026/01/18",
       "end_date": "",
       "title": "謝謝ラン",
-      "url": "https://strava.app.link/iPYB2kZlxZb",
+      "url": "https://strava.app.link/ajrP83VlxZb",
       "category": "Running",
       "location": "皇居",
       "members": "Anyone",
@@ -375,6 +375,16 @@
       "location": "Nagano",
       "members": "Takuro, Hiroki, Tatsuki, Takanobu",
       "show_in_log": "TRUE"
+    },
+    {
+      "start_date": "2026/02/21",
+      "end_date": "",
+      "title": "謝謝ラン",
+      "url": "https://strava.app.link/iPYB2kZlxZb",
+      "category": "Running",
+      "location": "皇居",
+      "members": "",
+      "show_in_log": ""
     }
   ]
 }
