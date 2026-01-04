@@ -1,7 +1,7 @@
 // Mori-Mori TOKYO - Modern App Script
 
 const Config = {
-  shop: 'https://shop.mori-mori.tokyo/',
+  goods: 'https://shop.mori-mori.tokyo/',
   instagram: 'https://www.instagram.com/morimori.tokyo/',
   youtube: 'https://www.youtube.com/@morimori_tokyo',
   youtubeSubscribe: 'https://www.youtube.com/@morimori_tokyo?sub_confirmation=1',
@@ -250,7 +250,7 @@ function renderRaces() {
 }
 
 function renderMembers() {
-  const el = document.getElementById('team-cards');
+  const el = document.getElementById('member-cards');
   if (!el) return;
 
   el.innerHTML = Data.members.map((m, i) => `
