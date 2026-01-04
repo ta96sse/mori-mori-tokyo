@@ -15,8 +15,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Mori-Mori TOKYO - Adventure Team based in Tokyo. Mori-Mori makes us DOVA-DOVA." />
   <title>Mori-Mori TOKYO モリモリトーキョー | Adventure Team</title>
-  <link rel="icon" type="image/png" href="assets/favicon.png">
-  <link rel="apple-touch-icon" href="assets/favicon.png">
+  <link rel="icon" href="/assets/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" href="/assets/favicon.png">
+  <link rel="apple-touch-icon" href="/assets/favicon.png">
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -387,6 +388,7 @@
         <a href="#log" class="text-sm font-bold uppercase tracking-widest hover:text-ivyLight transition-colors">Log</a>
         <a href="#team"
           class="text-sm font-bold uppercase tracking-widest hover:text-ivyLight transition-colors">Team</a>
+        <a href="#sns" class="text-sm font-bold uppercase tracking-widest hover:text-ivyLight transition-colors">SNS</a>
         <a href="#" data-link="shop" target="_blank" rel="noopener"
           class="text-sm font-bold uppercase tracking-widest hover:text-ivyLight transition-colors">Shop</a>
         <a href="#contact"
@@ -413,6 +415,8 @@
       class="mobile-link text-2xl font-display font-bold uppercase tracking-widest hover:text-ivyLight">Log</a>
     <a href="#team"
       class="mobile-link text-2xl font-display font-bold uppercase tracking-widest hover:text-ivyLight">Team</a>
+    <a href="#sns"
+      class="mobile-link text-2xl font-display font-bold uppercase tracking-widest hover:text-ivyLight">SNS</a>
     <a href="#" data-link="shop" target="_blank" rel="noopener"
       class="mobile-link text-2xl font-display font-bold uppercase tracking-widest hover:text-ivyLight">Shop</a>
     <a href="#contact"
@@ -564,21 +568,25 @@
         <div class="text-center mb-12 relative z-10">
           <h2 class="font-display font-black text-3xl md:text-5xl mb-8">FOLLOW US</h2>
 
-          <div class="flex justify-center gap-4">
+          <div class="flex justify-center gap-4 flex-wrap">
             <a href="#" data-link="instagram" target="_blank" rel="noopener"
-              class="w-40 text-center px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold uppercase tracking-widest rounded-full hover:scale-105 transition-transform shadow-lg shadow-pink-500/30 text-xs md:text-sm">
+              class="w-32 md:w-40 text-center px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold uppercase tracking-widest rounded-full hover:scale-105 transition-transform shadow-lg shadow-pink-500/30 text-xs md:text-sm">
               Instagram
             </a>
             <a href="#" data-link="youtube" target="_blank" rel="noopener"
-              class="w-40 text-center px-6 py-3 bg-red-600 text-white font-bold uppercase tracking-widest rounded-full hover:scale-105 transition-transform shadow-lg shadow-red-600/30 text-xs md:text-sm">
+              class="w-32 md:w-40 text-center px-6 py-3 bg-red-600 text-white font-bold uppercase tracking-widest rounded-full hover:scale-105 transition-transform shadow-lg shadow-red-600/30 text-xs md:text-sm">
               YouTube
+            </a>
+            <a href="#" data-link="strava" target="_blank" rel="noopener"
+              class="w-32 md:w-40 text-center px-6 py-3 bg-[#FC4C02] text-white font-bold uppercase tracking-widest rounded-full hover:scale-105 transition-transform shadow-lg shadow-orange-500/30 text-xs md:text-sm">
+              Strava
             </a>
           </div>
         </div>
 
-        <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start relative z-10">
+        <div class="grid lg:grid-cols-3 gap-8 lg:gap-12 items-start relative z-10">
           <!-- Left Column: Instagram Grid -->
-          <div class="flex flex-col h-full">
+          <div class="flex flex-col h-full col-span-1">
             <!-- Instagram Real Embeds -->
             <!-- LightWidget WIDGET -->
             <script src="https://cdn.lightwidget.com/widgets/lightwidget.js"></script>
@@ -586,8 +594,8 @@
               allowtransparency="true" class="lightwidget-widget" style="width:100%;border:0;overflow:hidden;"></iframe>
           </div>
 
-          <!-- Right Column: YouTube -->
-          <div class="flex flex-col h-full">
+          <!-- Middle Column: YouTube -->
+          <div class="flex flex-col h-full col-span-1">
             <div class="mb-6">
               <div
                 class="aspect-video w-full overflow-hidden rounded-2xl bg-black border border-white/10 shadow-2xl relative group">
@@ -607,6 +615,21 @@
                     d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z" />
                 </svg>
                 Subscribe
+              </a>
+            </div>
+          </div>
+
+          <!-- Right Column: Strava -->
+          <div class="flex flex-col h-full col-span-1 items-center">
+            <div class="mb-6">
+              <iframe allowtransparency='true' frameborder='0' height='454' scrolling='no'
+                src='https://www.strava.com/clubs/1859103/latest-rides/fd61b49f7a1991d20207c36f6139951afedecf20?show_rides=true'
+                width='300' class="rounded-2xl shadow-2xl border border-white/10 bg-black"></iframe>
+            </div>
+            <div class="text-center">
+              <a href="#" data-link="strava" target="_blank" rel="noopener"
+                class="inline-flex items-center gap-2 px-6 py-3 bg-[#FC4C02] text-white font-bold uppercase tracking-widest rounded-full hover:scale-105 transition-transform text-xs shadow-lg shadow-orange-600/20">
+                Join Club
               </a>
             </div>
           </div>
