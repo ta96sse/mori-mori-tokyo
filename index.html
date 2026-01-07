@@ -26,6 +26,17 @@
   <meta property="og:site_name" content="Mori-Mori TOKYO" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:site" content="@morimori_tokyo" />
+
+  <style>
+    /* Global Mobile Animation Reset: Disable scroll reveal on mobile for better UX */
+    @media (max-width: 767px) {
+      .reveal {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+      }
+    }
+  </style>
   <link rel="icon" href="/assets/favicon.ico" sizes="any">
   <link rel="icon" type="image/png" href="/assets/favicon.png">
   <link rel="apple-touch-icon" href="/assets/favicon.png">
@@ -597,7 +608,7 @@
           </div>
         </div>
 
-        <div class="grid lg:grid-cols-3 gap-8 lg:gap-12 items-start relative z-10">
+        <div class="grid lg:grid-cols-3 gap-8 lg:gap-12 items-start relative z-10 reveal">
           <!-- Left Column: Instagram Grid -->
           <div class="flex flex-col h-full col-span-1">
             <!-- Instagram Real Embeds -->
@@ -658,7 +669,7 @@
 
       <div class="flex justify-center">
         <a href="#" data-link="sponsorNakano" target="_blank" rel="noopener"
-          class="group relative block w-full max-w-md bg-white p-1 transition-transform hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(255,255,255,0.3)]">
+          class="group relative block w-full max-w-md bg-white p-1 transition-transform hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(255,255,255,0.3)] reveal">
           <div class="border border-[#402E7A] p-8 h-full flex flex-col items-center justify-center gap-4">
             <!-- Simple text logo representation -->
             <div class="font-serif font-bold text-2xl md:text-3xl tracking-widest text-[#402E7A]">
@@ -677,7 +688,8 @@
     <div class="container mx-auto px-6">
       <h2 class="font-display font-black text-3xl mb-4">CONTACT</h2>
       <p class="text-gray-300 mb-8">お問い合わせは Instagram の DM にて受け付けています</p>
-      <a href="#" data-link="instagram" class="text-neon font-bold tracking-widest hover:underline">@morimori.tokyo</a>
+      <a href="#" data-link="instagram"
+        class="text-neon font-bold tracking-widest hover:underline reveal inline-block">@morimori.tokyo</a>
     </div>
   </section>
 

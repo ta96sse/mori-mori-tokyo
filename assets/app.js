@@ -198,7 +198,7 @@ function renderRaces() {
     const races = racesByYear[year];
 
     return `
-    <div class="border-b border-white/10 last:border-0 pb-8 last:pb-0">
+    <div class="border-b border-white/10 last:border-0 pb-8 last:pb-0 reveal">
       <button class="w-full flex justify-between items-end py-4 group text-left focus:outline-none" onclick="toggleYear('${year}')">
         <div class="flex items-baseline gap-4">
           <h3 class="font-display font-black text-4xl md:text-5xl text-white group-hover:text-ivyLight transition-colors">${year}</h3>
@@ -254,7 +254,7 @@ function renderMembers() {
   if (!el) return;
 
   el.innerHTML = Data.members.map((m, i) => `
-    <div class="tilt-card group relative h-full reveal min-w-[85vw] md:min-w-0 snap-center" data-tilt data-delay="${i * 100}">
+    <div class="tilt-card group relative h-full min-w-[85vw] md:min-w-0 snap-center reveal" data-tilt data-delay="${i * 100}">
       <div class="absolute inset-0 bg-gradient-to-br from-ivy to-ivyLight rounded-3xl blur opacity-20 group-hover:opacity-40 transition-opacity duration-500"></div>
       <div class="relative h-full bg-[#0a0a0a] border border-white/20 rounded-3xl p-8 flex flex-col overflow-hidden">
         
@@ -371,7 +371,7 @@ function initScrollReveal() {
   // Initialize all reveal elements
   document.querySelectorAll('.reveal').forEach(el => {
     el.style.opacity = '0';
-    el.style.transform = 'translateY(30px)';
+    el.style.transform = 'translateY(30px) scale(0.95)';
     el.style.transition = 'all 0.8s cubic-bezier(0.16, 1, 0.3, 1)';
     observer.observe(el);
   });
@@ -379,7 +379,7 @@ function initScrollReveal() {
   // Inject CSS for animation
   const style = document.createElement('style');
   style.innerHTML = `
-    .animate-in { opacity: 1 !important; transform: translateY(0) !important; }
+    .animate-in { opacity: 1 !important; transform: translateY(0) scale(1) !important; }
   `;
   document.head.appendChild(style);
 }
