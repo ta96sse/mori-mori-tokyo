@@ -254,7 +254,7 @@ function renderMembers() {
   if (!el) return;
 
   el.innerHTML = Data.members.map((m, i) => `
-    <div class="tilt-card group relative h-full reveal" data-tilt data-delay="${i * 100}">
+    <div class="tilt-card group relative h-full reveal min-w-[85vw] md:min-w-0 snap-center" data-tilt data-delay="${i * 100}">
       <div class="absolute inset-0 bg-gradient-to-br from-ivy to-ivyLight rounded-3xl blur opacity-20 group-hover:opacity-40 transition-opacity duration-500"></div>
       <div class="relative h-full bg-[#0a0a0a] border border-white/20 rounded-3xl p-8 flex flex-col overflow-hidden">
         
@@ -280,11 +280,13 @@ function renderMembers() {
           </div>
         </div>
         
-        <p class="text-sm text-gray-300 leading-relaxed mb-8 flex-grow border-l-2 border-white/20 pl-4">
-          ${m.desc}
-        </p>
+        <div class="mb-6 flex-grow min-h-[3.25rem]">
+          <p class="text-sm text-gray-300 leading-relaxed border-l-2 border-white/20 pl-4">
+            ${m.desc}
+          </p>
+        </div>
 
-        <div class="pt-6 border-t border-white/5">
+        <div class="border-t border-white/5">
           <div class="flex justify-between items-center text-xs">
             <span class="text-gray-400 uppercase tracking-wider">Background</span>
             <span class="font-bold text-white">${m.background}</span>
