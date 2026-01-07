@@ -213,7 +213,7 @@ function renderRaces() {
       
       <div id="content-${year}" class="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 p-1 transition-all duration-500 ease-in-out overflow-hidden ${isExpanded ? 'max-h-[10000px] opacity-100 mt-6' : 'max-h-0 opacity-0 mt-0'}">
         ${races.map((r, i) => `
-          <a href="${r.url}" target="_blank" rel="noopener" class="block group/card relative bg-surface border border-white/20 p-6 rounded-2xl hover:-translate-y-1 transition-transform duration-300">
+          <a href="${r.instagram || r.url}" target="_blank" rel="noopener" class="block group/card relative bg-surface border border-white/20 p-6 rounded-2xl hover:-translate-y-1 transition-transform duration-300">
             <div class="flex justify-between items-center mb-3">
               <span class="text-[10px] font-bold uppercase tracking-widest text-gray-500">${r.category}</span>
               <span class="text-[10px] text-gray-600">${r.location}</span>
