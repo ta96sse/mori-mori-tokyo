@@ -53,6 +53,24 @@
       "background": "Football, Grill Master",
       "instagram": "",
       "strava": "https://strava.app.link/wy96YOsrAZb"
+    },
+    {
+      "number": "",
+      "role": "",
+      "name": "Azusa",
+      "desc": "",
+      "background": "",
+      "instagram": "",
+      "strava": ""
+    },
+    {
+      "number": "",
+      "role": "",
+      "name": "Takanobu",
+      "desc": "",
+      "background": "",
+      "instagram": "",
+      "strava": ""
     }
   ],
   "races": [
@@ -431,8 +449,8 @@
       "show_in_log": "TRUE"
     },
     {
-      "start_date": "2026/05/01",
-      "end_date": "2026/05/02",
+      "start_date": "2026/05/02",
+      "end_date": "2026/05/03",
       "title": "ステージレース三陸",
       "url": "https://discover-rias.org/srs200/",
       "category": "Stage Race",
