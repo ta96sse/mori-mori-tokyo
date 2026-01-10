@@ -129,6 +129,15 @@ const getCategoryColor = (cat) => {
   return colors[cat] || 'text-gray-400 border-gray-500/30 bg-gray-500/10';
 };
 
+const formatMembers = (membersStr) => {
+  if (!membersStr) return '';
+  const members = membersStr.split(',').map(m => m.trim()).filter(Boolean);
+  if (members.length >= 7) {
+    return `${members.slice(0, 3).join(', ')}, +${members.length - 3} others`;
+  }
+  return membersStr;
+};
+
 // --- Render Functions ---
 
 
@@ -170,7 +179,7 @@ function renderUpcoming() {
           ${u.members ? `
           <div class="flex justify-between items-baseline text-xs gap-2">
             <span class="text-gray-400 uppercase tracking-wider flex-shrink-0">Members</span>
-            <span class="font-bold text-white text-right leading-relaxed">${u.members}</span>
+            <span class="font-bold text-white text-right leading-relaxed">${formatMembers(u.members)}</span>
           </div>
           ` : ''}
         </div>
