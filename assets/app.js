@@ -123,6 +123,7 @@ const getCategoryColor = (cat) => {
     Obstacle: 'text-red-400 border-red-500/30 bg-red-500/10',
     'Hybrid Fitness': 'text-cyan-400 border-cyan-500/30 bg-cyan-500/10',
     Rogaining: 'text-indigo-400 border-indigo-500/30 bg-indigo-500/10',
+    'Stage Race': 'text-rose-400 border-rose-500/30 bg-rose-500/10',
     Endurance: 'text-yellow-400 border-yellow-500/30 bg-yellow-500/10'
   };
   return colors[cat] || 'text-gray-400 border-gray-500/30 bg-gray-500/10';
