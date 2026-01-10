@@ -44,7 +44,7 @@ async function fetchData() {
     const json = await response.json();
 
     // Members
-    Data.members = json.members.map(m => ({
+    Data.members = json.members.filter(m => m.number).map(m => ({
       number: m.number,
       role: m.role,
       name: m.name,
