@@ -63,7 +63,7 @@
       "url": "https://jp.spartan.com/ja",
       "category": "Obstacle",
       "location": "Chiba",
-      "members": "",
+      "members": "Takuro, Mayuki, Tomoki, Tatsuki, Kaho, Eri, Kyohei, Hodaka, Koki",
       "instagram": "",
       "show_in_log": "TRUE"
     },
@@ -141,7 +141,7 @@
       "category": "Adventure",
       "location": "Tokyo",
       "members": "Takuro, Hiroki, Takuro.I",
-      "instagram": "",
+      "instagram": "https://www.instagram.com/p/C9aAjM4yE3w/",
       "show_in_log": "TRUE"
     },
     {
@@ -163,7 +163,7 @@
       "category": "Adventure",
       "location": "Shizuoka",
       "members": "Takuro, Mayuki",
-      "instagram": "",
+      "instagram": "https://www.instagram.com/p/C-kuR4Xy48o/",
       "show_in_log": "TRUE"
     },
     {
@@ -185,7 +185,7 @@
       "category": "Obstacle",
       "location": "Niigata",
       "members": "Takuro, Tomoki, Tatsuki, Hiroki",
-      "instagram": "",
+      "instagram": "https://www.instagram.com/p/DCRTGSTT67s/",
       "show_in_log": "TRUE"
     },
     {
@@ -218,7 +218,7 @@
       "category": "Obstacle",
       "location": "Okinawa",
       "members": "Takuro, Mayuki, Taku",
-      "instagram": "",
+      "instagram": "https://www.instagram.com/p/DEcr5ZOzfzA/",
       "show_in_log": "TRUE"
     },
     {
@@ -229,7 +229,7 @@
       "category": "Marathon",
       "location": "Saitama",
       "members": "Takuro, Tomoki, Tatsuki, Hiroki, Taku",
-      "instagram": "",
+      "instagram": "https://www.instagram.com/p/DHfcjKRTmqB/",
       "show_in_log": "TRUE"
     },
     {
@@ -240,7 +240,7 @@
       "category": "Trail",
       "location": "Tokyo",
       "members": "Takuro, Tomoki, Tatsuki, Hiroki",
-      "instagram": "",
+      "instagram": "https://www.instagram.com/p/DIeKYdAScZO/",
       "show_in_log": "TRUE"
     },
     {
@@ -251,7 +251,7 @@
       "category": "Adventure",
       "location": "Tochigi",
       "members": "Takuro, Taku",
-      "instagram": "",
+      "instagram": "https://www.instagram.com/p/DIn3oary1uD/",
       "show_in_log": "TRUE"
     },
     {
@@ -262,7 +262,7 @@
       "category": "Adventure",
       "location": "Tokyo",
       "members": "Takuro, Tomoki, Tatsuki, Hiroki, Taku, Azusa",
-      "instagram": "",
+      "instagram": "https://www.instagram.com/p/DL4-KyxSJkb/",
       "show_in_log": "TRUE"
     },
     {
@@ -283,8 +283,8 @@
       "url": "https://www.nature-scene.net/shiga100/",
       "category": "Trail",
       "location": "Nagano",
-      "members": "Takuro, Taku",
-      "instagram": "",
+      "members": "Takuro, Hiroki, Taku",
+      "instagram": "https://www.instagram.com/p/DOA3kNMEwD5/",
       "show_in_log": "TRUE"
     },
     {
@@ -295,7 +295,7 @@
       "category": "Rogaining",
       "location": "Nagano",
       "members": "Takuro, Mayuki, Hodaka, Eri",
-      "instagram": "",
+      "instagram": "https://www.instagram.com/p/DP9DQtYk1jL/",
       "show_in_log": "TRUE"
     },
     {
@@ -306,7 +306,7 @@
       "category": "Hybrid Fitness",
       "location": "Kanagawa",
       "members": "Takuro, Taku",
-      "instagram": "",
+      "instagram": "https://www.instagram.com/p/DP9IOvjk-YP/",
       "show_in_log": "TRUE"
     },
     {
@@ -317,7 +317,7 @@
       "category": "Adventure",
       "location": "Shizuoka",
       "members": "Takuro, Tatsuki, Hiroki, Taku",
-      "instagram": "",
+      "instagram": "https://www.instagram.com/p/DQ4MQugEzxt/",
       "show_in_log": "TRUE"
     },
     {
@@ -338,7 +338,7 @@
       "url": "https://tokyo-rokutai-fes.jp/",
       "category": "Endurance",
       "location": "Tokyo",
-      "members": "",
+      "members": "Team Mori-Mori",
       "instagram": "https://www.instagram.com/p/DSeaPACk7k7/",
       "show_in_log": "TRUE"
     },
@@ -409,6 +409,17 @@
       "show_in_log": "FALSE"
     },
     {
+      "start_date": "2026/03/22",
+      "end_date": "",
+      "title": "第18回 謝謝ラン",
+      "url": "",
+      "category": "Running",
+      "location": "皇居",
+      "members": "Anyone",
+      "instagram": "",
+      "show_in_log": "FALSE"
+    },
+    {
       "start_date": "2026/06/06",
       "end_date": "2026/06/07",
       "title": "奥信濃100",
@@ -416,6 +427,17 @@
       "category": "Ultra Trail",
       "location": "Nagano",
       "members": "Takuro, Hiroki, Tatsuki, Takanobu",
+      "instagram": "",
+      "show_in_log": "TRUE"
+    },
+    {
+      "start_date": "2026/05/01",
+      "end_date": "2026/05/02",
+      "title": "ステージレース三陸",
+      "url": "https://discover-rias.org/srs200/",
+      "category": "Stage Race",
+      "location": "Iwate",
+      "members": "Takuro, Hiroki, Tatsuki, Taku, Takanobu",
       "instagram": "",
       "show_in_log": "TRUE"
     }
