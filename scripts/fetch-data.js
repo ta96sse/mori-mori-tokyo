@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 
 // 既存のGASのエンドポイントURL
-const GAS_API_URL = 'https://script.google.com/macros/s/AKfycby7w5D6cz33RjC5uMnh-_kfgKVIRXe6mn_kG_W2QRjUKNJaq3VVHbqSqP0Soz-p_nXp/exec';
+const GAS_API_URL = 'https://script.google.com/macros/s/AKfycbwPdv5CAXMH9sw_FdZCRVuv9vSy6bMuMG8iZndtrJNugYD-CPHSxNKsbMpuXnHcZUVP/exec';
 const OUTPUT_PATH = path.join(__dirname, '../assets/data.json');
 
 async function main() {

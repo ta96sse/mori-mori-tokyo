@@ -1,0 +1,11 @@
+{
+    "name": "mori-mori-tokyo",
+    "version": "1.0.0",
+    "description": "Mori-Mori Tokyo Website",
+    "scripts": {
+        "fetch": "node scripts/fetch-data.js"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC"
+}
