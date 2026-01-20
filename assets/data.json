@@ -438,13 +438,13 @@
       "show_in_log": "FALSE"
     },
     {
-      "start_date": "2026/06/06",
-      "end_date": "2026/06/07",
-      "title": "奥信濃100",
-      "url": "https://okushinano100.com/",
-      "category": "Ultra Trail",
-      "location": "Nagano",
-      "members": "Takuro, Hiroki, Tatsuki, Taku, Takanobu",
+      "start_date": "2026/03/01",
+      "end_date": "",
+      "title": "奥武蔵マウンテンオリエンテーリング",
+      "url": "https://www.teamajari.com/orienteering/20260301omo/",
+      "category": "Orienteering",
+      "location": "Saitama",
+      "members": "Takuro, Hiroki",
       "instagram": "",
       "show_in_log": "TRUE"
     },
@@ -455,6 +455,17 @@
       "url": "https://discover-rias.org/srs200/",
       "category": "Stage Race",
       "location": "Iwate",
+      "members": "Takuro, Hiroki, Tatsuki, Taku, Takanobu",
+      "instagram": "",
+      "show_in_log": "TRUE"
+    },
+    {
+      "start_date": "2026/06/06",
+      "end_date": "2026/06/07",
+      "title": "奥信濃100",
+      "url": "https://okushinano100.com/",
+      "category": "Ultra Trail",
+      "location": "Nagano",
       "members": "Takuro, Hiroki, Tatsuki, Taku, Takanobu",
       "instagram": "",
       "show_in_log": "TRUE"
