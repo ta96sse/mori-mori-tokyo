@@ -427,17 +427,6 @@
       "show_in_log": "FALSE"
     },
     {
-      "start_date": "2026/03/22",
-      "end_date": "",
-      "title": "謝謝ラン #18",
-      "url": "https://strava.app.link/Itov2VraOZb",
-      "category": "Running",
-      "location": "皇居",
-      "members": "Anyone",
-      "instagram": "",
-      "show_in_log": "FALSE"
-    },
-    {
       "start_date": "2026/03/01",
       "end_date": "",
       "title": "奥武蔵マウンテンオリエンテーリング",
@@ -447,6 +436,17 @@
       "members": "Takuro, Hiroki",
       "instagram": "",
       "show_in_log": "TRUE"
+    },
+    {
+      "start_date": "2026/03/22",
+      "end_date": "",
+      "title": "謝謝ラン #18",
+      "url": "https://strava.app.link/Itov2VraOZb",
+      "category": "Running",
+      "location": "皇居",
+      "members": "Anyone",
+      "instagram": "",
+      "show_in_log": "FALSE"
     },
     {
       "start_date": "2026/05/02",
