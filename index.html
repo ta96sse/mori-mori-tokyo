@@ -28,6 +28,11 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:site" content="@morimori_tokyo" />
 
+  <!-- Security Headers -->
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://cdn.tailwindcss.com https://cdn.lightwidget.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https:; font-src 'self' https://fonts.gstatic.com; frame-src https://cdn.lightwidget.com https://www.youtube.com https://www.strava.com; connect-src 'self' https://www.google-analytics.com https://analytics.google.com https://stats.g.doubleclick.net;" />
+
   <style>
     /* Global Mobile Animation Reset: Disable scroll reveal on mobile for better UX */
     @media (max-width: 767px) {
