@@ -2,6 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 import MemberCard from "../components/MemberCard.astro";
 import RaceCard from "../components/RaceCard.astro";
+import LogCard from "../components/LogCard.astro";
 import AboutPoints from "../components/AboutPoints.astro";
 import type { SiteData, Race } from "../types";
 
@@ -453,28 +454,7 @@ const years = Object.keys(racesByYear).sort((a, b) => b.localeCompare(a));
                                 <div class="overflow-hidden">
                                     <div class="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 p-1">
                                         {racesByYear[year].map((r, i) => (
-                                            <a
-                                                href={r.instagram || r.url}
-                                                target="_blank"
-                                                rel="noopener"
-                                                class="block group/card relative bg-surface border border-white/20 p-6 rounded-2xl hover:-translate-y-1 transition-transform duration-300"
-                                            >
-                                                <div class="flex justify-between items-center mb-3">
-                                                    <span class="text-[10px] font-bold uppercase tracking-widest text-gray-500">
-                                                        {r.category}
-                                                    </span>
-                                                    <span class="text-[10px] text-gray-600">
-                                                        {r.location}
-                                                    </span>
-                                                </div>
-                                                <h3 class="font-bold text-lg mb-2 group-hover/card:text-ivyLight transition-colors line-clamp-1">
-                                                    {r.title}
-                                                </h3>
-                                                <div class="flex items-center gap-2 text-xs text-gray-400 font-mono">
-                                                    <span>{r.date}</span>
-                                                    <span class="w-full h-[1px] bg-white/10 group-hover/card:bg-ivyLight/30 transition-colors" />
-                                                </div>
-                                            </a>
+                                            <LogCard race={r} />
                                         ))}
                                     </div>
                                 </div>
