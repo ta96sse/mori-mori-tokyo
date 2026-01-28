@@ -53,24 +53,6 @@
       "background": "Football, Grill Master",
       "instagram": "",
       "strava": "https://www.strava.com/athletes/197437168"
-    },
-    {
-      "number": "",
-      "role": "",
-      "name": "Azusa",
-      "desc": "",
-      "background": "",
-      "instagram": "",
-      "strava": ""
-    },
-    {
-      "number": "",
-      "role": "",
-      "name": "Takanobu",
-      "desc": "",
-      "background": "",
-      "instagram": "",
-      "strava": ""
     }
   ],
   "races": [
@@ -413,7 +395,7 @@
       "location": "皇居",
       "members": "Anyone",
       "instagram": "",
-      "show_in_log": "FALSE"
+      "show_in_log": "TRUE"
     },
     {
       "start_date": "2026/02/21",
