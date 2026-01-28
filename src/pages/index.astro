@@ -15,6 +15,8 @@ try {
     const response = await fetch(API_URL);
     if (response.ok) {
         data = (await response.json()) as SiteData;
+    } else {
+        console.error(`Failed to fetch data: HTTP ${response.status} ${response.statusText}`);
     }
 } catch (error) {
     console.error("Failed to fetch data:", error);
