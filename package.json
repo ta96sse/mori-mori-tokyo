@@ -1,11 +1,23 @@
 {
     "name": "mori-mori-tokyo",
+    "type": "module",
     "version": "1.0.0",
     "description": "Mori-Mori Tokyo Website",
     "scripts": {
-        "fetch": "node scripts/fetch-data.js"
+        "dev": "astro dev",
+        "start": "astro dev",
+        "build": "astro build",
+        "preview": "astro preview",
+        "astro": "astro"
     },
     "keywords": [],
     "author": "",
-    "license": "ISC"
+    "license": "ISC",
+    "dependencies": {
+        "@astrojs/check": "^0.9.4",
+        "@astrojs/tailwind": "^5.1.0",
+        "astro": "^4.16.0",
+        "tailwindcss": "^3.4.1",
+        "typescript": "^5.6.3"
+    }
 }

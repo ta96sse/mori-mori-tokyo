@@ -1,0 +1,982 @@
+---
+import Layout from "../layouts/Layout.astro";
+import MemberCard from "../components/MemberCard.astro";
+import RaceCard from "../components/RaceCard.astro";
+import AboutPoints from "../components/AboutPoints.astro";
+import type { SiteData, Race } from "../types";
+
+import { API_URL, EXTERNAL_LINKS, SNS_LINKS, WIDGETS } from "../consts";
+
+const response = await fetch(API_URL);
+const data = (await response.json()) as SiteData;
+
+// Members
+const members = data.members.filter((m) => m.number);
+
+// Races
+const today = new Date().toISOString().split("T")[0].replace(/-/g, "/");
+const upcoming: Race[] = [];
+const races: Race[] = [];
+
+data.races.forEach((r) => {
+    const startDate = r.start_date;
+    const endDate = r.end_date || startDate;
+    let dateStr = "";
+
+    if (startDate) {
+        if (startDate === endDate) {
+            dateStr = startDate;
+        } else {
+            const startParts = startDate.split("/");
+            const endParts = endDate.split("/");
+
+            if (startParts[0] !== endParts[0]) {
+                dateStr = `${startDate}-${endDate}`;
+            } else if (startParts[1] !== endParts[1]) {
+                dateStr = `${startDate}-${endParts[1]}/${endParts[2]}`;
+            } else {
+                dateStr = `${startDate}-${endParts[2]}`;
+            }
+        }
+    }
+
+    // Enhance object with calculated fields
+    const raceWithDate = {
+        ...r,
+        date: dateStr,
+        _startDate: startDate,
+        _endDate: endDate,
+    };
+
+    if (endDate >= today) {
+        upcoming.push(raceWithDate);
+    } else if (r.show_in_log === "TRUE") {
+        races.push(raceWithDate);
+    }
+});
+
+// Sort
+upcoming.sort((a, b) => a._startDate!.localeCompare(b._startDate!));
+races.sort((a, b) => b._startDate!.localeCompare(a._startDate!)); // Logs are descending
+
+// Group Log by Year
+const racesByYear = races.reduce(
+    (acc, race) => {
+        const year = race.date!.split("/")[0];
+        if (!acc[year]) acc[year] = [];
+        acc[year].push(race);
+        return acc;
+    },
+    {} as Record<string, Race[]>,
+);
+const years = Object.keys(racesByYear).sort((a, b) => b.localeCompare(a));
+---
+
+<style>
+    /* Mobile Menu Animation */
+    #mobile-menu {
+        transform: translateX(100%);
+        transition: transform 0.3s ease-in-out;
+    }
+
+    #mobile-menu.open {
+        transform: translateX(0);
+    }
+
+    /* Floating Banner Animation */
+    .floating-banner {
+        position: fixed;
+        bottom: 1rem;
+        left: 1rem;
+        z-index: 40;
+        transform: translateY(100px);
+        opacity: 0;
+        transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @media (min-width: 768px) {
+        .floating-banner {
+            bottom: 2rem;
+            left: 2rem;
+        }
+    }
+
+    .floating-banner.visible {
+        transform: translateY(0);
+        opacity: 1;
+    }
+</style>
+
+<Layout title="Mori-Mori TOKYO | Adventure Team">
+    <!-- Fixed Background Noise -->
+    <div
+        class="fixed inset-0 bg-noise pointer-events-none z-50 opacity-50 mix-blend-overlay"
+    >
+    </div>
+
+    <!-- Navigation -->
+    <nav
+        id="navbar"
+        class="fixed top-0 w-full z-50 transition-all duration-300 py-6"
+    >
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <a href="#" class="flex items-center gap-3 group z-50 relative">
+                <img
+                    src="/assets/mori-mori-logo.png"
+                    alt="Logo"
+                    class="w-10 h-10 md:w-12 md:h-12 transition-transform group-hover:rotate-12"
+                />
+                <div class="leading-none flex items-center gap-2">
+                    <span
+                        class="font-display font-bold text-lg md:text-xl tracking-tighter"
+                        >Mori-Mori</span
+                    >
+                    <span
+                        class="font-display font-bold text-lg md:text-xl text-ivyLight tracking-tighter"
+                        >TOKYO</span
+                    >
+                </div>
+            </a>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex items-center gap-8">
+                <a
+                    href="#about"
+                    class="text-sm font-bold uppercase tracking-widest hover:text-ivyLight transition-colors"
+                    >About</a
+                >
+                <a
+                    href="#next"
+                    class="text-sm font-bold uppercase tracking-widest hover:text-ivyLight transition-colors"
+                    >Next</a
+                >
+                <a
+                    href="#log"
+                    class="text-sm font-bold uppercase tracking-widest hover:text-ivyLight transition-colors"
+                    >Log</a
+                >
+                <a
+                    href="#member"
+                    class="text-sm font-bold uppercase tracking-widest hover:text-ivyLight transition-colors"
+                    >Member</a
+                >
+                <a
+                    href="#sns"
+                    class="text-sm font-bold uppercase tracking-widest hover:text-ivyLight transition-colors"
+                    >SNS</a
+                >
+                <a
+                    href={EXTERNAL_LINKS.SHOP}
+                    target="_blank"
+                    rel="noopener"
+                    class="text-sm font-bold uppercase tracking-widest hover:text-ivyLight transition-colors"
+                    >Goods</a
+                >
+                <a
+                    href="#contact"
+                    class="px-6 py-2 bg-white text-black font-bold uppercase tracking-widest text-xs rounded-full hover:bg-ivyLight transition-colors"
+                    >Contact</a
+                >
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button
+                id="menu-btn"
+                class="md:hidden text-white z-[60] relative focus:outline-none transition-transform active:scale-95"
+            >
+                <svg
+                    class="w-8 h-8"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                >
+                    <path
+                        id="menu-icon"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div
+        id="mobile-menu"
+        class="fixed inset-0 bg-black/95 z-40 flex flex-col justify-center items-center gap-8 md:hidden backdrop-blur-xl"
+    >
+        <a
+            href="#about"
+            class="mobile-link text-2xl font-display font-bold uppercase tracking-widest hover:text-ivyLight"
+            >About</a
+        >
+        <a
+            href="#next"
+            class="mobile-link text-2xl font-display font-bold uppercase tracking-widest hover:text-ivyLight"
+            >Next</a
+        >
+        <a
+            href="#log"
+            class="mobile-link text-2xl font-display font-bold uppercase tracking-widest hover:text-ivyLight"
+            >Log</a
+        >
+        <a
+            href="#member"
+            class="mobile-link text-2xl font-display font-bold uppercase tracking-widest hover:text-ivyLight"
+            >Member</a
+        >
+        <a
+            href="#sns"
+            class="mobile-link text-2xl font-display font-bold uppercase tracking-widest hover:text-ivyLight"
+            >SNS</a
+        >
+        <a
+            href={EXTERNAL_LINKS.SHOP}
+            target="_blank"
+            rel="noopener"
+            class="mobile-link text-2xl font-display font-bold uppercase tracking-widest hover:text-ivyLight"
+            >Goods</a
+        >
+        <a
+            href="#contact"
+            class="mobile-link text-2xl font-display font-bold uppercase tracking-widest text-ivyLight"
+            >Contact</a
+        >
+    </div>
+
+    <!-- Hero Section -->
+    <header
+        class="relative h-screen flex items-center justify-center overflow-hidden pb-32"
+    >
+        <!-- Background Image with Parallax -->
+        <div class="absolute inset-0 z-0">
+            <div class="absolute inset-0 bg-black/20 bg-hero-gradient z-10">
+            </div>
+            <img
+                src="/assets/hero-new.jpg"
+                alt="Member Finish"
+                class="w-full h-full object-cover scale-110"
+                id="hero-bg"
+            />
+        </div>
+
+        <!-- Content -->
+        <div class="relative z-30 container mx-auto px-6 text-center pt-20">
+            <p
+                class="font-display font-bold text-white tracking-[0.5em] text-xs md:text-base mb-4"
+            >
+                SINCE 2022 / TOKYO
+            </p>
+            <h1
+                class="font-display font-black text-5xl md:text-8xl lg:text-9xl tracking-tighter mb-6"
+            >
+                <span
+                    class="block font-display text-6xl md:text-9xl lg:text-[10rem] bg-gradient-to-b from-white via-ivyLight to-ivy text-transparent bg-clip-text drop-shadow-[0_4px_12px_rgba(0,0,0,0.4)]"
+                    >MORI-MORI</span
+                >
+                <span class="block text-white relative z-10">MAKES US</span>
+                <span
+                    class="block bg-gradient-to-b from-neon to-ivyLight text-transparent bg-clip-text drop-shadow-[0_4px_12px_rgba(0,0,0,0.4)]"
+                    >DOVA-DOVA.</span
+                >
+            </h1>
+
+            <p
+                class="font-jp font-medium text-gray-100 max-w-xl mx-auto text-sm md:text-base leading-relaxed mb-10 px-4"
+            >
+                ちょっと頑張った先にある喜びを、みんなで分かち合う。<br
+                    class="hidden md:block"
+                />
+                そんなことにハマってしまったクルーたちのアドベンチャーチーム。
+            </p>
+
+            <div
+                class="flex flex-col md:flex-row items-center justify-center gap-4 w-full px-6"
+            >
+                <a
+                    href="#next"
+                    class="w-full md:w-auto px-8 py-4 bg-ivyLight text-black font-display font-black uppercase tracking-widest hover:bg-ivy transition-colors text-center"
+                >
+                    Check Next Race
+                </a>
+                <a
+                    href={SNS_LINKS.INSTAGRAM}
+                    target="_blank"
+                    rel="noopener"
+                    class="w-full md:w-auto px-8 py-4 border border-white/30 bg-white/5 backdrop-blur text-white font-display font-bold uppercase tracking-widest hover:bg-white/10 transition-colors flex items-center justify-center gap-2"
+                >
+                    <svg
+                        class="w-5 h-5"
+                        fill="currentColor"
+                        viewBox="0 0 24 24"
+                    >
+                        <path
+                            d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"
+                        ></path>
+                    </svg>
+                    Follow Us
+                </a>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div
+            class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-30 opacity-50"
+        >
+            <span class="text-[10px] uppercase tracking-[0.3em]">Scroll</span>
+            <div class="w-[1px] h-12 bg-gradient-to-b from-neon to-transparent">
+            </div>
+        </div>
+    </header>
+
+    <!-- Marquee Separator -->
+    <div
+        class="bg-ivyLight text-black overflow-hidden py-3 rotate-1 scale-105 z-20 relative border-y-4 border-black"
+    >
+        <div
+            class="animate-marquee whitespace-nowrap font-display font-black text-xl md:text-2xl uppercase tracking-widest flex gap-8"
+        >
+            <span>Adventure Racing</span><span>Trail Running</span><span
+                >Rogaining</span
+            ><span>Spartan Race</span><span>Marathon</span>
+            <span>Adventure Racing</span><span>Trail Running</span><span
+                >Rogaining</span
+            ><span>Spartan Race</span><span>Marathon</span>
+            <span>Adventure Racing</span><span>Trail Running</span><span
+                >Rogaining</span
+            ><span>Spartan Race</span><span>Marathon</span>
+        </div>
+    </div>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 md:py-32 relative overflow-hidden">
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="grid md:grid-cols-2 gap-12 md:gap-16 items-center">
+                <div>
+                    <h2
+                        class="font-wild text-5xl md:text-7xl mb-8 leading-none text-transparent bg-clip-text bg-gradient-to-br from-neon to-ivyLight drop-shadow-lg"
+                    >
+                        NO ADVENTURE,<br />
+                        NO LIFE.
+                    </h2>
+                    <p
+                        class="font-jp text-gray-200 leading-loose mb-8 text-sm md:text-base"
+                    >
+                        Mori-Mori
+                        TOKYO（モリモリトーキョー）は2022年に東京で生まれた新しいアドベンチャーチームです。<br
+                        /><br />
+                        「Mori-Mori makes us DOVA-DOVA.」をキャッチコピーに、アドベンチャーレースやトレイルランニング、ウルトラマラソンなどに挑戦し、そこから得られる最高の瞬間をシェアしています。<br
+                        /><br />
+                        随時メンバーを募集中です。まずはお気軽にご連絡ください。
+                    </p>
+                </div>
+                <div class="relative mt-12 md:mt-0">
+                    <div
+                        class="absolute -inset-4 bg-ivyLight/20 blur-3xl rounded-full"
+                    >
+                    </div>
+                    <div
+                        class="relative glass rounded-3xl p-6 md:p-8 border-l-4 border-ivyLight"
+                    >
+                        <div class="grid grid-cols-1 gap-6" id="about-points">
+                            <AboutPoints />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Next Section -->
+    <section id="next" class="py-20 md:py-24 bg-surface relative">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16 md:mb-20">
+                <h2 class="font-display font-black text-4xl md:text-7xl">
+                    NEXT
+                </h2>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {upcoming.map((race, i) => <RaceCard race={race} index={i} />)}
+            </div>
+        </div>
+    </section>
+
+    <!-- Log Section -->
+    <section id="log" class="py-20 md:py-24 relative">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16 md:mb-20">
+                <h2 class="font-display font-black text-4xl md:text-7xl">
+                    LOG
+                </h2>
+            </div>
+
+            <div class="space-y-8" id="race-calendar">
+                {
+                    years.map((year, yearIndex) => (
+                        <div class="border-b border-white/10 last:border-0 pb-8 last:pb-0 reveal">
+                            <button
+                                class="w-full flex justify-between items-end py-4 group text-left focus:outline-none"
+                                onclick={`toggleYear('${year}')`}
+                            >
+                                <div class="flex items-baseline gap-4">
+                                    <h3 class="font-display font-black text-4xl md:text-5xl text-white group-hover:text-ivyLight transition-colors">
+                                        {year}
+                                    </h3>
+                                    <span class="font-mono text-sm text-gray-500">
+                                        {racesByYear[year].length} Races
+                                    </span>
+                                </div>
+                                <div class="p-2 rounded-full border border-white/10 group-hover:bg-white/10 transition-colors">
+                                    <svg
+                                        id={`icon-${year}`}
+                                        class={`w-5 h-5 transition-transform duration-300 ${yearIndex === 0 ? "rotate-180" : ""}`}
+                                        fill="none"
+                                        stroke="currentColor"
+                                        viewBox="0 0 24 24"
+                                    >
+                                        <path
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            stroke-width="2"
+                                            d="M19 9l-7 7-7-7"
+                                        />
+                                    </svg>
+                                </div>
+                            </button>
+
+                            <div
+                                id={`content-${year}`}
+                                class={`grid transition-all duration-500 ease-in-out ${yearIndex === 0 ? "grid-rows-[1fr] mt-6" : "grid-rows-[0fr] mt-0"}`}
+                            >
+                                <div class="overflow-hidden">
+                                    <div class="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 p-1">
+                                        {racesByYear[year].map((r, i) => (
+                                            <a
+                                                href={r.instagram || r.url}
+                                                target="_blank"
+                                                rel="noopener"
+                                                class="block group/card relative bg-surface border border-white/20 p-6 rounded-2xl hover:-translate-y-1 transition-transform duration-300"
+                                            >
+                                                <div class="flex justify-between items-center mb-3">
+                                                    <span class="text-[10px] font-bold uppercase tracking-widest text-gray-500">
+                                                        {r.category}
+                                                    </span>
+                                                    <span class="text-[10px] text-gray-600">
+                                                        {r.location}
+                                                    </span>
+                                                </div>
+                                                <h3 class="font-bold text-lg mb-2 group-hover/card:text-ivyLight transition-colors line-clamp-1">
+                                                    {r.title}
+                                                </h3>
+                                                <div class="flex items-center gap-2 text-xs text-gray-400 font-mono">
+                                                    <span>{r.date}</span>
+                                                    <span class="w-full h-[1px] bg-white/10 group-hover/card:bg-ivyLight/30 transition-colors" />
+                                                </div>
+                                            </a>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    ))
+                }
+            </div>
+        </div>
+    </section>
+
+    <!-- Member Section -->
+    <section
+        id="member"
+        class="py-20 md:py-32 bg-surface relative overflow-hidden"
+    >
+        <!-- Background Elements -->
+        <div
+            class="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-neon/5 to-transparent pointer-events-none"
+        >
+        </div>
+
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="text-center mb-16 md:mb-20">
+                <h2 class="font-display font-black text-4xl md:text-7xl">
+                    MEMBER
+                </h2>
+            </div>
+
+            <div
+                class="flex md:grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8 overflow-x-auto md:overflow-visible snap-x snap-mandatory pb-8 md:pb-0 -mx-6 px-6 md:mx-0 md:px-0 scrollbar-hide"
+                id="member-cards"
+            >
+                {
+                    members.map((member, i) => (
+                        <MemberCard member={member} index={i} />
+                    ))
+                }
+            </div>
+        </div>
+    </section>
+
+    <!-- SNS Section -->
+    <section id="sns" class="py-20 md:py-24 relative">
+        <div class="container mx-auto px-6">
+            <div
+                class="glass rounded-[2rem] md:rounded-[3rem] p-8 md:p-12 border border-white/10 relative overflow-hidden"
+            >
+                <div
+                    class="absolute top-0 right-0 w-96 h-96 bg-neon/10 blur-[100px] rounded-full pointer-events-none"
+                >
+                </div>
+
+                <!-- Header & Buttons (Centered) -->
+                <div class="text-center mb-12 relative z-10">
+                    <h2
+                        class="font-display font-black text-3xl md:text-5xl mb-8"
+                    >
+                        FOLLOW US
+                    </h2>
+
+                    <div class="flex justify-center gap-4 flex-wrap">
+                        <a
+                            href={SNS_LINKS.INSTAGRAM}
+                            target="_blank"
+                            rel="noopener"
+                            class="w-32 md:w-40 text-center px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold uppercase tracking-widest rounded-full hover:scale-105 transition-transform shadow-lg shadow-pink-500/30 text-xs md:text-sm"
+                        >
+                            Instagram
+                        </a>
+                        <a
+                            href={SNS_LINKS.YOUTUBE}
+                            target="_blank"
+                            rel="noopener"
+                            class="w-32 md:w-40 text-center px-6 py-3 bg-red-600 text-white font-bold uppercase tracking-widest rounded-full hover:scale-105 transition-transform shadow-lg shadow-red-600/30 text-xs md:text-sm"
+                        >
+                            YouTube
+                        </a>
+                        <a
+                            href={SNS_LINKS.STRAVA}
+                            target="_blank"
+                            rel="noopener"
+                            class="w-32 md:w-40 text-center px-6 py-3 bg-[#FC4C02] text-white font-bold uppercase tracking-widest rounded-full hover:scale-105 transition-transform shadow-lg shadow-orange-500/30 text-xs md:text-sm"
+                        >
+                            Strava
+                        </a>
+                    </div>
+                </div>
+
+                <div
+                    class="grid lg:grid-cols-3 gap-8 lg:gap-12 items-start relative z-10 reveal"
+                >
+                    <!-- Left Column: Instagram Grid -->
+                    <div class="flex flex-col h-full col-span-1">
+                        <!-- Instagram Real Embeds -->
+                        <!-- LightWidget WIDGET -->
+                        <script is:inline src={WIDGETS.LIGHTWIDGET_SCRIPT}
+                        ></script>
+                        <iframe
+                            src={WIDGETS.LIGHTWIDGET_IFRAME}
+                            scrolling="no"
+                            allowtransparency="true"
+                            class="lightwidget-widget"
+                            style="width:100%;border:0;overflow:hidden;"
+                        ></iframe>
+                    </div>
+
+                    <!-- Middle Column: YouTube -->
+                    <div class="flex flex-col h-full col-span-1">
+                        <div class="mb-6">
+                            <div
+                                class="aspect-video w-full overflow-hidden rounded-2xl bg-black border border-white/10 shadow-2xl relative group"
+                            >
+                                <iframe
+                                    class="w-full h-full"
+                                    src={WIDGETS.YOUTUBE_PLAYLIST}
+                                    title="YouTube video player"
+                                    frameborder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    allowfullscreen></iframe>
+                            </div>
+                        </div>
+
+                        <div class="text-center">
+                            <a
+                                href={SNS_LINKS.YOUTUBE_SUBSCRIBE}
+                                target="_blank"
+                                rel="noopener"
+                                class="inline-flex items-center gap-2 px-6 py-3 bg-[#FF0000] text-white font-bold uppercase tracking-widest rounded-full hover:scale-105 transition-transform text-xs shadow-lg shadow-red-600/20"
+                            >
+                                <svg
+                                    class="w-4 h-4"
+                                    fill="currentColor"
+                                    viewBox="0 0 24 24"
+                                >
+                                    <path
+                                        d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"
+                                    ></path>
+                                </svg>
+                                Subscribe
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Strava -->
+                    <div class="flex flex-col h-full col-span-1 items-center">
+                        <div class="mb-6">
+                            <iframe
+                                allowtransparency="true"
+                                frameborder="0"
+                                height="454"
+                                scrolling="no"
+                                src={WIDGETS.STRAVA_LATEST_RIDES}
+                                width="300"
+                                class="rounded-2xl shadow-2xl border border-white/10 bg-black"
+                            ></iframe>
+                        </div>
+                        <div class="text-center">
+                            <a
+                                href={SNS_LINKS.STRAVA}
+                                target="_blank"
+                                rel="noopener"
+                                class="inline-flex items-center gap-2 px-6 py-3 bg-[#FC4C02] text-white font-bold uppercase tracking-widest rounded-full hover:scale-105 transition-transform text-xs shadow-lg shadow-orange-600/20"
+                            >
+                                Join Club
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sponsor -->
+    <section id="sponsor" class="py-20 md:py-24 bg-surface text-center">
+        <div class="container mx-auto px-6">
+            <h2 class="font-display font-black text-3xl mb-12">SPONSOR</h2>
+
+            <div class="flex justify-center">
+                <a
+                    href={EXTERNAL_LINKS.SPONSOR_NAKANO}
+                    target="_blank"
+                    rel="noopener"
+                    class="group relative block w-full max-w-md bg-white p-1 transition-transform hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(255,255,255,0.3)] reveal"
+                >
+                    <div
+                        class="border border-[#402E7A] p-8 h-full flex flex-col items-center justify-center gap-4"
+                    >
+                        <!-- Simple text logo representation -->
+                        <div
+                            class="font-serif font-bold text-2xl md:text-3xl tracking-widest text-[#402E7A]"
+                        >
+                            中野法律事務所
+                        </div>
+                        <div class="w-8 h-[1px] bg-[#402E7A]"></div>
+                        <span
+                            class="font-serif text-[#402E7A] text-xs tracking-widest uppercase"
+                            >Nakano Law Office</span
+                        >
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="py-20 md:py-24 text-center">
+        <div class="container mx-auto px-6">
+            <h2 class="font-display font-black text-3xl mb-4">CONTACT</h2>
+            <p class="text-gray-300 mb-8">
+                お問い合わせは Instagram の DM にて受け付けています
+            </p>
+            <a
+                href={SNS_LINKS.INSTAGRAM}
+                target="_blank"
+                rel="noopener"
+                class="text-neon font-bold tracking-widest hover:underline reveal inline-block"
+                >@morimori.tokyo</a
+            >
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-white/10 bg-black py-12">
+        <div
+            class="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6"
+        >
+            <div class="flex items-center gap-4">
+                <img
+                    src="/assets/mori-mori-logo.png"
+                    alt="Logo"
+                    class="w-10 opacity-50 grayscale hover:grayscale-0 transition-all"
+                />
+                <span class="font-display font-bold text-gray-300"
+                    >Mori-Mori TOKYO</span
+                >
+            </div>
+            <p class="text-xs text-gray-500 uppercase tracking-widest">
+                © 2025 Mori-Mori TOKYO. All rights reserved.
+            </p>
+        </div>
+    </footer>
+
+    <!-- Mori-kun Fixed -->
+    <div
+        class="fixed bottom-0 right-4 md:right-8 z-50 pointer-events-none hidden lg:block"
+    >
+        <img
+            src="/assets/morikun-head.png"
+            class="w-32 md:w-40 translate-y-1/2 hover:translate-y-0 transition-all duration-500 ease-out cursor-pointer pointer-events-auto opacity-90 hover:opacity-100 drop-shadow-2xl hover:drop-shadow-[0_0_15px_rgba(204,255,0,0.5)]"
+            alt="Mori-kun"
+        />
+    </div>
+
+    <!-- Floating Banner -->
+    <div id="floating-banner" class="floating-banner">
+        <div class="relative group">
+            <button
+                id="close-banner"
+                class="absolute -top-2 -right-2 w-6 h-6 bg-black border border-white/20 rounded-full flex items-center justify-center text-white/50 hover:text-white hover:bg-red-500 hover:border-red-500 transition-all z-20"
+            >
+                <svg
+                    class="w-3 h-3"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                >
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+            <a
+                href={EXTERNAL_LINKS.LINE_STORE}
+                target="_blank"
+                rel="noopener"
+                class="flex items-center gap-4 px-6 py-4 bg-black/80 backdrop-blur-xl border border-white/20 rounded-2xl shadow-2xl hover:border-ivyLight/50 hover:shadow-[0_0_30px_rgba(78,143,93,0.2)] transition-all group-hover:-translate-y-1"
+            >
+                <img
+                    src="/assets/line-stamp-face.png"
+                    alt="LINE Stamp"
+                    class="w-12 h-12 object-contain animate-bounce drop-shadow-lg"
+                />
+                <div class="flex flex-col">
+                    <span
+                        class="text-[10px] font-bold uppercase tracking-widest text-ivyLight"
+                        >New Release</span
+                    >
+                    <span
+                        class="font-display font-bold text-white text-sm tracking-wider"
+                        >LINE絵文字発売中！</span
+                    >
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // --- Interactions ---
+
+        // Toggle Year
+        // Declare global type for the function
+        declare global {
+            interface Window {
+                toggleYear: (year: string) => void;
+            }
+        }
+
+        window.toggleYear = (year: string) => {
+            const content = document.getElementById(`content-${year}`);
+            const icon = document.getElementById(`icon-${year}`);
+
+            if (!content || !icon) return;
+
+            if (content.classList.contains("grid-rows-[0fr]")) {
+                // Open
+                content.classList.remove("grid-rows-[0fr]", "mt-0");
+                content.classList.add("grid-rows-[1fr]", "mt-6");
+                icon.classList.add("rotate-180");
+            } else {
+                // Close
+                content.classList.remove("grid-rows-[1fr]", "mt-6");
+                content.classList.add("grid-rows-[0fr]", "mt-0");
+                icon.classList.remove("rotate-180");
+            }
+        };
+
+        function initTilt() {
+            const cards = document.querySelectorAll(".tilt-card");
+
+            cards.forEach((card) => {
+                if (!(card instanceof HTMLElement)) return;
+
+                card.addEventListener("mousemove", (e) => {
+                    const mouseEvent = e as MouseEvent;
+                    const rect = card.getBoundingClientRect();
+                    const x = mouseEvent.clientX - rect.left;
+                    const y = mouseEvent.clientY - rect.top;
+
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+
+                    const rotateX = ((y - centerY) / centerY) * -5; // Max 5deg
+                    const rotateY = ((x - centerX) / centerX) * 5;
+
+                    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+                });
+
+                card.addEventListener("mouseleave", () => {
+                    card.style.transform =
+                        "perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)";
+                });
+            });
+        }
+
+        function initParallax() {
+            const heroBg = document.getElementById("hero-bg");
+            if (!heroBg) return;
+
+            window.addEventListener("scroll", () => {
+                const scroll = window.scrollY;
+                if (scroll < window.innerHeight) {
+                    heroBg.style.transform = `scale(1.1) translateY(${scroll * 0.3}px)`;
+                }
+            });
+        }
+
+        function initNavbar() {
+            const nav = document.getElementById("navbar");
+            if (!nav) return;
+
+            window.addEventListener("scroll", () => {
+                if (window.scrollY > 50) {
+                    nav.classList.add("glass", "py-3");
+                    nav.classList.remove("py-6");
+                } else {
+                    nav.classList.remove("glass", "py-3");
+                    nav.classList.add("py-6");
+                }
+            });
+        }
+
+        function initScrollReveal() {
+            const observer = new IntersectionObserver(
+                (entries) => {
+                    entries.forEach((entry) => {
+                        if (entry.isIntersecting) {
+                            const target = entry.target as HTMLElement;
+                            const delay = Number(target.dataset.delay) || 0;
+                            setTimeout(() => {
+                                target.classList.add("animate-in");
+                            }, delay);
+                            observer.unobserve(target);
+                        }
+                    });
+                },
+                { threshold: 0.1 },
+            );
+
+            // Target section headers and descriptions
+            document
+                .querySelectorAll("section h2, section > div > p")
+                .forEach((el) => {
+                    el.classList.add("reveal");
+                });
+
+            // Initialize all reveal elements
+            document.querySelectorAll(".reveal").forEach((el) => {
+                const target = el as HTMLElement;
+                target.style.opacity = "0";
+                target.style.transform = "translateY(30px) scale(0.95)";
+                target.style.transition =
+                    "all 0.8s cubic-bezier(0.16, 1, 0.3, 1)";
+                observer.observe(target);
+            });
+
+            // Inject CSS for animation
+            const style = document.createElement("style");
+            style.innerHTML = `
+        .animate-in { opacity: 1 !important; transform: translateY(0) scale(1) !important; }
+    `;
+            document.head.appendChild(style);
+        }
+
+        // --- Boot ---
+        function initFloatingBanner() {
+            const banner = document.getElementById("floating-banner");
+            const closeBtn = document.getElementById("close-banner");
+
+            if (!banner || !closeBtn) return;
+
+            // Check if previously closed
+            if (sessionStorage.getItem("bannerClosed")) {
+                return;
+            }
+
+            // Show after delay
+            setTimeout(() => {
+                banner.classList.remove("translate-y-[100px]", "opacity-0");
+                banner.classList.add("visible");
+            }, 2000);
+
+            closeBtn.addEventListener("click", () => {
+                banner.classList.remove("visible");
+                setTimeout(() => {
+                    banner.style.display = "none";
+                }, 500);
+                sessionStorage.setItem("bannerClosed", "true");
+            });
+        }
+
+        function initMobileMenu() {
+            const btn = document.getElementById("menu-btn");
+            const menu = document.getElementById("mobile-menu");
+            const links = document.querySelectorAll(".mobile-link");
+            const icon = document.getElementById("menu-icon");
+
+            if (!btn || !menu || !icon) return;
+
+            btn.addEventListener("click", () => {
+                const isOpen = menu.classList.toggle("open");
+                if (isOpen) {
+                    icon.setAttribute("d", "M6 18L18 6M6 6l12 12");
+                } else {
+                    icon.setAttribute("d", "M4 6h16M4 12h16M4 18h16");
+                }
+            });
+
+            links.forEach((link) => {
+                link.addEventListener("click", () => {
+                    menu.classList.remove("open");
+                    icon.setAttribute("d", "M4 6h16M4 12h16M4 18h16");
+                });
+            });
+        }
+
+        // Boot
+        document.addEventListener("DOMContentLoaded", async () => {
+            initTilt();
+            initParallax();
+            initNavbar();
+            initScrollReveal();
+            initMobileMenu();
+            initFloatingBanner();
+
+            // Smooth scroll for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+                anchor.addEventListener("click", function (e) {
+                    e.preventDefault();
+                    const targetId = (
+                        e.currentTarget as HTMLAnchorElement
+                    ).getAttribute("href");
+                    if (targetId) {
+                        const target = document.querySelector(targetId);
+                        if (target) {
+                            target.scrollIntoView({ behavior: "smooth" });
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+</Layout>
