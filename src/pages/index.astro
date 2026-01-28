@@ -8,8 +8,17 @@ import type { SiteData, Race } from "../types";
 
 import { API_URL, EXTERNAL_LINKS, SNS_LINKS, WIDGETS } from "../consts";
 
-const response = await fetch(API_URL);
-const data = (await response.json()) as SiteData;
+// Initialize with empty data (reset state)
+let data: SiteData = { members: [], races: [] };
+
+try {
+    const response = await fetch(API_URL);
+    if (response.ok) {
+        data = (await response.json()) as SiteData;
+    }
+} catch (error) {
+    console.error("Failed to fetch data:", error);
+}
 
 // Members
 const members = data.members.filter((m) => m.number);
