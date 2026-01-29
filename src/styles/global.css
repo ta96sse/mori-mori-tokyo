@@ -2,14 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-html,
-body {
-    overscroll-behavior-y: none;
-    /* Prevent rubber-banding on mobile */
-    overflow-x: hidden;
-    /* Ensure horizontal overflow is handled here */
-}
-
 @layer utilities {
     .text-stroke {
         -webkit-text-stroke: 2px rgba(255, 255, 255, 0.8);
