@@ -1,0 +1,50 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(yarn dev)",
+      "Bash(yarn build)",
+      "Bash(yarn preview)",
+      "Bash(yarn astro check)",
+      "Bash(git status)",
+      "Bash(git diff*)",
+      "Bash(git log*)",
+      "Bash(git add src/*)",
+      "Bash(git add public/*)",
+      "Bash(git add *.mjs)",
+      "Bash(git add *.json)",
+      "Bash(git add *.md)",
+      "Bash(git add *.ts)",
+      "Bash(git commit*)",
+      "Bash(git push origin HEAD)",
+      "Bash(git push origin agent/*)",
+      "Bash(git checkout -b agent/*)",
+      "Bash(git checkout agent/*)",
+      "Bash(git branch*)",
+      "Bash(git stash*)",
+      "Bash(git fetch origin)",
+      "Bash(git pull origin*)",
+      "Bash(node --version)",
+      "Bash(ls*)",
+      "Bash(find src -type f*)",
+      "Bash(find public -type f*)"
+    ],
+    "deny": [
+      "Bash(rm -rf*)",
+      "Bash(rm -f*)",
+      "Bash(git push --force*)",
+      "Bash(git push -f*)",
+      "Bash(git push origin main*)",
+      "Bash(git reset --hard*)",
+      "Bash(git clean -f*)",
+      "Bash(npm install*)",
+      "Bash(npm run*)",
+      "Bash(npx*)",
+      "Bash(sudo*)",
+      "Bash(kill -9*)"
+    ]
+  },
+  "env": {
+    "NODE_ENV": "development",
+    "ASTRO_TELEMETRY_DISABLED": "1"
+  }
+}

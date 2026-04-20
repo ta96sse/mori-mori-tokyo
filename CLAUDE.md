@@ -1,127 +1,184 @@
 # CLAUDE.md — Mori-Mori TOKYO
 
-## プロジェクト概要
+東京を拠点とするアドベンチャーチーム「Mori-Mori TOKYO」の公式ウェブサイト。  
+コンセプト: **"Mori-Mori makes us DOVA-DOVA."** / "NO ADVENTURE, NO LIFE."  
+活動: アドベンチャーレース・トレイルラン・ウルトラマラソン・謝謝ラン（月1回皇居）  
+公開URL: https://mori-mori.tokyo  
+技術スタック: Astro 4.16.0 · TypeScript 5.6.3 · Tailwind CSS 3.4.1 · Yarn
 
-**Mori-Mori TOKYO**（モリモリトーキョー）の公式サイト。2022年創設の東京拠点アドベンチャーチームのHP。
+---
 
-- コンセプト: "Mori-Mori makes us DOVA-DOVA." ／ "NO ADVENTURE, NO LIFE."
-- 活動: アドベンチャーレース・トレイルラン・ウルトラマラソン・謝謝ラン（月1回皇居）
-- サイト: https://mori-mori.tokyo
+## 基本コマンド
 
-## テックスタック
+| コマンド | 用途 |
+|----------|------|
+| `yarn dev` | 開発サーバー起動（http://localhost:4321） |
+| `yarn build` | 本番ビルド（`./dist/` に出力） |
+| `yarn preview` | ビルド済み `./dist/` をローカルで確認 |
+| `yarn astro check` | TypeScript型チェック（`.astro` ファイル含む） |
 
-| 項目 | 内容 |
-|---|---|
-| フレームワーク | Astro 4.x（静的サイト生成） |
-| スタイリング | Tailwind CSS 3.x |
-| 言語 | TypeScript |
-| パッケージ管理 | Yarn |
-| デプロイ | GitHub Pages（GitHub Actions） |
-| データ管理 | Google Spreadsheet → GAS → ビルド時フェッチ |
+**重要：** パッケージマネージャーは `yarn` のみ使用。`npm install` や `npx` は CI の `--frozen-lockfile` を破壊するため禁止。
 
-## 開発コマンド
-
-```bash
-yarn install     # 依存関係インストール
-yarn dev         # ローカルサーバー起動 (localhost:4321)
-yarn build       # 本番ビルド → ./dist/
-yarn preview     # ビルド結果のプレビュー
-```
+---
 
 ## アーキテクチャ
 
 ```
 src/
-├── consts.ts          # 全URL・ID・設定の集約（リンクはここのみ管理）
-├── types.ts           # Member / Race / SiteData インターフェース
 ├── pages/
-│   └── index.astro    # サイト全体（SPA）。データフェッチ・全セクションを含む
-├── components/
-│   ├── AboutPoints.astro  # 活動3本柱（静的）
-│   ├── MemberCard.astro   # メンバーカード
-│   ├── RaceCard.astro     # 次回レースカード
-│   └── LogCard.astro      # 過去レース履歴カード
+│   └── index.astro         # エントリーポイント。ビルド時にAPIからデータ取得
 ├── layouts/
-│   └── Layout.astro   # メタタグ・フォント・GA設定
-└── styles/
-    └── global.css     # Tailwind directives + グローバルスタイル
+│   └── Layout.astro        # HTMLシェル（GTM・OGP・フォント・CSPメタ）
+├── components/
+│   ├── MemberCard.astro    # メンバー1名分の表示（番号・役割・名前・SNSリンク）
+│   ├── RaceCard.astro      # 開催予定レースカード（カテゴリ別カラーコーディング）
+│   ├── LogCard.astro       # 過去レースのコンパクトカード（ログ/アーカイブ用）
+│   └── AboutPoints.astro   # チーム紹介の固定テキスト（propsなし）
+├── consts.ts               # API_URL・GTM_ID・SNS_LINKS・EXTERNAL_LINKS・WIDGETS
+├── types.ts                # TypeScript型定義: Member・Race・SiteData
+├── styles/global.css       # Tailwindベース + カスタムユーティリティ
+└── env.d.ts                # Astro型参照
 ```
 
-### データフロー
+`public/` には静的アセット（ロゴ・ヒーロー画像・ファビコン・CNAME・sitemap・robots.txt）を格納。
+
+---
+
+## データフロー
 
 ```
-Google Spreadsheet
-    ↓ GAS API (src/consts.ts の API_URL)
-    ↓ fetch（ビルド時 index.astro の frontmatter）
-    ↓ members[] / races[]
-    ↓ コンポーネントへ props として渡す
+Google スプレッドシート
+        │（GASがシートを読み取りJSONを返す）
+        ▼
+Google Apps Script Webアプリ  ←── src/consts.ts の API_URL
+        │（ビルド時に index.astro フロントマターで fetch()）
+        ▼
+SiteData { members: Member[], races: Race[] }
+        │（index.astro でフィルタ・ソート・日付計算）
+        ▼
+MemberCard / RaceCard / LogCard コンポーネント
+        ▼
+静的HTML ./dist/  ───────────────── GitHub Pages にデプロイ
 ```
 
-- **データ（レース・メンバー）の追加・変更はスプレッドシートで行う**（コード変更不要）
-- `show_in_log: "TRUE"` のレースのみ LOG セクションに表示
-- 今日以降のレースは NEXT に、過去は LOG に自動振り分け
+- データは **ビルド時のみ取得**（クライアントサイドのフェッチなし）
+- コードをプッシュせずにデータだけ更新する場合、GASスクリプトが `repository_dispatch`（`update-data`）イベントを GitHub Actions に送信してビルドをトリガーする
 
-### デプロイ
+---
 
-- `main` ブランチへのプッシュで自動デプロイ
-- GAS からの `update-data` webhook でもビルドが走る（コード変更なしにデータ更新可能）
+## TypeScript 型定義
+
+```typescript
+// src/types.ts
+
+interface Member {
+    number: string;       // 背番号（例: "01"）
+    role: string;         // 役割（例: "Captain"）
+    name: string;
+    instagram?: string;   // 完全URL
+    strava?: string;      // 完全URL
+    desc: string;         // 短い自己紹介
+    background: string;   // 競技経歴
+}
+
+interface Race {
+    title: string;
+    category: string;     // "Adventure Race" | "Trail Running" | "Orienteering" など
+    location: string;
+    start_date: string;   // "2026/02/21" 形式
+    end_date?: string;
+    url?: string;
+    instagram?: string;
+    facebook?: string;
+    members?: string;     // カンマ区切りの名前（例: "Takuro, Hiroki"）
+    result?: string;
+    show_in_log: string;  // "TRUE" | "FALSE"（スプレッドシートから文字列で取得）
+
+    // index.astro で計算・付加するフィールド（APIからは来ない）
+    date?: string;        // 表示用日付文字列
+    _startDate?: string;
+    _endDate?: string;
+}
+
+interface SiteData {
+    members: Member[];
+    races: Race[];
+}
+```
+
+---
 
 ## デザインシステム
 
-### カラーパレット（Tailwind クラス名）
+### カスタムカラー（tailwind.config.mjs）
 
-| クラス | HEX | 用途 |
-|---|---|---|
-| `bg-dark` | `#050505` | 基本背景 |
-| `bg-surface` | `#111111` | セクション背景 |
-| `text-neon` / `bg-neon` | `#ccff00` | ハイライト・アクセント |
-| `bg-primary` | `#00ff9d` | サブアクセント |
-| `bg-accent` | `#ff0055` | ホットピンク |
-| `bg-ivy` | `#1F4D34` | チームカラー（アイビーグリーン・コア） |
-| `bg-ivyLight` | `#4E8F5D` | チームカラー（ライト） |
+| トークン | カラーコード | 用途 |
+|---------|-------------|------|
+| `neon` | `#ccff00` | ハイライト・スクロールバーホバー |
+| `primary` | `#00ff9d` | セカンダリアクセント（ネオングリーン） |
+| `accent` | `#ff0055` | ホットピンクアクセント |
+| `dark` | `#050505` | ページ背景 |
+| `surface` | `#111111` | カード背景 |
+| `ivy` | `#1F4D34` | グラデーション起点（チームカラー） |
+| `ivyLight` | `#4E8F5D` | ホバー・ボーダー・カテゴリタグ |
 
-### フォント（Tailwind クラス名）
+### カスタムフォント
 
-| クラス | フォント | 用途 |
-|---|---|---|
-| `font-display` | Outfit | 見出し・ナビ・ボタン |
-| `font-body` | Inter | 本文（英語） |
-| `font-jp` | Zen Kaku Gothic New | 本文（日本語） |
-| `font-wild` | Rubik Dirt | デコラティブ見出し（"NO ADVENTURE, NO LIFE."等） |
-| `font-serif` | Noto Serif JP | スポンサー等の格式ある表示 |
+| トークン | フォントファミリー | 用途 |
+|---------|-----------------|------|
+| `display` | Outfit | 見出し・数字・ナビ・ボタン |
+| `body` | Inter | 本文（英語） |
+| `jp` | Zen Kaku Gothic New | 日本語テキスト |
+| `wild` | Rubik Dirt | デコラティブ表示（"NO ADVENTURE, NO LIFE."等） |
+| `serif` | Noto Serif JP | 日本語長文・スポンサー等の格式ある表示 |
 
-### デザイン方針
+### カスタムユーティリティ（global.css）
 
-- **基本は黒背景**。白・ネオン・アイビーグリーンでメリハリをつける
-- ガラスモーフィズム: `glass` クラス（backdrop-blur + 半透明ボーダー）
-- アニメーション: スクロール時の `reveal`（`IntersectionObserver`）、ホバー時のティルト
-- 新規コンポーネントは既存の雰囲気（ダーク・ネオン・ボールドタイポ）に合わせる
+- `.text-stroke` — アウトラインテキスト（白ストローク・透明塗り）
+- `.glass` — フロストガラスカード（`rgba(255,255,255,0.05)` 背景 + ぼかし + 半透明ボーダー）
 
-## 重要な規約
+---
 
-### URL・リンクの管理
+## コンポーネントパターン
 
-**すべてのURLは `src/consts.ts` で一元管理する。** ハードコードしない。
+### Propsの書き方
 
-```ts
-// 良い例
-import { SNS_LINKS } from "../consts";
-<a href={SNS_LINKS.INSTAGRAM}>
+すべてのコンポーネントはフロントマター内に型付きの `Props` インターフェースを定義します。
 
-// 悪い例
-<a href="https://www.instagram.com/morimori.tokyo/">
+```astro
+---
+interface Props { member: Member; index: number; }
+const { member, index } = Astro.props;
+---
 ```
 
-### スタイリング
+### RaceCard のカテゴリカラー
 
-- **Tailwind ユーティリティクラスのみ使用**。インラインスタイルや追加CSSは最終手段
-- `global.css` にはグローバルなベーススタイルのみ追加
-- コンポーネント内の `<style>` タグはアニメーション等 Tailwind で表現困難な場合のみ
+`RaceCard.astro` は `race.category`（小文字化）を Tailwind クラス文字列にマッピングしています。
+新カテゴリを追加する場合は `getClasses()` 関数を更新してください。
+**Tailwind は動的クラスを検出できないため、テンプレートリテラルでクラスを構築してはいけません。**
 
-### TypeScript
+```astro
+// NG: Tailwind が認識できない
+const cls = `text-${color}-400`
 
-- データ構造の変更は `src/types.ts` のインターフェースから始める
-- `as SiteData` の型アサーションはAPIレスポンスに限定
+// OK: 完全なクラス文字列を使う
+const cls = "text-ivyLight"
+```
+
+### スクロール表示アニメーション
+
+コンポーネントは `class="reveal"` と `data-delay={index * 100}` でずれたタイミングで入場アニメーションします。
+このロジックは `index.astro` の `<script>` ブロックで実装されています。
+
+### 新規コンポーネント作成チェックリスト
+
+1. `src/components/YourComponent.astro` を作成
+2. フロントマターに型付きの `Props` インターフェースを記述
+3. `src/pages/index.astro` でインポートして使用
+4. `yarn astro check` で型エラーがないことを確認
+
+---
 
 ## コンテンツ変更の判断基準
 
@@ -136,20 +193,53 @@ import { SNS_LINKS } from "../consts";
 | OGP・メタ情報 | `src/layouts/Layout.astro` |
 | 新セクション追加 | `src/pages/index.astro` にセクション追加 |
 
-## SNS・外部リンク（参照用）
+**URLは全て `src/consts.ts` で一元管理する。テンプレート内にハードコードしない。**
 
-- Instagram: https://www.instagram.com/morimori.tokyo/
-- YouTube: https://www.youtube.com/@morimori_tokyo
-- Strava: https://www.strava.com/clubs/1859103
-- Shop: https://shop.mori-mori.tokyo/
-- スポンサー（中野法律事務所）: consts.ts の `EXTERNAL_LINKS.SPONSOR_NAKANO`
+---
 
 ## チームのトーン＆ボイス
 
-サイトのコピー・テキストを変更・追加する際は以下を意識する:
+サイトのコピー・テキストを追加・変更する際は以下を意識する：
 
 - **エネルギッシュで前向き**（"NO ADVENTURE, NO LIFE"）
 - **仲間感・コミュニティ感**（「みんなで分かち合う」）
 - **ハードルを下げる**（「まずはお気軽に」「随時メンバー募集」）
 - 英語と日本語のミックスは意図的なデザイン選択（変えない）
-- 大文字英語（"NEXT", "LOG", "MEMBER"）のセクション名はそのまま維持
+- セクション名の大文字英語（"NEXT", "LOG", "MEMBER"）はそのまま維持
+
+---
+
+## SNS・外部リンク（参照用）
+
+| 用途 | 定数キー | URL |
+|------|---------|-----|
+| Instagram | `SNS_LINKS.INSTAGRAM` | https://www.instagram.com/morimori.tokyo/ |
+| YouTube | `SNS_LINKS.YOUTUBE` | https://www.youtube.com/@morimori_tokyo |
+| Strava | `SNS_LINKS.STRAVA` | https://www.strava.com/clubs/1859103 |
+| Shop | `EXTERNAL_LINKS.SHOP` | https://shop.mori-mori.tokyo/ |
+| スポンサー | `EXTERNAL_LINKS.SPONSOR_NAKANO` | consts.ts 参照 |
+
+---
+
+## デプロイ
+
+- `main` ブランチへのプッシュで自動ビルド + GitHub Pages デプロイが実行される
+- **`main` への直接プッシュは禁止** — 本番環境への影響があるため、必ずfeatureブランチ + PRを使う
+- 依存関係を追加した場合は `yarn.lock` もコミットに含める（CI が `--frozen-lockfile` を使用するため）
+
+---
+
+## 制約事項
+
+1. **シークレットをソースに書かない** — `API_URL`（`consts.ts`）は公開GAS URLなので問題ないが、実際のシークレットは `.env`（gitignore済み）に書く
+2. **`main` への直接プッシュ禁止** — featureブランチ + PRのフローを守る
+3. **`npm` コマンド禁止** — `npm install` は `package-lock.json` を生成し CI の `yarn install --frozen-lockfile` を壊す
+4. **Tailwind の動的クラス禁止** — テンプレートリテラルで動的にクラス名を構築しない
+5. **ビルドはSSG** — サーバーランタイムなし。すべてのデータ取得はフロントマター（ビルド時）で行う
+6. **`yarn.lock` は必ずコミットする** — `.gitignore` に追加しないこと
+
+---
+
+## マルチエージェント協調
+
+複数のAIエージェントがこのリポジトリで並列・階層的に作業する場合のプロトコルは **[AGENTS.md](./AGENTS.md)** を参照してください。

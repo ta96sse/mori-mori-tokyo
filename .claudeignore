@@ -1,0 +1,34 @@
+# ビルド出力・キャッシュ
+dist/
+.astro/
+
+# 依存関係
+node_modules/
+
+# バイナリアセット（画像）
+public/assets/*.jpg
+public/assets/*.jpeg
+public/assets/*.png
+public/assets/*.ico
+public/assets/*.webp
+public/assets/*.gif
+public/assets/*.svg
+
+# ロックファイル（CI用に git 管理は維持するが、コンテキストには不要）
+yarn.lock
+
+# 環境変数・シークレット
+.env
+.env.*
+!.env.example
+
+# OS・エディタ生成ファイル
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Gitオブジェクト
+.git/
