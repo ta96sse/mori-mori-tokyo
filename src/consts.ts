@@ -10,6 +10,7 @@ export const SNS_LINKS = {
     YOUTUBE: "https://www.youtube.com/@morimori_tokyo",
     YOUTUBE_SUBSCRIBE: "https://www.youtube.com/@morimori_tokyo?sub_confirmation=1",
     STRAVA: "https://www.strava.com/clubs/1859103",
+    NOTE: "https://note.com/morimori_tokyo",
 };
 
 export const EXTERNAL_LINKS = {

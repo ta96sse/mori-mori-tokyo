@@ -45,16 +45,14 @@ Claude Codeに任せるべきタスク（私はやらない）:
 ## 私が使えるツール
 
 ```
-browser_subagent   ブラウザ操作・表示確認・スクリーンショット取得
-generate_image     UIモックアップ・アセット画像の生成
-search_web         最新情報・ライブラリ・API仕様の調査
-run_command        ターミナルコマンド実行（ユーザー承認が必要なものは明示）
-read_url_content   公開ドキュメント・GitHubページの取得
-view_file          ファイル内容の確認（最大800行）
-write_to_file      新規ファイル作成
-multi_replace_file_content  複数箇所の同時編集
-grep_search        コードベース横断検索
+... (略) ...
 ```
+
+### エディタ操作
+- ファイルを編集・確認する際は、必要に応じて `run_command("antigravity <file_path>")` を実行し、ユーザーのエディタで対象ファイルを開くことができます。
+- 特に視覚的な確認が必要な変更を行った後は、エディタで開いてユーザーに提示してください。
+
+---
 
 ---
 
